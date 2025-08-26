@@ -1,0 +1,12 @@
+{"level":"error","message":"POST /api/wallet/tx-history - Error: Error getting transactions: Cannot read properties of null (reading '_id')","timestamp":"2025-05-16T14:10:41.586Z"}
+{"level":"error","message":"POST /api/wallet/tx-history - Error: Error getting transactions: Cannot read properties of null (reading '_id')","timestamp":"2025-05-16T15:59:45.417Z"}
+{"level":"error","message":"POST /api/wallet/tx-history - Error: Error getting transactions: Cannot read properties of null (reading '_id')","timestamp":"2025-05-16T16:01:01.420Z"}
+{"level":"error","message":"POST /api/wallet/tx-history - Error: Error getting transactions: Cannot read properties of null (reading '_id')","timestamp":"2025-05-16T16:07:04.735Z"}
+{"level":"error","message":"POST /api/wallet/tx-history - Error: Error getting transactions: Cannot read properties of null (reading '_id')","timestamp":"2025-05-16T16:07:23.312Z"}
+{"level":"error","message":"POST /api/wallet/tx-history - Error: Error getting transactions: Cannot read properties of null (reading '_id')","timestamp":"2025-05-16T16:09:37.416Z"}
+{"level":"error","message":"POST /api/wallet/tx-history - Error: Error getting transactions: Cannot read properties of null (reading '_id')","timestamp":"2025-05-16T16:14:58.427Z"}
+{"level":"error","message":"POST /api/auth/login - Error: Invalid email or password.","timestamp":"2025-08-21T14:26:35.181Z"}
+{"level":"error","message":"POST /api/auth/login - Error: Invalid email or password.","timestamp":"2025-08-21T14:26:42.035Z"}
+{"level":"error","message":"GET /api/user/portfolio - Error: fetch failed","timestamp":"2025-08-21T15:08:52.093Z"}
+{"level":"error","message":"GET /api/user/portfolio - Error: fetch failed","timestamp":"2025-08-21T16:52:36.154Z"}
+{"level":"error","message":"POST /api/wallet/send-funds - Error: Amount to be sent is greater than your balance","timestamp":"2025-08-21T16:59:45.090Z"}

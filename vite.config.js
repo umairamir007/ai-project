@@ -13,6 +13,15 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    port: 3000,
+    proxy: {
+      "/api": {
+        target: "http://localhost:5050", // your Express proxy
+        changeOrigin: true,
+      },
+    },
+  },
   test: {
     globals: true,
     environment: "jsdom",

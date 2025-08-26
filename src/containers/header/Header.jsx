@@ -188,7 +188,7 @@ const Header = ({
                 handleBackButtonClick();
               }}
             >
-              <i className="  fa fa-arrow-left"></i>
+              <i className="fa fa-arrow-left"></i>
             </button>
             <h1 className="gradient__text">Speech Synthesis</h1>
             <p>

@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./textupload.css";
 import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
-import { getDoc, doc, collection } from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 import { db } from "../google/firebase";
 import TextToSpeech from "../../api/textToSpeech";
 
@@ -46,31 +46,44 @@ function TextUpload({ selectedArtist }) {
     }
   }, [selectedArtist]);
 
-  const generateAudio = () => {
+  const generateAudio = async () => {
+    if (!selectedArtist) return;
+    if (!text.trim()) {
+      alert("Please type some text first");
+      return;
+    }
+
     setIsGenerating(true);
-    const artistRef = doc(db, "users", selectedArtist.id);
+    let oldUrl = audioURL;
 
-    getDoc(artistRef)
-      .then((docSnapshot) => {
-        if (docSnapshot.exists()) {
-          const voice_id = docSnapshot.data().voice_id;
-          console.log("Requesting text-to-speech with voice_id:", voice_id);
+    try {
+      const artistRef = doc(db, "users", selectedArtist.id);
+      const docSnapshot = await getDoc(artistRef);
 
-          TextToSpeech({ voice_id, text })
-            .then((audioData) => {
-              const audioBlob = new Blob([audioData], { type: "audio/mpeg" });
-              const audioUrl = URL.createObjectURL(audioBlob);
-              setAudioURL(audioUrl);
-              console.log("Audio generated:", audioUrl);
-            })
-            .catch((error) => {
-              console.error("Error generating text-to-speech:", error);
-            });
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching artist data:", error);
-      });
+      if (!docSnapshot.exists()) throw new Error("Selected artist not found");
+      const voice_id = docSnapshot.data().voice_id;
+      if (!voice_id) throw new Error("Artist has no voice_id saved");
+
+      console.log("Requesting text-to-speech with voice_id:", voice_id);
+
+      // Optional: pick model by language
+      const model_id =
+        selectedLanguage === "English"
+          ? "eleven_turbo_v2"
+          : "eleven_multilingual_v2";
+
+      const audioData = await TextToSpeech({ voice_id, text, model_id });
+      const blob = new Blob([audioData], { type: "audio/mpeg" });
+      const url = URL.createObjectURL(blob);
+      setAudioURL(url);
+      if (oldUrl) URL.revokeObjectURL(oldUrl);
+      console.log("Audio generated:", url);
+    } catch (error) {
+      console.error("Error generating text-to-speech:", error);
+      alert(error?.message ?? "Text-to-speech failed");
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const handlePlaySnippet = () => {

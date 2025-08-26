@@ -1,59 +1,31 @@
 import axios from "axios";
 
-export default async function TextToSpeech({ voice_id, text }) {
-  const url = `https://api.elevenlabs.io/v1/text-to-speech/${voice_id}`;
+/**
+ * Calls your local proxy which calls ElevenLabs.
+ * Returns an ArrayBuffer (MP3 bytes).
+ */
+export default async function TextToSpeech({
+  voice_id,
+  text,
+  model_id,
+  output_format,
+}) {
+  if (!voice_id) throw new Error("Missing voice_id");
+  if (!text || !text.trim()) throw new Error("Please enter some text");
 
-  try {
-    const response = await axios.post(
-      url,
-      {
-        text: text,
-        model_id: "eleven_monolingual_v1",
-        voice_settings: {
-          stability: 0,
-          similarity_boost: 0,
-          style: 0,
-          use_speaker_boost: true,
-        },
-      },
-      {
-        headers: {
-          "xi-api-key": "535c9779eac3ff852e340d337c01dc34",
-        },
-        params: {
-          optimize_streaming_latency: 0,
-          output_format: "mp3_44100_128",
-        },
-        responseType: "arraybuffer",
-      }
-    );
-    // Additional logging for debugging
-    console.log("Response Status:", response.status);
-    console.log("Response Headers:", response.headers);
-    console.log("Response Data Byte Length:", response.data.byteLength);
+  // In dev, /api is proxied by Vite. In prod, set VITE_API_BASE to your server URL.
+  const API_BASE = import.meta.env.VITE_API_BASE || "/api";
 
-    // Check if the ArrayBuffer is empty
-    if (response.data.byteLength === 0) {
-      throw new Error("The ArrayBuffer is empty.");
-    }
+  const r = await axios.post(
+    `${API_BASE}/elevenlabs/tts`,
+    {
+      text,
+      voice_id,
+      model_id: model_id ?? "eleven_turbo_v2", // swap to eleven_multilingual_v2 for non-English
+      output_format: output_format ?? "mp3_44100_128",
+    },
+    { responseType: "arraybuffer" }
+  );
 
-    // Continue with your logic, like converting to a Blob, etc.
-    return response.data;
-  } catch (error) {
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.error("Error Response:", error.response);
-      console.error("Error Data:", error.response.data);
-      console.error("Error Status:", error.response.status);
-      console.error("Error Headers:", error.response.headers);
-    } else if (error.request) {
-      // The request was made but no response was received
-      console.error("Error Request:", error.request);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.error("Error Message:", error.message);
-    }
-    console.error("Error Config:", error.config);
-  }
+  return r.data; // ArrayBuffer
 }

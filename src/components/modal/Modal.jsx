@@ -124,18 +124,16 @@ const Modal = () => {
           <div className="modal modal_background active">
             {!currentUser && (
               <>
-                <div className="login ">{<Login />}</div>
+                <div className="login">{<Login />}</div>
               </>
             )}
             {currentUser && (
               <>
                 <div className="modal-sections">
-                  <div>
-                    <div className="modal-content">
-                      <button onClick={handleTalentClick}>
-                        Talent Dashboard
-                      </button>
-                    </div>
+                  <div className="modal-content">
+                    <button onClick={handleTalentClick}>
+                      Talent Dashboard
+                    </button>
                   </div>
                   <div className="modal-content">
                     <button onClick={handleUserClick}>User Dashboard</button>

@@ -18,6 +18,7 @@ const WhatGPT3 = ({
   handleVoiceSelection,
   selectedArtist,
 }) => {
+  console.log("🚀 ~ WhatGPT3 ~ showContent:", showContent)
   const location = useLocation();
   const isTalentDashboard = location.pathname === "/talent-dashboard";
   const isUserDashboard = location.pathname === "/user-dashboard";
@@ -79,13 +80,13 @@ const WhatGPT3 = ({
   let headingText = "";
   switch (showContent) {
     case 1:
-      headingText = "Voice Lab : Discover voices from our talent pool ";
+      headingText = "Voice Lab : Discover voices from our talent pool";
       break;
     case 2:
-      headingText = "Script Lab : Discover scripts from our talent pool ";
+      headingText = "Script Lab : Discover scripts from our talent pool";
       break;
     case 3:
-      headingText = "Art Lab : Discover artwork from our talent pool ";
+      headingText = "Art Lab : Discover artwork from our talent pool";
       break;
     default:
       headingText = "";

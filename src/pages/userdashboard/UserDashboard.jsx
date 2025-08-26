@@ -9,8 +9,10 @@ import { useState } from "react";
 const UserDasboard = () => {
   const { isConnected, address } = useAccount();
   const [voiceLab, setVoiceLab] = useState(false);
+  console.log("🚀 ~ UserDasboard ~ voiceLab:", voiceLab)
   const [showContent, setShowContent] = useState(null);
   const [voiceSelector, setVoiceSelector] = useState(false);
+  console.log("🚀 ~ UserDasboard ~ voiceSelector:", voiceSelector)
   const [selectedArtist, setSelectedArtist] = useState(null);
 
   const handleVoiceSelection = () => {

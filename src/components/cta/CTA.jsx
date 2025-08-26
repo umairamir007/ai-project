@@ -99,7 +99,7 @@ const CTA = ({
           ) : (
             <>
               <div className="gpt3__cta-content-user">
-                <h2> Upload Your Text for a Stunning Podcast Voice Over</h2>
+                <h2>Upload Your Text for a Stunning Podcast Voice Over</h2>
                 <button
                   style={{ marginLeft: "500px", marginRight: "1310px" }}
                   onClick={() => handleSelectedArtist()}
