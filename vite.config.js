@@ -5,23 +5,8 @@ import { nodePolyfills } from "vite-plugin-node-polyfills";
 export default defineConfig({
   plugins: [
     react(),
-    nodePolyfills({
-      globals: {
-        Buffer: true,
-        global: true,
-        process: true,
-      },
-    }),
+    nodePolyfills({ globals: { Buffer: true, global: true, process: true } }),
   ],
-  server: {
-    port: 3000,
-    proxy: {
-      "/api": {
-        target: "http://localhost:5050", // your Express proxy
-        changeOrigin: true,
-      },
-    },
-  },
   test: {
     globals: true,
     environment: "jsdom",
