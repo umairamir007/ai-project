@@ -35,8 +35,8 @@ const Header = ({
   return (
     <>
       {isLanding && (
-        <div className="gpt3__header section__padding" id="home">
-          <div className="gpt3__header-content">
+        <div className="gpt3__header section__padding um_container" id="home">
+          <div className="gpt3__header-content um_content-container">
             <h1 className="gradient__text">
               Experience the future of content creation. iSai your All-in-One
               Content Magic.
@@ -55,9 +55,9 @@ const Header = ({
               <img src={people} />
               <p>1,600 people requested access a visit in last 24 hours</p>
             </div>
-            <div className="gpt3__header-image">
-              <img src={ai} />
-            </div>
+          </div>
+          <div className="gpt3__header-image">
+            <img src={ai} />
           </div>
         </div>
       )}

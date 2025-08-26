@@ -61,6 +61,7 @@
 .gpt3__footer-links_logo {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .gpt3__footer-links_logo img {

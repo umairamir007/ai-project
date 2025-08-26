@@ -11,6 +11,7 @@ import { CTA, Brand, Navbar } from "./components";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import TalentDashboard from "./pages/talentdashboard/TalentDashboard";
 import UserDasboard from "./pages/userdashboard/UserDashboard";
+
 const LandingPage = () => {
   return (
     <div className="App">
