@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
-import logo from "../../assets/Logo.png";
+import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import "./navbar.css";
 import Modal from "../modal/Modal";
