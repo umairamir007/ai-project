@@ -1,0 +1,95 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+  width: 100%;
+}
+.modal-sections {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+
+  left: 50%;
+  border-radius: 10px; /* Rounded corners */
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  animation: modalAppear 0.4s forwards;
+  transition: opacity 0.4s ease-in-out;
+}
+.modal.active {
+  opacity: 1;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  background: none;
+  border: none;
+  font-size: 1.5rem; /* Adjust as needed */
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  line-height: 1;
+  color: #333; /* Adjust color as needed */
+}
+
+.modal-close:hover {
+  color: #555; /* Adjust hover color as needed */
+}
+
+.connect-wallet {
+  margin-bottom: 20px; /* Adjust as needed */
+}
+.login {
+  margin-left: 100px;
+}
+.logout {
+  margin-top: 20px;
+  margin-left: 150px;
+}
+@media screen and (max-width: 550px) {
+  .section__padding {
+    padding: 4rem 2rem;
+  }
+
+  .section__margin {
+    margin: 4rem 2rem;
+  }
+}
+.modal_background {
+  background: linear-gradient(
+      45deg,
+      #f2f2f2 25%,
+      transparent 25%,
+      transparent 75%,
+      #f2f2f2 75%
+    ),
+    linear-gradient(
+      45deg,
+      #f2f2f2 25%,
+      transparent 25%,
+      transparent 75%,
+      #f2f2f2 75%
+    );
+  background-size: 20px 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Soft box shadow */
+  border-radius: 10px; /* Rounded corners */
+  transition: background-color 0.3s ease;
+}
+
+.modal_background:hover {
+  background-color: #e0e0e0; /* Change background color on hover */
+}

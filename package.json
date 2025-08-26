@@ -1,0 +1,52 @@
+{
+  "name": "vite-template-react",
+  "version": "1.4.0",
+  "scripts": {
+    "start": "vite --port 3000 --open",
+    "dev": "vite --port 3000 --open",
+    "build": "vite build",
+    "serve": "vite preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "^1.0.11",
+    "axios": "^1.5.1",
+    "firebase": "^10.4.0",
+    "font-awesome": "^4.7.0",
+    "form-data": "^4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^4.11.0",
+    "react-router-dom": "^6.16.0",
+    "viem": "^1.15.4",
+    "wagmi": "^1.4.3"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.2",
+    "@nomicfoundation/hardhat-ethers": "^3.0.4",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.9",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@nomicfoundation/hardhat-verify": "^1.1.1",
+    "@openzeppelin/contracts": "^4.9.3",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^14.0.0",
+    "@typechain/ethers-v6": "^0.4.3",
+    "@typechain/hardhat": "^8.0.3",
+    "@types/mocha": "^10.0.2",
+    "@vitejs/plugin-react": "^4.0.3",
+    "hardhat": "^2.17.4",
+    "hardhat-gas-reporter": "^1.0.9",
+    "jsdom": "^22.1.0",
+    "solidity-coverage": "^0.8.5",
+    "ts-node": "^10.9.1",
+    "typechain": "^8.3.1",
+    "typescript": "^5.2.2",
+    "vite": "^4.4.7",
+    "vite-plugin-node-polyfills": "^0.16.0",
+    "vitest": "^0.33.0"
+  },
+  "description": "<h1 align=\"center\">   Vite Template React </h1>",
+  "main": "vite.config.js",
+  "author": "",
+  "license": "ISC"
+}

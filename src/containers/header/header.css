@@ -1,0 +1,429 @@
+.gpt3__header {
+  display: flex;
+  flex-direction: row;
+}
+
+.gpt3__header-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+
+  margin-right: 5rem;
+}
+
+.gpt3__header-content h1 {
+  font-family: var(--font-family);
+  font-weight: 800;
+  font-size: 62px;
+  line-height: 75px;
+  letter-spacing: -0.04em;
+}
+
+.gpt3__header-content p {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--color-text);
+
+  margin-top: 1.5rem;
+}
+
+.gpt3__header-content button {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(
+    100% 100% at 100% 0,
+    #5adaff 0,
+    #5468ff 100%
+  );
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono", monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  overflow: hidden;
+  padding: 0.5rem 1rem; /* Kept from your styles */
+  position: relative;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-weight: 500; /* Kept from your styles */
+  outline: none; /* Kept from your styles */
+}
+.gpt3__header-content button:focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.gpt3__header-content button:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.gpt3__header-content button:active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+.gpt3__header-content__input {
+  width: 100%;
+  margin: 2rem 0 1rem;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.gpt3__header-content__input input {
+  flex: 2;
+  width: 100%;
+  min-height: 50px;
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 28px;
+  background: var(--color-footer);
+  border: 2px solid var(--color-footer);
+  padding: 0 1rem;
+  outline: none;
+  color: #fff;
+
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.gpt3__header-content__input button {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(
+    100% 100% at 100% 0,
+    #5adaff 0,
+    #5468ff 100%
+  );
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono", monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  overflow: hidden;
+  padding: 0.5rem 1rem; /* Kept from your styles */
+  position: relative;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-weight: 500; /* Kept from your styles */
+  outline: none; /* Kept from your styles */
+}
+.gpt3__header-content__input button:focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.gpt3__header-content__input button:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.gpt3__header-content__input button:active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+.gpt3__header-content__people {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+
+  margin-top: 2rem;
+}
+
+.gpt3__header-content__people img {
+  width: 181.79px;
+  height: 38px;
+}
+
+.gpt3__header-content__people p {
+  margin: 0 0 0 1rem;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 38px;
+  color: #fff;
+  text-align: center;
+}
+
+.gpt3__header-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gpt3__header-image img {
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 1050px) {
+  .gpt3__header {
+    flex-direction: column;
+  }
+
+  .gpt3__header-content {
+    margin: 0 0 3rem;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .gpt3__header-content h1 {
+    font-size: 48px;
+    line-height: 60px;
+  }
+
+  .gpt3__header-content p {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .gpt3__header-content__people {
+    flex-direction: column;
+  }
+
+  .gpt3__header-content__people p {
+    margin: 0;
+  }
+
+  .gpt3__header-content__input input,
+  .gpt3__header-content__input button {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .gpt3__header-content h1 {
+    font-size: 36px;
+    line-height: 48px;
+  }
+
+  .gpt3__header-content p {
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  .gpt3__header-content__input input,
+  .gpt3__header-content__input button {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+.gpt3__cards-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-left: 100px;
+}
+
+.gpt__card-AddButton {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(
+    100% 100% at 100% 0,
+    #5adaff 0,
+    #5468ff 100%
+  );
+  margin-left: 450px;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono", monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  overflow: hidden;
+  padding: 0.5rem 1rem; /* Kept from your styles */
+  position: relative;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-weight: 500; /* Kept from your styles */
+  outline: none; /* Kept from your styles */
+}
+
+.gpt__card-AddButton:focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.gpt__card-AddButton:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.gpt3__card-AddButton:active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+.gpt3__card {
+  flex: 1;
+  background: transparent;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out,
+    opacity 0.3s ease-in-out 0.2s; /* Added opacity transition with a delay */
+  opacity: 1; /* Start with full opacity */
+}
+
+.gpt3__card:hover {
+  background-color: rgba(0, 0, 0, 0); /* Red with 10% opacity */
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0);
+  transition-delay: 0s, 0s, 0.2s; /* Delay the opacity transition */
+}
+
+.gpt3__card h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333; /* Text color */
+}
+
+.gpt3__card p {
+  font-size: 19px;
+  margin-bottom: 20px;
+  color: #555; /* Text color */
+}
+
+.gpt3__card button {
+  align-items: center;
+  appearance: none;
+  background-image: radial-gradient(
+    100% 100% at 100% 0,
+    #5adaff 0,
+    #5468ff 100%
+  );
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono", monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  overflow: hidden;
+  padding: 0.5rem 1rem; /* Kept from your styles */
+  position: relative;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-weight: 500; /* Kept from your styles */
+  outline: none; /* Kept from your styles */
+}
+
+.gpt3__card button:focus {
+  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+}
+
+.gpt3__card button:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.gpt3__card button:active {
+  box-shadow: #3c4fe0 0 3px 7px inset;
+  transform: translateY(2px);
+}
+@media screen and (max-width: 1050px) {
+  .gpt3__cards-container {
+    flex-direction: column;
+    align-items: center; /* Center the cards when they stack */
+  }
+
+  .gpt3__card {
+    margin-bottom: 20px; /* Add some space between stacked cards */
+    max-width: 80%; /* Limit the width to 80% of the viewport */
+  }
+
+  .gpt3__card h2 {
+    font-size: 20px;
+  }
+
+  .gpt3__card p {
+    font-size: 14px;
+  }
+  .gpt3__card button {
+    margin-left: 16px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .gpt3__card {
+    padding: 15px; /* Reduce padding for smaller screens */
+  }
+
+  .gpt3__card h2 {
+    font-size: 18px;
+  }
+
+  .gpt3__card p {
+    font-size: 12px;
+  }
+
+  .gpt3__card button {
+    font-size: 14px;
+    padding: 8px 16px; /* Adjust button padding */
+    margin-left: 19px;
+  }
+}
+
+@media screen and (max-width: 490px) {
+  .gpt3__card {
+    max-width: 90%; /* Allow the card to take up more width on very small screens */
+  }
+}
