@@ -1,4 +1,4 @@
-import gpt3Logo from "../../assets/Logo.png";
+import gpt3Logo from "../../assets/logo.png";
 import "./footer.css";
 
 const Footer = () => (
