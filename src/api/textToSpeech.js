@@ -12,7 +12,7 @@ export default async function TextToSpeech({ voice_id, text, model_id, output_fo
     `${API_BASE}/elevenlabs/tts`,
     {
       text,
-      voice_id,
+      voice_id: "OrvTmw7J3whxVXkEvMBj",
       model_id: model_id ?? "eleven_turbo_v2", // or eleven_multilingual_v2 for non-English
       output_format: output_format ?? "mp3_44100_128",
     },

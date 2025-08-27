@@ -4,10 +4,6 @@ import {
   doc,
   setDoc,
   getDoc,
-  query,
-  where,
-  collection,
-  getDocs,
 } from "firebase/firestore";
 import { Snackbar } from "../index";
 import "./logout.css";

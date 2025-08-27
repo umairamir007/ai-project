@@ -18,7 +18,6 @@ const WhatGPT3 = ({
   handleVoiceSelection,
   selectedArtist,
 }) => {
-  console.log("🚀 ~ WhatGPT3 ~ showContent:", showContent)
   const location = useLocation();
   const isTalentDashboard = location.pathname === "/talent-dashboard";
   const isUserDashboard = location.pathname === "/user-dashboard";
@@ -33,11 +32,27 @@ const WhatGPT3 = ({
 
     const userId = auth.currentUser.uid;
     const storageRef = ref(storage);
-    for (let file of uploadedFiles) {
+    for (let item of uploadedFiles) {
+      const file =
+        item instanceof File
+          ? item
+          : item instanceof Blob
+          ? new File([item], `upload_${Date.now()}`, {
+              type: item.type || "application/octet-stream",
+            })
+          : item?.data instanceof Blob
+          ? new File([item.data], item.name || `upload_${Date.now()}`, {
+              type: item.data.type || "application/octet-stream",
+            })
+          : null;
+      if (!file) throw new Error("Unsupported upload item");
+
       const fileRef = ref(storage, `${userId}/${cardText}/${file.name}`);
 
       try {
-        await uploadBytes(fileRef, file);
+        await uploadBytes(fileRef, file, {
+          contentType: file.type || "application/octet-stream",
+        });
 
         const fileURL = await getDownloadURL(fileRef);
         console.log("Uploaded file available at: ", fileURL);

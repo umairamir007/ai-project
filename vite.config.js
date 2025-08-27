@@ -7,6 +7,9 @@ export default defineConfig({
     react(),
     nodePolyfills({ globals: { Buffer: true, global: true, process: true } }),
   ],
+  server: {
+    hmr: { overlay: false },
+  },
   test: {
     globals: true,
     environment: "jsdom",

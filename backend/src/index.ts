@@ -3,10 +3,10 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import express from "express";
-import { PORT } from "./constants";
+import { FRONTEND_URL, PORT } from "./constants";
 import errorHandler from "./middlewares/errorHandler";
-import authRoutes from "./routes/Authentication/authRoutes";
 import elevenRoutes from "./routes/ElevenLabs/elevenRoutes";
+import adminImport from "./routes/admin";
 
 dotenv.config();
 const app = express();
@@ -14,10 +14,8 @@ const app = express();
 // Middleware
 app.use(express.json());
 
-const FRONTEND_URL = process.env.FRONTEND_URL ?? "http://localhost:3000";
-
 const corsOptions: cors.CorsOptions = {
-  origin: [FRONTEND_URL],
+  origin: [FRONTEND_URL, "http://localhost:3000"],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
@@ -32,8 +30,8 @@ app.use(
 app.use(morgan("dev"));
 
 // Routes
-app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/elevenlabs", elevenRoutes);
+app.use("/api/v1/admin", adminImport);
 
 // Global Error Handler
 app.use(errorHandler);

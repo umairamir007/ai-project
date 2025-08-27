@@ -5,7 +5,7 @@ import {
   tts,
   voiceInfo,
   voiceAdd,
-} from "../../controllers/ElevenLabs/elevenlabs.controller.js";
+} from "../../controllers/ElevenLabs/elevenlabs.controller"; // <-- fixed
 
 const router = Router();
 const upload = multer({

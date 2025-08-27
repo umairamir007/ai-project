@@ -1,10 +1,13 @@
+// src/api/createVoice.js
+
 import axios from "axios";
-import FormData from "form-data";
 import { auth, db } from "../components/google/firebase";
 import { doc, updateDoc } from "firebase/firestore";
+
 export async function addVoice({ cardText, uploadedFile }) {
   if (cardText === "Vocalize") {
-    const url = "https://api.elevenlabs.io/v1/voices/add";
+    const url = `${import.meta.env.VITE_API_BASE}/elevenlabs/voices/add`;
+    console.log("🚀 ~ addVoice ~ url:", url)
 
     const form = new FormData();
 
@@ -24,7 +27,7 @@ export async function addVoice({ cardText, uploadedFile }) {
     try {
       const response = await axios.post(url, form, {
         headers: {
-          "xi-api-key": "535c9779eac3ff852e340d337c01dc34",
+          /* CORS & boundary handled by axios */
         },
       });
 

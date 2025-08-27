@@ -17,6 +17,7 @@ const CTA = ({
 
   const [usersWithVocalize, setUsersWithVocalize] = useState([]);
   const users = [];
+
   const getUsersWithVocalize = async () => {
     const usersRef = collection(db, "users");
     const q = query(usersRef, where("types.Vocalize", "==", true));

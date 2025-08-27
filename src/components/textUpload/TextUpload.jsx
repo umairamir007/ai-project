@@ -16,6 +16,7 @@ function TextUpload({ selectedArtist }) {
 
   useEffect(() => {
     console.log("Effect running for artist:", selectedArtist); // Log when the effect runs
+
     if (selectedArtist) {
       const storage = getStorage();
       const audioStorageRef = ref(storage, `${selectedArtist.id}/Vocalize/`);

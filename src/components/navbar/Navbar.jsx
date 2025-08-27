@@ -62,9 +62,9 @@ const Navbar = ({ type }) => {
         {!type && <Modal />}
         {(type === "Talent" || type === "User") && (
           <>
-            <div style={{ marginRight: "20px" }}>
+            {/* <div style={{ marginRight: "20px" }}>
               <ConnectButton />
-            </div>
+            </div> */}
             <div>
               <Logout />
             </div>

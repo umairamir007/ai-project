@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { WhatGPT3, Header, NFTContainer } from "../../containers";
 import { Navbar } from "../../components";
-import { useAccount } from "wagmi";
 
 const TalentDashboard = () => {
   const [selectedCard, setSelectedCard] = useState(null);

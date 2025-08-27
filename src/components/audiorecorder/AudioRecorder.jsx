@@ -1,5 +1,5 @@
 // AudioRecorder.js
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import "./audiorecorder.css";
 
 function AudioRecorder({ isLoading, handleSave, cardText }) {
@@ -55,7 +55,14 @@ function AudioRecorder({ isLoading, handleSave, cardText }) {
               onClick={() => {
                 console.log("Saving blob: ", audioBlob);
                 console.log("cardText:", cardText);
-                handleSave([audioData], cardText);
+                const file = new File(
+                  [audioBlob],
+                  `audio_recording_${Date.now()}.wav`,
+                  {
+                    type: "audio/wav",
+                  }
+                );
+                handleSave([file], cardText);
               }}
             >
               {isLoading ? "Saving..." : "Save"}
