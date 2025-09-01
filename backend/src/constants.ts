@@ -21,7 +21,6 @@ export const REFRESH_TOKEN_DURATION = 604800; //7 days
 export const ONE_WEEK_DURATION = 604800; //7 days
 export const PROTOCOL_FEES = 0.0002; //0.2%
 export const validExchanges = ["raydium", "jupiter"];
-// export const ADMIN_EMAIL = "umairamir@decryptedlabs.io"; // admin email
-export const ADMIN_EMAIL = "sharozx16@gmail.com"; // admin email
+export const ADMIN_EMAIL = "umairamir@decryptedlabs.io"; // admin email
 
 export const FRONTEND_URL = "https://ai-project-pearl.vercel.app/"
