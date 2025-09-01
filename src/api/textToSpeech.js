@@ -1,22 +1,13 @@
 import axios from "axios";
 
-/**
- * Calls your backend (which calls ElevenLabs) and returns ArrayBuffer (MP3).
- */
-export default async function TextToSpeech({ voice_id, text, model_id, output_format }) {
-  const API_BASE = import.meta.env.VITE_API_BASE || "";
-  if (!voice_id) throw new Error("Missing voice_id");
-  if (!text || !text.trim()) throw new Error("Please enter some text");
-
-  const r = await axios.post(
-    `${API_BASE}/elevenlabs/tts`,
-    {
-      text,
-      voice_id: "OrvTmw7J3whxVXkEvMBj",
-      model_id: model_id ?? "eleven_turbo_v2", // or eleven_multilingual_v2 for non-English
-      output_format: output_format ?? "mp3_44100_128",
-    },
+export async function TextToSpeech(text, voice_id) {
+  const res = await axios.post(
+    `${import.meta.env.VITE_API_BASE}/elevenlabs/tts`,
+    { text, voice_id },
     { responseType: "arraybuffer" }
   );
-  return r.data; // ArrayBuffer
+
+  // Convert to blob URL
+  const blob = new Blob([res.data], { type: "audio/mpeg" });
+  return URL.createObjectURL(blob);
 }

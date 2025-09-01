@@ -6,7 +6,10 @@ import express from "express";
 import { FRONTEND_URL, PORT } from "./constants";
 import errorHandler from "./middlewares/errorHandler";
 import elevenRoutes from "./routes/ElevenLabs/elevenRoutes";
+import storageRoutes from "./routes/storage";
 import adminImport from "./routes/admin";
+import fishRoutes from "./routes/fishRoutes";
+import minimaxRoutes from "./routes/minimax";
 
 dotenv.config();
 const app = express();
@@ -31,7 +34,10 @@ app.use(morgan("dev"));
 
 // Routes
 app.use("/api/v1/elevenlabs", elevenRoutes);
+app.use("/api/v1/storage", storageRoutes);
 app.use("/api/v1/admin", adminImport);
+app.use("/api/v1/fish", fishRoutes);
+app.use("/api/v1/minimax", minimaxRoutes);
 
 // Global Error Handler
 app.use(errorHandler);

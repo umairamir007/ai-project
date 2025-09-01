@@ -14,8 +14,8 @@
 .gpt3__header-content h1 {
   font-family: var(--font-family);
   font-weight: 800;
-  font-size: 62px;
-  line-height: 75px;
+  font-size: 45px;
+  line-height: normal;
   letter-spacing: -0.04em;
 }
 
@@ -209,19 +209,19 @@
   .gpt3__header-content {
     margin: 0 0 3rem;
   }
-}
 
-@media screen and (max-width: 650px) {
   .gpt3__header-content h1 {
-    font-size: 48px;
-    line-height: 60px;
+    font-size: 34px;
+    line-height: 50px;
   }
 
   .gpt3__header-content p {
     font-size: 16px;
     line-height: 24px;
   }
+}
 
+@media screen and (max-width: 650px) {
   .gpt3__header-content__people {
     flex-direction: column;
   }
@@ -239,8 +239,8 @@
 
 @media screen and (max-width: 490px) {
   .gpt3__header-content h1 {
-    font-size: 36px;
-    line-height: 48px;
+    font-size: 28px;
+    line-height: normal;
   }
 
   .gpt3__header-content p {
@@ -258,7 +258,6 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-  margin-left: 100px;
 }
 
 .gpt__card-AddButton {

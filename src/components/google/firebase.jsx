@@ -4,22 +4,15 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getAnalytics } from "firebase/analytics";
 
-/** ──────────────────────────────────────────────────────────────
- *  Legacy project (KEEPED AS COMMENT ONLY – not used)
- *  const legacyConfig = { ...isire-f6f0e... };
- *  DO NOT initialize it. We’re running only one app now.
- *  ──────────────────────────────────────────────────────────────
- */
-
 /** NEW project (copy from Firebase Console → Project settings → Web app) */
 const firebaseConfig = {
-  apiKey: "AIzaSyAUo0JyuHBUfdY-7kk4dxZWeNk9JYeHnko",
-  authDomain: "ai-voices-92fcc.firebaseapp.com",
-  projectId: "ai-voices-92fcc",
-  storageBucket: "ai-voices-92fcc.appspot.com", // ← correct bucket domain
-  messagingSenderId: "155711762099",
-  appId: "1:155711762099:web:97bda4b46be70718934ac6",
-  measurementId: "G-RM7R1KGN8X",
+  apiKey: "AIzaSyDs32mA77do55njKVeprU1GJrZfZI0kwyo",
+  authDomain: "isire-f6f0e.firebaseapp.com",
+  projectId: "isire-f6f0e",
+  storageBucket: "isire-f6f0e.appspot.com",
+  messagingSenderId: "262033110260",
+  appId: "1:262033110260:web:2e36e5f99b351c90a95aa1",
+  measurementId: "G-J1P4GSCEH5",
 };
 
 // Avoid double init during hot-reload
@@ -35,11 +28,6 @@ export const analytics =
     ? getAnalytics(app)
     : undefined;
 
-
-
-
-
-
 // Old project (read-only, if rules allow)
 // const legacyConfig = {
 //   apiKey: "AIzaSyDs32mA77do55njKVeprU1GJrZfZI0kwyo",
@@ -49,4 +37,14 @@ export const analytics =
 //   messagingSenderId: "262033110260",
 //   appId: "1:262033110260:web:2e36e5f99b351c90a95aa1",
 //   measurementId: "G-J1P4GSCEH5",
+// };
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyAUo0JyuHBUfdY-7kk4dxZWeNk9JYeHnko",
+//   authDomain: "ai-voices-92fcc.firebaseapp.com",
+//   projectId: "ai-voices-92fcc",
+//   storageBucket: "ai-voices-92fcc.appspot.com", // ← correct bucket domain
+//   messagingSenderId: "155711762099",
+//   appId: "1:155711762099:web:97bda4b46be70718934ac6",
+//   measurementId: "G-RM7R1KGN8X",
 // };

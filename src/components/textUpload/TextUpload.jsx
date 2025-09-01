@@ -3,7 +3,7 @@ import "./textupload.css";
 import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
 import { getDoc, doc } from "firebase/firestore";
 import { db } from "../google/firebase";
-import TextToSpeech from "../../api/textToSpeech";
+import { TextToSpeech } from "../../api/textToSpeech";
 
 function TextUpload({ selectedArtist }) {
   const [selectedLanguage, setSelectedLanguage] = useState("English");

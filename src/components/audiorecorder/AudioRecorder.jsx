@@ -27,10 +27,7 @@ function AudioRecorder({ isLoading, handleSave, cardText }) {
     mediaRecorderRef.current.start();
     setRecording(true);
   };
-  const audioData = {
-    data: audioBlob,
-    name: `audio_recording_${Date.now()}.wav`,
-  };
+
   const stopRecording = () => {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();

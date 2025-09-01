@@ -7,6 +7,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db, auth, storage } from "../../components/google/firebase";
 import { useAccount } from "wagmi";
 import { Snackbar } from "../../components/index";
+
 function NFTContainer() {
   const URIs = {
     Vocalize:

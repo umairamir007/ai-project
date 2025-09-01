@@ -72,19 +72,18 @@ const Header = ({
             </h1>
             <p>Please select the talent you want to register for</p>
             <div className="gpt3__cards-container">
-              <div
+              {/* <div
                 className={`gpt3__card ${selectedCard === 1 ? "selected" : ""}`}
                 onClick={() => {
                   handleCardClick(1);
                 }}
               >
                 <div className="gpt3__header-image">
-                  {/* <img src={people} alt="People" /> */}
                 </div>
                 <h2 className="gradient__text">Vocalize</h2>
                 <p>Record or Upload a Clear Sample to Clone a Voice! </p>
                 <button>Select</button>
-              </div>
+              </div> */}
 
               <div
                 className={`gpt3__card ${selectedCard === 2 ? "selected" : ""}`}
@@ -95,7 +94,7 @@ const Header = ({
                 <div className="gpt3__header-image">
                   {/* <img src={ai} alt="AI" /> */}
                 </div>
-                <h2 className="gradient__text">Scriptize</h2>
+                <h2 className="gradient__text">Text to Speech</h2>
                 <p>
                   Submit Your Inspiring Script: Ignite the Path to Ultimate
                   Achievement!

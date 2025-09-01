@@ -1,7 +1,9 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
+import * as pdfjsLib from "pdfjs-dist";
+import mammoth from "mammoth";
 import "./DragDropContainer.css";
 
-function FileUpload({ isLoading, handleSave, cardText }) {
+function FileUpload({ isLoading, handleSave, cardText, onExtractedText }) {
   const [dragging, setDragging] = useState(false);
   const [files, setFiles] = useState([]);
   const fileInputRef = useRef(null);
@@ -42,6 +44,45 @@ function FileUpload({ isLoading, handleSave, cardText }) {
     );
   };
 
+  const extractTextFromFile = async (file) => {
+    if (file.type === "text/plain") {
+      return file.text();
+    }
+
+    if (file.type === "application/pdf") {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      let textContent = "";
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        textContent += content.items.map((it) => it.str).join(" ") + "\n";
+      }
+      return textContent;
+    }
+
+    if (
+      file.type ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
+      const arrayBuffer = await file.arrayBuffer();
+      const result = await mammoth.extractRawText({ arrayBuffer });
+      return result.value;
+    }
+
+    return "";
+  };
+
+  const handleProcessFiles = async () => {
+    for (const file of files) {
+      const text = await extractTextFromFile(file);
+      if (text && onExtractedText) {
+        onExtractedText(text);
+      }
+    }
+    handleSave(files, cardText);
+  };
+
   return (
     <div className="file-upload-container">
       <input
@@ -49,6 +90,7 @@ function FileUpload({ isLoading, handleSave, cardText }) {
         ref={fileInputRef}
         style={{ display: "none" }}
         onChange={handleFileSelect}
+        accept=".txt,.pdf,.docx"
       />
       <div
         className={`dropzone ${dragging ? "dragging" : ""}`}
@@ -77,8 +119,8 @@ function FileUpload({ isLoading, handleSave, cardText }) {
         )}
       </div>
       {files.length > 0 && (
-        <button onClick={() => handleSave(files, cardText)}>
-          {isLoading ? "Saving..." : "Save"}
+        <button onClick={handleProcessFiles}>
+          {isLoading ? "Saving..." : "Save & Speak"}
         </button>
       )}
     </div>

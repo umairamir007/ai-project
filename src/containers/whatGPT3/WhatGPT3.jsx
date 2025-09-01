@@ -1,14 +1,14 @@
 import Feature from "../../components/feature/Feature";
 import "./whatgpt3.css";
-import { useLocation } from "react-router-dom"; // Import useLocation
+import { useLocation } from "react-router-dom";
 import { AudioRecorder, FileUpload } from "../../components";
 import { useState } from "react";
-import { getDownloadURL } from "firebase/storage"; // Import this
-import { auth, db, storage } from "../../components/google/firebase";
-import { doc, updateDoc } from "firebase/firestore";
-import { uploadBytes } from "firebase/storage"; // This import is necessary
-import { ref } from "firebase/storage"; // This import is crucial for the modular SDK
-import { addVoice } from "../../api/createVoice";
+import { auth, db } from "../../components/google/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { uploadAudioToBackend } from "../../api/storage";
+import { signInAnonymously } from "firebase/auth";
+import { cloneMiniMaxVoice } from "../../api/minimax";
+import { TextToSpeech } from "../../api/textToSpeech";
 
 const WhatGPT3 = ({
   selectedCard,
@@ -24,49 +24,76 @@ const WhatGPT3 = ({
   const isLanding = location.pathname === "/";
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSave = async (uploadedItems, cardText) => {
+  const [ttsText, setTtsText] = useState("");
+  const [audioSrc, setAudioSrc] = useState("");
+
+  const handleSave = async (items, cardText) => {
     setIsLoading(true);
-    const uploadedFiles = Array.isArray(uploadedItems)
-      ? uploadedItems
-      : [uploadedItems];
+    try {
+      const files = (Array.isArray(items) ? items : [items]).filter(Boolean);
 
-    const userId = auth.currentUser.uid;
-    const storageRef = ref(storage);
-    for (let item of uploadedFiles) {
-      const file =
-        item instanceof File
-          ? item
-          : item instanceof Blob
-          ? new File([item], `upload_${Date.now()}`, {
-              type: item.type || "application/octet-stream",
-            })
-          : item?.data instanceof Blob
-          ? new File([item.data], item.name || `upload_${Date.now()}`, {
-              type: item.data.type || "application/octet-stream",
-            })
-          : null;
-      if (!file) throw new Error("Unsupported upload item");
-
-      const fileRef = ref(storage, `${userId}/${cardText}/${file.name}`);
-
-      try {
-        await uploadBytes(fileRef, file, {
-          contentType: file.type || "application/octet-stream",
-        });
-
-        const fileURL = await getDownloadURL(fileRef);
-        console.log("Uploaded file available at: ", fileURL);
-
-        const userRef = doc(db, "users", userId);
-        await updateDoc(userRef, {
-          [`types.${cardText}`]: true,
-        });
-        addVoice({ cardText: cardText, uploadedFile: file });
-      } catch (error) {
-        console.error("Error uploading file: ", error);
+      let user = auth.currentUser;
+      if (!user) {
+        const cred = await signInAnonymously(auth);
+        user = cred.user;
       }
+      const uid = user.uid;
+
+      for (const item of files) {
+        const file =
+          item instanceof File
+            ? item
+            : item instanceof Blob
+            ? new File([item], `upload_${Date.now()}.wav`, {
+                type: item.type || "audio/wav",
+              })
+            : item?.data instanceof Blob
+            ? new File([item.data], item.name || `upload_${Date.now()}.wav`, {
+                type: item.data.type || "application/octet-stream",
+              })
+            : null;
+
+        if (!file) continue;
+
+        // upload to your backend -> Storage
+        const { downloadURL } = await uploadAudioToBackend(file, cardText);
+        console.log("Stored in Firebase Storage:", downloadURL);
+
+        // mark user types in Firestore (client SDK; your rules allow anon user to update own doc)
+        const userRef = doc(db, "users", uid);
+        await setDoc(userRef, { types: { [cardText]: true } }, { merge: true });
+
+        // add voice to ElevenLabs via your backend wrapper
+        // await addVoice({ cardText, uploadedFile: file }); // TODO: comment becuse Eleven Labs API key is paid
+
+        // Clone voice model on Fish Audio (only if cardText === "Vocalize")
+        if (cardText === "Vocalize") {
+          console.log("🚀 ~ handleSave ~ cardText:", cardText);
+          const voiceId = await cloneMiniMaxVoice(file);
+          console.log("MiniMax voice cloned:", voiceId);
+        }
+      }
+    } catch (e) {
+      const msg =
+        e?.response?.data?.error ||
+        e?.response?.data ||
+        e?.message ||
+        String(e);
+      console.error("Save failed:", e);
+      alert(`Upload failed: ${msg}`);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
+  };
+
+  const handleTTS = async () => {
+    try {
+      const url = await TextToSpeech(ttsText, "OrvTmw7J3whxVXkEvMBj");
+      setAudioSrc(url);
+    } catch (err) {
+      console.error("handleTTS failed:", err);
+      alert("handleTTS failed");
+    }
   };
 
   const handleSelected = () => {
@@ -136,7 +163,7 @@ const WhatGPT3 = ({
       {isTalentDashboard && (
         <div className="gpt3__whatgpt3 section__margin" id="wgpt3">
           <div className="gpt3__whatgpt3-heading">
-            {cardText === "Vocalize" && (
+            {/* {cardText === "Vocalize" && (
               <>
                 <h1 className="gradient__text">{cardText}</h1>
                 <AudioRecorder
@@ -150,7 +177,7 @@ const WhatGPT3 = ({
                   cardText={cardText}
                 />
               </>
-            )}
+            )} */}
             {cardText === "Scriptize" && (
               <>
                 <h1 className="gradient__text">{cardText}</h1>
@@ -158,7 +185,28 @@ const WhatGPT3 = ({
                   isLoading={isLoading}
                   handleSave={handleSave}
                   cardText={cardText}
+                  onExtractedText={async (text) => {
+                    console.log("Extracted text:", text);
+                    const url = await TextToSpeech(
+                      text,
+                      "OrvTmw7J3whxVXkEvMBj"
+                    );
+                    setAudioSrc(url);
+                  }}
                 />
+
+                {/* NEW: MiniMax TTS section */}
+                <div style={{ marginTop: "20px" }}>
+                  <h3>Try MiniMax TTS</h3>
+                  <input
+                    type="text"
+                    value={ttsText}
+                    onChange={(e) => setTtsText(e.target.value)}
+                    placeholder="Enter text"
+                  />
+                  <button onClick={handleTTS}>Speak</button>
+                  {audioSrc && <audio controls src={audioSrc}></audio>}
+                </div>
               </>
             )}
             {cardText === "Visionize" && (

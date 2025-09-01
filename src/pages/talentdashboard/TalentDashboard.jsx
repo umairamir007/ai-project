@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { WhatGPT3, Header, NFTContainer } from "../../containers";
 import { Navbar } from "../../components";
 
@@ -14,7 +14,7 @@ const TalentDashboard = () => {
         {/* <> */}
         <Header selectedCard={selectedCard} setSelectedCard={setSelectedCard} />
         <WhatGPT3 selectedCard={selectedCard} />
-        <NFTContainer />
+        {/* <NFTContainer /> */}
         {/* </> */}
         {/* )} */}b{" "}
       </div>
