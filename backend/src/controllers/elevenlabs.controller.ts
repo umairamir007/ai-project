@@ -4,6 +4,7 @@ import {
   getVoiceById,
   addVoice,
 } from "../services/ElevenLabs/elevenLabs.service";
+import axios from "axios";
 
 /**
  * Simple health check
@@ -21,7 +22,7 @@ export async function tts(req: Request, res: Response) {
     const {
       text,
       voice_id,
-      model_id = "eleven_monolingual_v1",
+      model_id,
       output_format = "mp3_44100_128",
       optimize_streaming_latency = 0,
     } = req.body;
@@ -101,5 +102,24 @@ export async function voiceAdd(req: Request, res: Response) {
     const data =
       err?.response?.data || { error: err.message || "Add voice failed" };
     res.status(status).send(data);
+  }
+}
+
+export async function getVoices(req: Request, res: Response) {
+  try {
+    if (!process.env.ELEVENLABS_API_KEY) {
+      return res.status(500).json({ error: "ELEVENLABS_API_KEY missing" });
+    }
+
+    const response = await axios.get("https://api.elevenlabs.io/v1/voices", {
+      headers: {
+        "xi-api-key": process.env.ELEVENLABS_API_KEY,
+      },
+    });
+
+    res.json(response.data);
+  } catch (err: any) {
+    console.error("ElevenLabs voices error:", err.response?.data || err.message);
+    res.status(500).json({ error: "Failed to fetch voices" });
   }
 }

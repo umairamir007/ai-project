@@ -14,6 +14,7 @@ const UserDasboard = () => {
   const [voiceSelector, setVoiceSelector] = useState(false);
   console.log("🚀 ~ UserDasboard ~ voiceSelector:", voiceSelector)
   const [selectedArtist, setSelectedArtist] = useState(null);
+  console.log("🚀 ~ UserDasboard ~ selectedArtist:", selectedArtist)
 
   const handleVoiceSelection = () => {
     setVoiceSelector(!voiceSelector);
@@ -54,7 +55,7 @@ const UserDasboard = () => {
             handleSelectedArtist={handleSelectedArtist}
             selectedArtist={selectedArtist}
           />
-          <Blog selectedArtist={selectedArtist} />
+          {/* <Blog selectedArtist={selectedArtist} /> */}
           <Footer />
         </>
         {/* )} */}

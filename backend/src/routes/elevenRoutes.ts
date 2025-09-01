@@ -5,7 +5,8 @@ import {
   tts,
   voiceInfo,
   voiceAdd,
-} from "../../controllers/elevenlabs.controller"; // <-- fixed
+  getVoices,
+} from "../controllers/elevenlabs.controller"; // <-- fixed
 
 const router = Router();
 const upload = multer({
@@ -17,5 +18,6 @@ router.get("/health", health);
 router.post("/tts", tts);
 router.get("/voices/:id", voiceInfo);
 router.post("/voices/add", upload.single("file"), voiceAdd);
+router.get("/voices", getVoices);
 
 export default router;

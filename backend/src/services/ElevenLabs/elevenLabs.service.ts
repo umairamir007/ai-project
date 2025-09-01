@@ -5,27 +5,41 @@ import elevenClient from "./elevenLabsClient";
  * Synthesize speech (returns an axios response with a stream/arraybuffer)
  */
 export async function synthesizeTTS(args: {
-    voice_id: string; text: string;
-    model_id?: string; output_format?: string; optimize_streaming_latency?: number;
+    voice_id: string;
+    text: string;
+    model_id?: string;
+    output_format?: string;
+    optimize_streaming_latency?: number;
 }) {
-    const { voice_id, text, model_id = "eleven_turbo_v2",
-        output_format = "mp3_44100_128", optimize_streaming_latency = 0 } = args;
+    const {
+        voice_id,
+        text,
+        model_id,
+        output_format = "mp3_44100_128",
+        optimize_streaming_latency = 0,
+    } = args;
 
-    const url = `/v1/text-to-speech/${String(voice_id).trim()}`; // trim just in case
+    const url = `/v1/text-to-speech/${String(voice_id).trim()}`;
     try {
-        return await elevenClient.post<NodeJS.ReadableStream>(
-            url,
-            {
-                text,
-                model_id,
-                voice_settings: { stability: 0.3, similarity_boost: 0.75, style: 0, use_speaker_boost: true },
+        const payload: any = {
+            text,
+            voice_settings: {
+                stability: 0.3,
+                similarity_boost: 0.75,
+                style: 0,
+                use_speaker_boost: true,
             },
-            {
-                params: { optimize_streaming_latency, output_format },
-                responseType: "stream",
-                headers: { "content-type": "application/json" },
-            }
-        );
+        };
+
+        if (model_id) {
+            payload.model_id = model_id; // ✅ only add if provided
+        }
+
+        return await elevenClient.post<NodeJS.ReadableStream>(url, payload, {
+            params: { optimize_streaming_latency, output_format },
+            responseType: "stream",
+            headers: { "content-type": "application/json" },
+        });
     } catch (e: any) {
         if (e?.response) {
             console.error("POST", url, "failed:", e.response.status, e.response.data);

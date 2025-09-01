@@ -1,9 +1,8 @@
 import { useLocation } from "react-router-dom";
 import "./cta.css";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../components/google/firebase";
 import { TextUpload } from "../../components/index";
 import { useEffect, useState } from "react";
+import { fetchVoices } from "../../api/elevenlabs";
 
 const CTA = ({
   voiceSelector,
@@ -15,24 +14,18 @@ const CTA = ({
   const isUserDashboard = location.pathname === "/user-dashboard";
   const isLanding = location.pathname === "/";
 
-  const [usersWithVocalize, setUsersWithVocalize] = useState([]);
-  const users = [];
+  const [voices, setVoices] = useState([]);
 
-  const getUsersWithVocalize = async () => {
-    const usersRef = collection(db, "users");
-    const q = query(usersRef, where("types.Vocalize", "==", true));
-    const querySnapshot = await getDocs(q);
-
-    querySnapshot.forEach((doc) => {
-      users.push({
-        id: doc.id,
-        ...doc.data(),
-      });
-    });
-
-    setUsersWithVocalize(users);
-    console.log("users", users);
-  };
+  useEffect(() => {
+    if (voiceSelector) {
+      fetchVoices()
+        .then((data) => {
+          // some APIs return {voices: []}, normalize
+          setVoices(data.voices || data);
+        })
+        .catch(console.error);
+    }
+  }, [voiceSelector]);
 
   let type = "";
   switch (showContent) {
@@ -49,11 +42,6 @@ const CTA = ({
       type = "";
   }
 
-  useEffect(() => {
-    if (voiceSelector && isUserDashboard) {
-      getUsersWithVocalize();
-    }
-  }, [voiceSelector, isUserDashboard]);
   return (
     <>
       {isLanding && (
@@ -67,43 +55,44 @@ const CTA = ({
           </div>
         </div>
       )}
+
       {voiceSelector && isUserDashboard && showContent && (
-        <div className="gpt3__cta-user">
+        <div className="gpt3__cta-user section__margin">
           {!selectedArtist ? (
             <>
               <div className="gpt3__cta-content-user">
-                <p>View Different {type} Available On Our Platform</p>
+                <p>View Different {type}s Available On Our Platform</p>
                 <h3>Select a {type} from our talent pool</h3>
               </div>
 
-              <div className="gpt3__cta-content-user">
-                <ul>
-                  {usersWithVocalize.map((user) => (
-                    <li
-                      key={user.id}
-                      onClick={() => handleSelectedArtist(user)}
-                    >
-                      <img src={user.photoURL} alt="User" />
-                      User ID: {user.displayName}, Wallet Address:
-                      {user.walletAddress}
-                      iSai Talent NFT:
-                      <img
-                        className="gpt3__cta-content-user .nft-image"
-                        src="https://bafybeiejohruxjwcmccrvz6cynhnplsiaoyltmwnyklvhlo6i5evk5rwai.ipfs.nftstorage.link/"
-                        alt="Talent NFT"
-                      />
-                    </li>
-                  ))}
-                </ul>
+              <div className="voice-grid">
+                {voices.map((voice) => (
+                  <div
+                    key={voice.voice_id}
+                    className="voice-card"
+                    onClick={() => handleSelectedArtist(voice)}
+                  >
+                    <h4>{voice.name}</h4>
+                    <p className="description">
+                      {voice.description && voice.description.length > 200
+                        ? voice.description.slice(0, 200) + "..."
+                        : voice.description}
+                    </p>
+                    <audio controls src={voice.preview_url}></audio>
+                  </div>
+                ))}
               </div>
             </>
           ) : (
             <>
               <div className="gpt3__cta-content-user">
-                <h2>Upload Your Text for a Stunning Podcast Voice Over</h2>
+                <h2>
+                  Upload Your Text for a Stunning Voice Over with{" "}
+                  {selectedArtist.name}
+                </h2>
                 <button
-                  style={{ marginLeft: "500px", marginRight: "1310px" }}
-                  onClick={() => handleSelectedArtist()}
+                  style={{ marginLeft: "20px" }}
+                  onClick={() => handleSelectedArtist(null)}
                 >
                   Choose Again
                 </button>

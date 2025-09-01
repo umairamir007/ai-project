@@ -91,14 +91,13 @@ const Header = ({
                   handleCardClick(2);
                 }}
               >
-                <div className="gpt3__header-image">
-                  {/* <img src={ai} alt="AI" /> */}
+                <div>
+                  <h2 className="gradient__text">Text to Speech</h2>
+                  <p>
+                    Submit Your Inspiring Script: Ignite the Path to Ultimate
+                    Achievement!
+                  </p>
                 </div>
-                <h2 className="gradient__text">Text to Speech</h2>
-                <p>
-                  Submit Your Inspiring Script: Ignite the Path to Ultimate
-                  Achievement!
-                </p>
                 <button>Select</button>
               </div>
 
@@ -110,14 +109,13 @@ const Header = ({
                   handleCardClick(3);
                 }}
               >
-                <div className="gpt3__header-image">
-                  {/* <img src={people} alt="People" /> */}
+                <div>
+                  <h2 className="gradient__text">Visionize</h2>
+                  <p>
+                    {" "}
+                    Submit Your Artwork and Witness its Magical Transformation!{" "}
+                  </p>
                 </div>
-                <h2 className="gradient__text">Visionize</h2>
-                <p>
-                  {" "}
-                  Submit Your Artwork and Witness its Magical Transformation!{" "}
-                </p>
                 <button>Select</button>
               </div>
             </div>
@@ -135,7 +133,7 @@ const Header = ({
               generate your podcast
             </p>
             <div className="gpt3__cards-container">
-              <div
+              {/* <div
                 className={`gpt3__card ${selectedCard === 1 ? "selected" : ""}`}
                 onClick={() => {
                   setShowContent(1);
@@ -144,7 +142,7 @@ const Header = ({
                 <h2 className="gradient__text">Vocalize</h2>
                 <p>Record or Upload a Clear Sample to Clone a Voice! </p>
                 <button>Select</button>
-              </div>
+              </div> */}
 
               <div
                 className={`gpt3__card ${selectedCard === 2 ? "selected" : ""}`}
@@ -152,11 +150,13 @@ const Header = ({
                   setShowContent(2);
                 }}
               >
-                <h2 className="gradient__text">Scriptize</h2>
-                <p>
-                  Submit Your Inspiring Script: Ignite the Path to Ultimate
-                  Achievement!
-                </p>
+                <div>
+                  <h2 className="gradient__text">Scriptize</h2>
+                  <p>
+                    Submit Your Inspiring Script: Ignite the Path to Ultimate
+                    Achievement!
+                  </p>
+                </div>
                 <button>Select</button>
               </div>
 
@@ -168,10 +168,12 @@ const Header = ({
                   setShowContent(3);
                 }}
               >
-                <h2 className="gradient__text">Visionize</h2>
-                <p>
-                  Submit Your Artwork and Witness its Magical Transformation!{" "}
-                </p>
+                <div>
+                  <h2 className="gradient__text">Visionize</h2>
+                  <p>
+                    Submit Your Artwork and Witness its Magical Transformation!{" "}
+                  </p>
+                </div>
                 <button>Select</button>
               </div>
             </div>
@@ -216,14 +218,16 @@ const Header = ({
             >
               <i className="fa fa-arrow-left"></i>
             </button>
-            <h1 className="gradient__text">Text Synthesis</h1>
-            <p>
-              Unleash the power of our cutting edge technology to create various
-              scripts
-            </p>
-            <div className="gpt3__cards-container">
+            <div className="um_gpt_container">
+              <div>
+                <h1 className="gradient__text">Text Synthesis</h1>
+                <p>
+                  Unleash the power of our cutting edge technology to create
+                  various scripts
+                </p>
+              </div>
               <button
-                className=" gpt__card-AddButton plus-button"
+                className="gpt__card-AddButton plus-button"
                 onClick={toggleVoiceLab}
               >
                 <i className="fa fa-plus"></i> Add Text

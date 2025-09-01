@@ -88,7 +88,7 @@ const WhatGPT3 = ({
 
   const handleTTS = async () => {
     try {
-      const url = await TextToSpeech(ttsText, "OrvTmw7J3whxVXkEvMBj");
+      const url = await TextToSpeech(ttsText, selectedArtist.voice_id);
       setAudioSrc(url);
     } catch (err) {
       console.error("handleTTS failed:", err);

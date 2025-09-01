@@ -5,7 +5,7 @@ import morgan from "morgan";
 import express from "express";
 import { FRONTEND_URL, PORT } from "./constants";
 import errorHandler from "./middlewares/errorHandler";
-import elevenRoutes from "./routes/ElevenLabs/elevenRoutes";
+import elevenRoutes from "./routes/elevenRoutes";
 import storageRoutes from "./routes/storage";
 import adminImport from "./routes/admin";
 import fishRoutes from "./routes/fishRoutes";
