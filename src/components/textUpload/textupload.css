@@ -66,4 +66,7 @@ button:hover,
 
 .media-player {
   /* margin-top: 20px; */
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }

@@ -255,8 +255,9 @@
   }
 }
 .gpt3__cards-container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
   margin-top: 20px;
 }
 

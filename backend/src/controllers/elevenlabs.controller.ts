@@ -1,17 +1,14 @@
 import { Request, Response } from "express";
 import {
-  synthesizeTTS,
   getVoiceById,
   addVoice,
 } from "../services/ElevenLabs/elevenLabs.service";
-import axios from "axios";
+import { ElevenLabsClient } from "elevenlabs";
+import { Readable } from "stream";
 
-/**
- * Simple health check
- */
-export async function health(_req: Request, res: Response) {
-  res.json({ ok: true });
-}
+const client = new ElevenLabsClient({
+  apiKey: process.env.ELEVENLABS_API_KEY!,
+});
 
 /**
  * Text → Speech
@@ -19,45 +16,49 @@ export async function health(_req: Request, res: Response) {
  */
 export async function tts(req: Request, res: Response) {
   try {
-    const {
-      text,
-      voice_id,
-      model_id,
-      output_format = "mp3_44100_128",
-      optimize_streaming_latency = 0,
-    } = req.body;
-
-    if (!process.env.ELEVENLABS_API_KEY) {
-      return res.status(500).json({ error: "ELEVENLABS_API_KEY missing" });
-    }
+    const { text, voice_id } = req.body;
     if (!text || !voice_id) {
       return res.status(400).json({ error: "text and voice_id are required" });
     }
 
-    // Call service
-    const elevenRes = await synthesizeTTS({
+    // Force type to Web ReadableStream
+    const webStream: any = await client.textToSpeech.convertAsStream(voice_id, {
+      model_id: "eleven_turbo_v2", // optional
       text,
-      voice_id,
-      model_id,
-      output_format,
-      optimize_streaming_latency,
+      output_format: "mp3_44100_128",
     });
 
-    // Set headers
     res.setHeader("Content-Type", "audio/mpeg");
-    if (elevenRes.headers["content-length"]) {
-      res.setHeader("Content-Length", elevenRes.headers["content-length"]);
+
+    // ✅ Handle Web ReadableStream
+    if (webStream && typeof webStream.getReader === "function") {
+      const reader = webStream.getReader();
+      const nodeStream = new Readable({
+        async read() {
+          const { done, value } = await reader.read();
+          if (done) {
+            this.push(null);
+          } else {
+            this.push(Buffer.from(value));
+          }
+        },
+      });
+
+      nodeStream.pipe(res);
+      return;
     }
 
-    // Pipe audio to client
-    elevenRes.data.pipe(res);
-  } catch (err: any) {
-    if (err?.response) {
-      console.error("ElevenLabs error:", err.response.status, err.response.data);
-      return res.status(err.response.status).send(err.response.data);
+    // ✅ Handle Uint8Array or Buffer response
+    if (webStream instanceof Uint8Array || Buffer.isBuffer(webStream)) {
+      res.end(Buffer.from(webStream));
+      return;
     }
-    console.error("TTS request failed:", err?.message || err);
-    return res.status(500).json({ error: "TTS failed" });
+
+    console.error("Unexpected TTS response:", webStream);
+    res.status(500).json({ error: "Unexpected TTS response" });
+  } catch (err: any) {
+    console.error("TTS failed:", err.response?.data || err.message || err);
+    res.status(500).json({ error: "TTS failed" });
   }
 }
 
@@ -105,21 +106,13 @@ export async function voiceAdd(req: Request, res: Response) {
   }
 }
 
-export async function getVoices(req: Request, res: Response) {
+export async function getVoices(_req: Request, res: Response) {
   try {
-    if (!process.env.ELEVENLABS_API_KEY) {
-      return res.status(500).json({ error: "ELEVENLABS_API_KEY missing" });
-    }
-
-    const response = await axios.get("https://api.elevenlabs.io/v1/voices", {
-      headers: {
-        "xi-api-key": process.env.ELEVENLABS_API_KEY,
-      },
-    });
-
-    res.json(response.data);
+    const voices = await client.voices.getAll(); // only owned
+    res.json(voices);
   } catch (err: any) {
-    console.error("ElevenLabs voices error:", err.response?.data || err.message);
+    console.error("Failed to fetch voices:", err.response?.data || err.message);
     res.status(500).json({ error: "Failed to fetch voices" });
   }
 }
+

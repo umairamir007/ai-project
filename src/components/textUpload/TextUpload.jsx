@@ -10,6 +10,7 @@ function TextUpload({ selectedArtist }) {
   const [text, setText] = useState("");
   const [sampleURL, setSampleURL] = useState(""); // separate for previews
   const [ttsURL, setTtsURL] = useState(""); // separate for generated audio
+  console.log("🚀 ~ TextUpload ~ ttsURL:", ttsURL)
   const [loading, setLoading] = useState(true);
   const [isPlayingSample, setIsPlayingSample] = useState(false);
   const [isPlayingTts, setIsPlayingTts] = useState(false);

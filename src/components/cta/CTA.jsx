@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import {useRef} from "react";
 import "./cta.css";
 import { TextUpload } from "../../components/index";
 import { useEffect, useState } from "react";
@@ -15,6 +16,7 @@ const CTA = ({
   const isLanding = location.pathname === "/";
 
   const [voices, setVoices] = useState([]);
+  const audioRefs = useRef({});
 
   useEffect(() => {
     if (voiceSelector) {
@@ -41,6 +43,15 @@ const CTA = ({
     default:
       type = "";
   }
+
+  const handlePlay = (voice_id) => {
+    Object.entries(audioRefs.current).forEach(([id, audio]) => {
+      if (id !== voice_id && audio && !audio.paused) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    });
+  };
 
   return (
     <>
@@ -78,7 +89,12 @@ const CTA = ({
                         ? voice.description.slice(0, 200) + "..."
                         : voice.description}
                     </p>
-                    <audio controls src={voice.preview_url}></audio>
+                    <audio
+                      ref={(el) => (audioRefs.current[voice.voice_id] = el)}
+                      controls
+                      src={voice.preview_url}
+                      onPlay={() => handlePlay(voice.voice_id)}
+                    />
                   </div>
                 ))}
               </div>

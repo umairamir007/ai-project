@@ -31,9 +31,7 @@ export async function synthesizeTTS(args: {
             },
         };
 
-        if (model_id) {
-            payload.model_id = model_id; // ✅ only add if provided
-        }
+        if (model_id) payload.model_id = model_id;
 
         return await elevenClient.post<NodeJS.ReadableStream>(url, payload, {
             params: { optimize_streaming_latency, output_format },

@@ -15,7 +15,17 @@ export async function TextToSpeech(text, voice_id, model_id) {
       { responseType: "arraybuffer" }
     );
 
+    console.log("Response headers:", res.headers);
+    console.log("Response type:", res.headers["content-type"]);
+
     const blob = new Blob([res.data], { type: "audio/mpeg" });
+
+    // If blob is too small, it's probably JSON error
+    if (blob.size < 200) {
+      const textErr = await blob.text();
+      console.error("TTS error response:", textErr);
+      throw new Error("Backend did not return audio");
+    }
     return URL.createObjectURL(blob);
   } catch (err) {
     if (err.response) {
