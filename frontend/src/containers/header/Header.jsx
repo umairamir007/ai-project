@@ -247,11 +247,15 @@ const Header = ({
             >
               <i className="fa fa-arrow-left"></i>
             </button>
-            <h1 className="gradient__text">Speech To Text</h1>
-            <p>
-              Upload an audio file and let AI transcribe it into text instantly.
-            </p>
-            <div className="gpt3__cards-container">
+            <div className="um_gpt_container">
+              <div>
+                <h1 className="gradient__text">Speech To Text</h1>
+                <p>
+                  Upload an audio file and let AI transcribe it into text
+                  instantly.
+                </p>
+              </div>
+
               <button
                 className="plus-button gpt__card-AddButton "
                 onClick={toggleVoiceLab}
@@ -267,4 +271,3 @@ const Header = ({
 };
 
 export default Header;
-

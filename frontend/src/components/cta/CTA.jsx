@@ -179,11 +179,11 @@ const CTA = ({
                     handleSave={(file) => handleSTT(file)}
                     cardText="Speech To Text"
                   />
-                  <FileUpload
+                  {/* <FileUpload
                     isLoading={false}
                     handleSave={(file) => handleSTT(file)}
                     cardText="Speech To Text"
-                  />
+                  /> */}
 
                   {ttsText && (
                     <div style={{ marginTop: "20px" }}>
