@@ -193,7 +193,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  gap: 80px;
 }
 
 .um_content-container {
@@ -353,14 +353,20 @@
 
 @media screen and (max-width: 1400px) {
   .gpt3__cards-container {
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+  }
+
+  .gpt3__header-image {
+    max-width: 400px;
+  }
+
+  .um_container {
+    gap: 40px;
   }
 }
 
 @media screen and (max-width: 1050px) {
-  .gpt3__cards-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .gpt3__header {
     flex-direction: column;
   }
