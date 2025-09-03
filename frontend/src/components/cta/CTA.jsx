@@ -4,6 +4,7 @@ import "./cta.css";
 import { TextUpload, AudioRecorder, FileUpload } from "../../components/index";
 import { fetchVoices } from "../../api/elevenlabs";
 import { TextToSpeech, SpeechToText } from "../../api/textToSpeech";
+import { Loader2 } from "lucide-react";
 
 const CTA = ({
   voiceSelector,
@@ -16,15 +17,18 @@ const CTA = ({
   const isLanding = location.pathname === "/";
 
   const [voices, setVoices] = useState([]);
+  const [voiceLoading, setVoiceLoading] = useState(true);
   const [ttsText, setTtsText] = useState("");
   const [audioSrc, setAudioSrc] = useState("");
   const audioRefs = useRef({});
 
   useEffect(() => {
     if (voiceSelector) {
+      setVoiceLoading(true);
       fetchVoices()
         .then((data) => setVoices(data.voices || data))
         .catch(console.error);
+      setVoiceLoading(false);
     }
   }, [voiceSelector]);
 
@@ -103,6 +107,10 @@ const CTA = ({
                 <p>View Different {type}s Available On Our Platform</p>
                 <h3>Select a {type} from our talent pool</h3>
               </div>
+
+              {voiceLoading && (
+                <Loader2 size={40} className="animate-loader loading-spinner" />
+              )}
 
               <div className="voice-grid">
                 {voices.map((voice) => (
