@@ -71,7 +71,7 @@ const Navbar = ({ type }) => {
         )}
       </div>
 
-      <div className="gpt3__navbar-menu">
+      {/* <div className="gpt3__navbar-menu">
         {toggleMenu ? (
           <RiCloseLine
             color="#fff"
@@ -95,7 +95,7 @@ const Navbar = ({ type }) => {
             </div>
           </div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -14,40 +14,6 @@ const Modal = () => {
   const { currentUser } = useAuth();
 
   const handleTalentClick = async () => {
-    // if (auth.currentUser) {
-    //   const userRef = doc(db, "users", auth.currentUser.uid);
-
-    //   try {
-    //     const userSnap = await getDoc(userRef);
-
-    //     if (!userSnap.exists()) {
-    //       const newUser = {
-    //         uid: auth.currentUser.uid,
-    //         email: auth.currentUser.email,
-    //       };
-
-    //       await setDoc(userRef, newUser);
-
-    //       setSnack({
-    //         message:
-    //           "Welcome to the Talent Dashboard! Your account has been successfully created.",
-    //         type: "success",
-    //       });
-    //       navigate("/talent-dashboard");
-    //     } else {
-    //       navigate("/talent-dashboard");
-    //       setSnack({
-    //         message: "Navigation to talent dashboard successful!",
-    //         type: "success",
-    //       });
-    //     }
-    //   } catch (error) {
-    //     setSnack({
-    //       message: `Error checking user data: ${error.message}`,
-    //       type: "error",
-    //     });
-    //   }
-    // }
     navigate("/talent-dashboard");
     setSnack({
       message: "Navigation to talent dashboard successful!",
@@ -56,45 +22,6 @@ const Modal = () => {
   };
 
   const handleUserClick = async () => {
-    // if (auth.currentUser) {
-    //   const userRef = doc(db, "users", auth.currentUser.uid);
-
-    //   try {
-    //     const userSnap = await getDoc(userRef);
-
-    //     if (!userSnap.exists()) {
-    //       const newUser = {
-    //         uid: auth.currentUser.uid,
-    //         email: auth.currentUser.email,
-    //       };
-
-    //       await setDoc(userRef, newUser);
-    //       setShowModal(false);
-    //       setTimeout(() => {
-    //         navigate("/user-dashboard");
-    //       }, 3000);
-    //       setSnack({
-    //         message:
-    //           "Welcome! Your account has been successfully created. Navigating to the user dashboard...",
-    //         type: "success",
-    //       });
-    //     } else {
-    //       setShowModal(false);
-    //       setTimeout(() => {
-    //         navigate("/user-dashboard");
-    //       }, 3000);
-    //       setSnack({
-    //         message: "Navigation to user dashboard successful!",
-    //         type: "success",
-    //       });
-    //     }
-    //   } catch (error) {
-    //     setSnack({
-    //       message: `Error checking user data: ${error.message}`,
-    //       type: "error",
-    //     });
-    //   }
-    // }
     setShowModal(false);
     setTimeout(() => {
       navigate("/user-dashboard");
