@@ -76,6 +76,10 @@ button:hover,
   font-size: 20px;
 }
 
+.media-player audio {
+  width: 100%;
+}
+
 .media-player-footer {
   display: flex;
   align-items: center;

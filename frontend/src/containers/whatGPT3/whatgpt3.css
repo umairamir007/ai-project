@@ -258,7 +258,6 @@
   transition: box-shadow 0.15s, transform 0.15s;
   user-select: none;
   touch-action: manipulation;
-  white-space: nowrap;
   will-change: box-shadow, transform;
   font-weight: 500; /* Kept from your styles */
   outline: none; /* Kept from your styles */
@@ -292,7 +291,6 @@
 @media (max-width: 768px) {
   .box {
     width: 100%; /* Make the box full-width */
-    max-width: 300px; /* Set a maximum width to control content width on larger screens */
     margin: 0 auto; /* Center the box horizontally */
     margin-bottom: 20px; /* Add some spacing between boxes */
   }
