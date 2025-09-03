@@ -82,7 +82,7 @@ const Header = ({
                 </div>
                 <h2 className="gradient__text">Vocalize</h2>
                 <p>Record or Upload a Clear Sample to Clone a Voice! </p>
-                <button>Select</button>
+                <button className="select-button">Select</button>
               </div> */}
 
               <div
@@ -98,7 +98,7 @@ const Header = ({
                     Achievement!
                   </p>
                 </div>
-                <button>Select</button>
+                <button className="select-button">Select</button>
               </div>
 
               <div
@@ -116,7 +116,7 @@ const Header = ({
                     Submit Your Artwork and Witness its Magical Transformation!{" "}
                   </p>
                 </div>
-                <button>Select</button>
+                <button className="select-button">Select</button>
               </div>
             </div>
           </div>
@@ -141,7 +141,7 @@ const Header = ({
               >
                 <h2 className="gradient__text">Vocalize</h2>
                 <p>Record or Upload a Clear Sample to Clone a Voice! </p>
-                <button>Select</button>
+                <button className="select-button">Select</button>
               </div> */}
 
               <div
@@ -157,7 +157,7 @@ const Header = ({
                     Achievement!
                   </p>
                 </div>
-                <button>Select</button>
+                <button className="select-button">Select</button>
               </div>
 
               <div
@@ -174,7 +174,7 @@ const Header = ({
                     Submit Your Artwork and Witness its Magical Transformation!{" "}
                   </p>
                 </div>
-                <button>Select</button>
+                <button className="select-button">Select</button>
               </div>
             </div>
           </div>

@@ -20,14 +20,14 @@ const Navbar = ({ type }) => {
 
   const talentLinks = [
     { href: "#home", label: "Home" },
-    { href: "#Register", label: "Register Voice" },
-    { href: "#NFT", label: "NFT" },
-    { href: "#Royalties", label: "Royalties" },
+    // { href: "#Register", label: "Register Voice" },
+    // { href: "#NFT", label: "NFT" },
+    // { href: "#Royalties", label: "Royalties" },
   ];
 
   const userLinks = [
     { href: "#home", label: "Home" },
-    { href: "#GeneratePodcast", label: "Generate Podcast" },
+    // { href: "#GeneratePodcast", label: "Generate Podcast" },
   ];
 
   const renderLinks = (links) => (

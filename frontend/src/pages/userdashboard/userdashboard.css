@@ -50,6 +50,10 @@ a {
   );
 }
 
+.min-h-screen {
+  min-height: 50dvh;
+}
+
 .gradient__text {
   background: var(--gradient-text);
   background-clip: text;

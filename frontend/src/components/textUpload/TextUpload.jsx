@@ -1,16 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import "./textupload.css";
 import { getStorage, ref, getDownloadURL, listAll } from "firebase/storage";
-import { getDoc, doc } from "firebase/firestore";
-import { db } from "../google/firebase";
+// import { getDoc, doc } from "firebase/firestore";
+// import { db } from "../google/firebase";
 import { TextToSpeech } from "../../api/textToSpeech";
 
 function TextUpload({ selectedArtist }) {
-  const [selectedLanguage, setSelectedLanguage] = useState("English");
+  // const [selectedLanguage, setSelectedLanguage] = useState("English");
   const [text, setText] = useState("");
   const [sampleURL, setSampleURL] = useState(""); // separate for previews
-  const [ttsURL, setTtsURL] = useState(""); // separate for generated audio
-  console.log("🚀 ~ TextUpload ~ ttsURL:", ttsURL)
+  const [ttsURL, setTtsURL] = useState("");
   const [loading, setLoading] = useState(true);
   const [isPlayingSample, setIsPlayingSample] = useState(false);
   const [isPlayingTts, setIsPlayingTts] = useState(false);
@@ -87,17 +86,20 @@ function TextUpload({ selectedArtist }) {
     }
   };
 
-  // Play snippet preview (first 10s)
+  // Play snippet preview (toggle play/pause)
   const handlePlaySnippet = () => {
-    if (sampleRef.current) {
-      sampleRef.current.currentTime = 0;
-      sampleRef.current.play();
-      setIsPlayingSample(true);
+    if (!sampleRef.current) return;
 
-      setTimeout(() => {
-        sampleRef.current.pause();
-        setIsPlayingSample(false);
-      }, 10000);
+    if (isPlayingSample) {
+      // Pause if already playing
+      sampleRef.current.pause();
+      setIsPlayingSample(false);
+    } else {
+      // Resume or start playback
+      sampleRef.current
+        .play()
+        .catch((err) => console.error("Playback failed:", err));
+      setIsPlayingSample(true);
     }
   };
 
@@ -115,16 +117,33 @@ function TextUpload({ selectedArtist }) {
     }
   };
 
+  // Reset state when audio ends
+  useEffect(() => {
+    const audio = sampleRef.current;
+    if (!audio) return;
+
+    const handleEnded = () => setIsPlayingSample(false);
+
+    audio.addEventListener("ended", handleEnded);
+    return () => audio.removeEventListener("ended", handleEnded);
+  }, [sampleRef]);
+
   return (
     <div className="app-frame">
       <div className="container">
         {/* Preview sample */}
         {sampleURL && (
           <div className="media-player">
-            <button onClick={handlePlaySnippet}>
-              {isPlayingSample ? "⏸ Pause" : "▶ Play Sample Of Talent"}
-            </button>
-            <audio ref={sampleRef} src={sampleURL} preload="none" />
+          <h2>Play Sample Of Talent</h2>
+            <audio
+              ref={sampleRef}
+              src={sampleURL}
+              preload="none"
+              controls
+              onPlay={() => setIsPlayingSample(true)}
+              onPause={() => setIsPlayingSample(false)}
+              onEnded={() => setIsPlayingSample(false)}
+            />
           </div>
         )}
 
@@ -142,7 +161,7 @@ function TextUpload({ selectedArtist }) {
 
         {/* Generated TTS playback */}
         {ttsURL && (
-          <div className="media-player">
+          <div className="media-player-footer">
             <button onClick={handlePlayAudio}>
               {isPlayingTts ? "⏸ Pause" : "▶ Play Generated Audio"}
             </button>

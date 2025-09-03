@@ -1,20 +1,15 @@
-import { Footer, Blog, WhatGPT3, Header } from "../../containers";
-import { CTA, Brand } from "../../components";
-import { useAccount } from "wagmi";
+import { Footer, WhatGPT3, Header } from "../../containers";
+import { CTA } from "../../components";
 import { Navbar } from "../../components";
 
 import "./userdashboard.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const UserDasboard = () => {
-  const { isConnected, address } = useAccount();
   const [voiceLab, setVoiceLab] = useState(false);
-  console.log("🚀 ~ UserDasboard ~ voiceLab:", voiceLab)
   const [showContent, setShowContent] = useState(null);
   const [voiceSelector, setVoiceSelector] = useState(false);
-  console.log("🚀 ~ UserDasboard ~ voiceSelector:", voiceSelector)
   const [selectedArtist, setSelectedArtist] = useState(null);
-  console.log("🚀 ~ UserDasboard ~ selectedArtist:", selectedArtist)
 
   const handleVoiceSelection = () => {
     setVoiceSelector(!voiceSelector);
@@ -29,12 +24,18 @@ const UserDasboard = () => {
     setSelectedArtist(user);
   };
 
+  useEffect(() => {
+    if (!voiceLab) {
+      setVoiceSelector(false);
+    }
+  }, [voiceLab]);
+
   return (
     <div className="App">
       <div className="gradient__bg">
         <Navbar type="User" />
         {/* {isConnected && address && ( */}
-        <>
+        <div className="min-h-screen">
           <Header
             voiceLab={voiceLab}
             setVoiceLab={setVoiceLab}
@@ -56,8 +57,8 @@ const UserDasboard = () => {
             selectedArtist={selectedArtist}
           />
           {/* <Blog selectedArtist={selectedArtist} /> */}
-          <Footer />
-        </>
+        </div>
+        <Footer />
         {/* )} */}
       </div>
     </div>
