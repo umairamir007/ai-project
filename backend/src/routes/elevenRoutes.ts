@@ -1,21 +1,15 @@
-import { Router } from "express";
+import express from "express";
 import multer from "multer";
-import {
-  tts,
-  voiceInfo,
-  voiceAdd,
-  getVoices,
-} from "../controllers/elevenlabs.controller";
+import { tts, stt, getVoices, voiceInfo, voiceAdd } from "../controllers/elevenlabs.controller";
 
-const router = Router();
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: { fileSize: 20 * 1024 * 1024 },
-});
+const router = express.Router();
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 
 router.post("/tts", tts);
-router.get("/voices/:id", voiceInfo);
-router.post("/voices/add", upload.single("file"), voiceAdd);
+router.post("/stt", upload.single("file"), stt);
 router.get("/voices", getVoices);
+router.get("/voices/:id", voiceInfo);
+router.post("/voices", upload.single("file"), voiceAdd);
 
 export default router;

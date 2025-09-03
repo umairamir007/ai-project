@@ -68,7 +68,6 @@ const WhatGPT3 = ({
 
         // Clone voice model on Fish Audio (only if cardText === "Vocalize")
         if (cardText === "Vocalize") {
-          console.log("🚀 ~ handleSave ~ cardText:", cardText);
           const voiceId = await cloneMiniMaxVoice(file);
           console.log("MiniMax voice cloned:", voiceId);
         }
@@ -97,10 +96,10 @@ const WhatGPT3 = ({
   };
 
   const handleSelected = () => {
-    if (!selectedArtist) {
+    if (!selectedArtist && showContent === 2) {
       return <p>Select from our talent pool below</p>;
     } else {
-      return <p>{selectedArtist.displayName} Selected</p>;
+      return <p>Select</p>;
     }
   };
 
@@ -110,10 +109,10 @@ const WhatGPT3 = ({
       cardText = "Vocalize";
       break;
     case 2:
-      cardText = "Scriptize";
+      cardText = "Text To Speech";
       break;
     case 3:
-      cardText = "Visionize";
+      cardText = "Speech To Text";
       break;
     default:
       cardText = "";
@@ -133,6 +132,8 @@ const WhatGPT3 = ({
     default:
       headingText = "";
   }
+
+  console.log("cardText", cardText);
 
   if (isTalentDashboard && !cardText) return null;
 
@@ -160,6 +161,7 @@ const WhatGPT3 = ({
           </div>
         </div>
       )}
+
       {isTalentDashboard && (
         <div className="gpt3__whatgpt3 section__margin" id="wgpt3">
           <div className="gpt3__whatgpt3-heading">
@@ -178,7 +180,7 @@ const WhatGPT3 = ({
                 />
               </>
             )} */}
-            {cardText === "Scriptize" && (
+            {cardText === "Text To Speech" && (
               <>
                 <h1 className="gradient__text">{cardText}</h1>
                 <FileUpload
@@ -209,35 +211,43 @@ const WhatGPT3 = ({
                 </div>
               </>
             )}
-            {cardText === "Visionize" && (
+            {cardText === "Speech To Text" && (
               <>
                 <h1 className="gradient__text">{cardText}</h1>
                 <FileUpload
                   isLoading={isLoading}
                   handleSave={handleSave}
                   cardText={cardText}
+                  onExtractedText={async (text) => {
+                    setTtsText(text);
+                    const url = await TextToSpeech(
+                      text,
+                      "OrvTmw7J3whxVXkEvMBj"
+                    );
+                    setAudioSrc(url);
+                  }}
                 />
               </>
             )}
           </div>
         </div>
       )}
+
       {voiceLab && isUserDashboard && (
-        <>
-          <div className="gpt3__whatgpt3 section__margin" id="wgpt3">
-            <div className="gpt3__whatgpt3-heading">
-              <h1 className="gradient__text">{headingText}</h1>
-            </div>
-            <div className={`box`} onClick={handleVoiceSelection}>
-              <i
-                className={`fa ${
-                  voiceSelector ? "fa-check-circle" : "fa-plus-circle"
-                }`}
-              ></i>
-              {handleSelected()}
-            </div>
+        <div className="gpt3__whatgpt3 section__margin" id="wgpt3">
+          <div className="gpt3__whatgpt3-heading">
+            <h1 className="gradient__text">{headingText}</h1>
           </div>
-        </>
+
+          <div className={`box`} onClick={handleVoiceSelection}>
+            <i
+              className={`fa ${
+                voiceSelector ? "fa-check-circle" : "fa-plus-circle"
+              }`}
+            ></i>
+            {handleSelected()}
+          </div>
+        </div>
       )}
     </>
   );

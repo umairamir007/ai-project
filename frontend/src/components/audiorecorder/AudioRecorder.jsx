@@ -5,25 +5,34 @@ import "./audiorecorder.css";
 function AudioRecorder({ isLoading, handleSave, cardText }) {
   const [recording, setRecording] = useState(false);
   const [audioURL, setAudioURL] = useState("");
+  const [audioFile, setAudioFile] = useState(null);
   const mediaRecorderRef = useRef(null);
-  const [audioBlob, setAudioBlob] = useState(null);
   const audioChunksRef = useRef([]);
 
   const startRecording = async () => {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    audioChunksRef.current = []; // reset before each new recording
     mediaRecorderRef.current = new MediaRecorder(stream);
+
     mediaRecorderRef.current.ondataavailable = (event) => {
-      audioChunksRef.current.push(event.data);
+      if (event.data.size > 0) {
+        audioChunksRef.current.push(event.data);
+      }
     };
+
     mediaRecorderRef.current.onstop = () => {
       const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
-      const url = URL.createObjectURL(audioBlob);
-      setAudioURL(url);
-      setAudioBlob(audioBlob); // Save the audioBlob in state
-      audioBlob.name = `audio_recording_${Date.now()}.wav`;
 
-      audioChunksRef.current = []; // Clear the chunks
+      // Always wrap blob in File for upload
+      const file = new File([audioBlob], `audio_recording_${Date.now()}.wav`, {
+        type: "audio/wav",
+      });
+
+      setAudioFile(file);
+      setAudioURL(URL.createObjectURL(audioBlob));
+      audioChunksRef.current = []; // clear chunks
     };
+
     mediaRecorderRef.current.start();
     setRecording(true);
   };
@@ -35,33 +44,26 @@ function AudioRecorder({ isLoading, handleSave, cardText }) {
     }
   };
 
+  const resetRecording = () => {
+    setAudioURL("");
+    setAudioFile(null);
+    audioChunksRef.current = [];
+  };
+
+  const saveRecording = () => {
+    if (!audioFile) return;
+    console.log("Saving file:", audioFile);
+    console.log("cardText:", cardText);
+    handleSave([audioFile], cardText); // always pass as File[]
+  };
+
   return (
     <div className="audio-recorder-container">
       <div className="audio-controls">
         {audioURL ? (
           <>
-            <button
-              onClick={() => {
-                setAudioURL("");
-                audioChunksRef.current = [];
-              }}
-            >
-              Try Again
-            </button>
-            <button
-              onClick={() => {
-                console.log("Saving blob: ", audioBlob);
-                console.log("cardText:", cardText);
-                const file = new File(
-                  [audioBlob],
-                  `audio_recording_${Date.now()}.wav`,
-                  {
-                    type: "audio/wav",
-                  }
-                );
-                handleSave([file], cardText);
-              }}
-            >
+            <button onClick={resetRecording}>Try Again</button>
+            <button onClick={saveRecording}>
               {isLoading ? "Saving..." : "Save"}
             </button>
           </>
@@ -73,6 +75,7 @@ function AudioRecorder({ isLoading, handleSave, cardText }) {
           <button onClick={startRecording}>Start Recording</button>
         )}
       </div>
+
       {audioURL && (
         <div className="audio-playback">
           <audio controls src={audioURL}></audio>

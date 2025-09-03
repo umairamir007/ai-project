@@ -10,6 +10,7 @@ const UserDasboard = () => {
   const [showContent, setShowContent] = useState(null);
   const [voiceSelector, setVoiceSelector] = useState(false);
   const [selectedArtist, setSelectedArtist] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null)
 
   const handleVoiceSelection = () => {
     setVoiceSelector(!voiceSelector);
@@ -42,6 +43,7 @@ const UserDasboard = () => {
             setShowContent={setShowContent}
             showContent={showContent}
             onCloseContent={handleCloseContent}
+            setSelectedCard={setSelectedCard}
           />
           <WhatGPT3
             voiceLab={voiceLab}
@@ -49,6 +51,7 @@ const UserDasboard = () => {
             handleVoiceSelection={handleVoiceSelection}
             showContent={showContent}
             selectedArtist={selectedArtist}
+            selectedCard={selectedCard}
           />
           <CTA
             showContent={showContent}

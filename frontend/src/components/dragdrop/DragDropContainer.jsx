@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import * as pdfjsLib from "pdfjs-dist";
 import mammoth from "mammoth";
 import "./DragDropContainer.css";
+import { SpeechToText } from "../../api/textToSpeech";
 
 function FileUpload({ isLoading, handleSave, cardText, onExtractedText }) {
   const [dragging, setDragging] = useState(false);
@@ -45,6 +46,12 @@ function FileUpload({ isLoading, handleSave, cardText, onExtractedText }) {
   };
 
   const extractTextFromFile = async (file) => {
+    if (file.type.startsWith("audio/")) {
+      console.log("Uploading audio to STT:", file);
+      const transcription = await SpeechToText(file); // calls backend
+      return transcription?.text || "";
+    }
+
     if (file.type === "text/plain") {
       return file.text();
     }
@@ -90,7 +97,7 @@ function FileUpload({ isLoading, handleSave, cardText, onExtractedText }) {
         ref={fileInputRef}
         style={{ display: "none" }}
         onChange={handleFileSelect}
-        accept=".txt,.pdf,.docx"
+        accept=".txt,.pdf,.docx,.mp3,.wav,.m4a,.mp4"
       />
       <div
         className={`dropzone ${dragging ? "dragging" : ""}`}

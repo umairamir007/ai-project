@@ -151,7 +151,7 @@ const Header = ({
                 }}
               >
                 <div>
-                  <h2 className="gradient__text">Scriptize</h2>
+                  <h2 className="gradient__text">Text To Speech</h2>
                   <p>
                     Submit Your Inspiring Script: Ignite the Path to Ultimate
                     Achievement!
@@ -169,7 +169,7 @@ const Header = ({
                 }}
               >
                 <div>
-                  <h2 className="gradient__text">Visionize</h2>
+                  <h2 className="gradient__text">Speech To Text</h2>
                   <p>
                     Submit Your Artwork and Witness its Magical Transformation!{" "}
                   </p>
@@ -247,17 +247,16 @@ const Header = ({
             >
               <i className="fa fa-arrow-left"></i>
             </button>
-            <h1 className="gradient__text">Art Synthesis</h1>
+            <h1 className="gradient__text">Speech To Text</h1>
             <p>
-              Unleash the power of our cutting edge technology to generate
-              amazing artwork
+              Upload an audio file and let AI transcribe it into text instantly.
             </p>
             <div className="gpt3__cards-container">
               <button
                 className="plus-button gpt__card-AddButton "
                 onClick={toggleVoiceLab}
               >
-                <i className="fa fa-plus"></i> Add Art
+                <i className="fa fa-plus"></i> Add Audio
               </button>
             </div>
           </div>
@@ -269,5 +268,3 @@ const Header = ({
 
 export default Header;
 
-{
-}

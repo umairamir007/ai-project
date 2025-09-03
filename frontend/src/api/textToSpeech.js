@@ -41,3 +41,19 @@ export async function TextToSpeech(text, voice_id, model_id) {
     throw new Error(err.message || "TTS request failed");
   }
 }
+
+// Speech → Text
+export const SpeechToText = async (file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const res = await axios.post(
+    `${import.meta.env.VITE_API_BASE}/elevenlabs/stt`,
+    formData,
+    {
+      headers: { "Content-Type": "multipart/form-data" },
+    }
+  );
+
+  return res.data;
+};

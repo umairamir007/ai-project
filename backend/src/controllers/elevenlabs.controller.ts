@@ -3,12 +3,9 @@ import {
   getVoiceById,
   addVoice,
 } from "../services/ElevenLabs/elevenLabs.service";
-import { ElevenLabsClient } from "elevenlabs";
 import { Readable } from "stream";
-
-const client = new ElevenLabsClient({
-  apiKey: process.env.ELEVENLABS_API_KEY!,
-});
+import { Blob } from "buffer";
+import { client } from "../constants";
 
 /**
  * Text → Speech
@@ -59,6 +56,44 @@ export async function tts(req: Request, res: Response) {
   } catch (err: any) {
     console.error("TTS failed:", err.response?.data || err.message || err);
     res.status(500).json({ error: "TTS failed" });
+  }
+}
+
+/**
+ * Speech → Text (STT)
+ */
+export async function stt(req: Request, res: Response) {
+
+  console.log("Multer parsed file:", {
+    fieldname: req.file?.fieldname,
+    originalname: req.file?.originalname,
+    mimetype: req.file?.mimetype,
+    size: req.file?.size,
+  });
+
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: "audio file is required" });
+    }
+
+    const audioFile = new File(
+      [new Uint8Array(req.file.buffer)],
+      req.file.originalname,
+      { type: req.file.mimetype }
+    );
+
+    const transcription = await client.speechToText.convert({
+      file: audioFile,
+      model_id: "scribe_v1",
+      tag_audio_events: true,
+      language_code: "eng",
+      diarize: true,
+    });
+
+    res.json(transcription);
+  } catch (err: any) {
+    console.error("STT failed:", err.response?.data || err.message || err);
+    res.status(500).json({ error: "STT failed" });
   }
 }
 

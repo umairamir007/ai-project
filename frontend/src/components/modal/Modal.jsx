@@ -98,7 +98,7 @@ const Modal = () => {
     setShowModal(false);
     setTimeout(() => {
       navigate("/user-dashboard");
-    }, 3000);
+    }, 1000);
     setSnack({
       message: "Navigation to user dashboard successful!",
       type: "success",
@@ -130,18 +130,18 @@ const Modal = () => {
             {currentUser && (
               <>
                 <div className="modal-sections">
-                  <div className="modal-content">
+                  {/* <div className="modal-content">
                     <button onClick={handleTalentClick}>
                       Talent Dashboard
                     </button>
-                  </div>
+                  </div> */}
                   <div className="modal-content">
                     <button onClick={handleUserClick}>User Dashboard</button>
                   </div>
                 </div>
-                <div className="logout">
+                {/* <div className="logout">
                   <Logout />
-                </div>
+                </div> */}
               </>
             )}
             <div className="modal-close">

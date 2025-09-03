@@ -10,15 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tts = tts;
+exports.stt = stt;
 exports.voiceInfo = voiceInfo;
 exports.voiceAdd = voiceAdd;
 exports.getVoices = getVoices;
 const elevenLabs_service_1 = require("../services/ElevenLabs/elevenLabs.service");
-const elevenlabs_1 = require("elevenlabs");
 const stream_1 = require("stream");
-const client = new elevenlabs_1.ElevenLabsClient({
-    apiKey: process.env.ELEVENLABS_API_KEY,
-});
+const constants_1 = require("../constants");
 /**
  * Text → Speech
  * Streams ElevenLabs TTS audio back to frontend
@@ -32,7 +30,7 @@ function tts(req, res) {
                 return res.status(400).json({ error: "text and voice_id are required" });
             }
             // Force type to Web ReadableStream
-            const webStream = yield client.textToSpeech.convertAsStream(voice_id, {
+            const webStream = yield constants_1.client.textToSpeech.convertAsStream(voice_id, {
                 model_id: "eleven_turbo_v2", // optional
                 text,
                 output_format: "mp3_44100_128",
@@ -68,6 +66,38 @@ function tts(req, res) {
         catch (err) {
             console.error("TTS failed:", ((_a = err.response) === null || _a === void 0 ? void 0 : _a.data) || err.message || err);
             res.status(500).json({ error: "TTS failed" });
+        }
+    });
+}
+/**
+ * Speech → Text (STT)
+ */
+function stt(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        var _a, _b, _c, _d, _e;
+        console.log("Multer parsed file:", {
+            fieldname: (_a = req.file) === null || _a === void 0 ? void 0 : _a.fieldname,
+            originalname: (_b = req.file) === null || _b === void 0 ? void 0 : _b.originalname,
+            mimetype: (_c = req.file) === null || _c === void 0 ? void 0 : _c.mimetype,
+            size: (_d = req.file) === null || _d === void 0 ? void 0 : _d.size,
+        });
+        try {
+            if (!req.file) {
+                return res.status(400).json({ error: "audio file is required" });
+            }
+            const audioFile = new File([new Uint8Array(req.file.buffer)], req.file.originalname, { type: req.file.mimetype });
+            const transcription = yield constants_1.client.speechToText.convert({
+                file: audioFile,
+                model_id: "scribe_v1",
+                tag_audio_events: true,
+                language_code: "eng",
+                diarize: true,
+            });
+            res.json(transcription);
+        }
+        catch (err) {
+            console.error("STT failed:", ((_e = err.response) === null || _e === void 0 ? void 0 : _e.data) || err.message || err);
+            res.status(500).json({ error: "STT failed" });
         }
     });
 }
@@ -121,7 +151,7 @@ function getVoices(_req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         var _a;
         try {
-            const voices = yield client.voices.getAll(); // only owned
+            const voices = yield constants_1.client.voices.getAll(); // only owned
             res.json(voices);
         }
         catch (err) {

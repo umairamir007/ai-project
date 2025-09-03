@@ -80,6 +80,5 @@ button.recording {
 }
 
 .audio-playback {
-  width: 100%;
   max-width: 400px; /* Or any other value you deem fit */
 }

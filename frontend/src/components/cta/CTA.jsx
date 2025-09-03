@@ -1,9 +1,9 @@
 import { useLocation } from "react-router-dom";
-import {useRef} from "react";
+import { useRef, useEffect, useState } from "react";
 import "./cta.css";
-import { TextUpload } from "../../components/index";
-import { useEffect, useState } from "react";
+import { TextUpload, AudioRecorder, FileUpload } from "../../components/index";
 import { fetchVoices } from "../../api/elevenlabs";
+import { TextToSpeech, SpeechToText } from "../../api/textToSpeech";
 
 const CTA = ({
   voiceSelector,
@@ -16,15 +16,14 @@ const CTA = ({
   const isLanding = location.pathname === "/";
 
   const [voices, setVoices] = useState([]);
+  const [ttsText, setTtsText] = useState("");
+  const [audioSrc, setAudioSrc] = useState("");
   const audioRefs = useRef({});
 
   useEffect(() => {
     if (voiceSelector) {
       fetchVoices()
-        .then((data) => {
-          // some APIs return {voices: []}, normalize
-          setVoices(data.voices || data);
-        })
+        .then((data) => setVoices(data.voices || data))
         .catch(console.error);
     }
   }, [voiceSelector]);
@@ -53,6 +52,34 @@ const CTA = ({
     });
   };
 
+  const handleTTS = async () => {
+    if (!selectedArtist) return alert("Please select a voice first.");
+    try {
+      const url = await TextToSpeech(ttsText, selectedArtist.voice_id);
+      setAudioSrc(url);
+    } catch (err) {
+      console.error("TTS failed:", err);
+      alert("Failed to convert text to speech");
+    }
+  };
+
+  const handleSTT = async (file) => {
+    try {
+      const result = await SpeechToText(file);
+      const text = result?.text || "";
+      setTtsText(text);
+
+      // optional: also auto-run TTS with selected voice
+      if (selectedArtist) {
+        const url = await TextToSpeech(text, selectedArtist.voice_id);
+        setAudioSrc(url);
+      }
+    } catch (err) {
+      console.error("STT failed:", err);
+      alert("Failed to transcribe speech");
+    }
+  };
+
   return (
     <>
       {isLanding && (
@@ -69,7 +96,8 @@ const CTA = ({
 
       {voiceSelector && isUserDashboard && showContent && (
         <div className="gpt3__cta-user section__margin">
-          {!selectedArtist ? (
+          {/* Require artist only for Script (2) */}
+          {showContent === 2 && !selectedArtist ? (
             <>
               <div className="gpt3__cta-content-user">
                 <p>View Different {type}s Available On Our Platform</p>
@@ -103,17 +131,85 @@ const CTA = ({
             <>
               <div className="gpt3__cta-content-user">
                 <h2>
-                  Upload Your Text for a Stunning Voice Over with{" "}
-                  {selectedArtist.name}
+                  {showContent === 2
+                    ? `Upload Your Text for a Stunning Voice Over with ${
+                        selectedArtist?.name || "Selected Voice"
+                      }`
+                    : `Upload or Record Audio to Transcribe`}
                 </h2>
-                <button
-                  style={{ marginLeft: "20px" }}
-                  onClick={() => handleSelectedArtist(null)}
-                >
-                  Choose Again
-                </button>
+
+                {/* Only show "Choose Again" when a voice is required (Script) */}
+                {showContent === 2 && (
+                  <button
+                    style={{ marginLeft: "20px" }}
+                    onClick={() => handleSelectedArtist(null)}
+                  >
+                    Choose Again
+                  </button>
+                )}
               </div>
-              <TextUpload selectedArtist={selectedArtist} />
+
+              {/* ✅ Content 2: needs artist */}
+              {showContent === 2 && selectedArtist && (
+                <div>
+                  <TextUpload
+                    selectedArtist={selectedArtist}
+                    onGenerate={(text) => setTtsText(text)}
+                  />
+                  {ttsText && (
+                    <div style={{ marginTop: "20px" }}>
+                      <textarea
+                        value={ttsText}
+                        onChange={(e) => setTtsText(e.target.value)}
+                        rows={5}
+                        style={{ width: "100%" }}
+                      />
+                      <button onClick={handleTTS}>Speak</button>
+                      {audioSrc && <audio controls src={audioSrc}></audio>}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* ✅ Content 3: works with or without artist */}
+              {showContent === 3 && (
+                <div>
+                  <AudioRecorder
+                    isLoading={false}
+                    handleSave={(file) => handleSTT(file)}
+                    cardText="Speech To Text"
+                  />
+                  <FileUpload
+                    isLoading={false}
+                    handleSave={(file) => handleSTT(file)}
+                    cardText="Speech To Text"
+                  />
+
+                  {ttsText && (
+                    <div style={{ marginTop: "20px" }}>
+                      <h3>Transcribed Text</h3>
+                      <textarea
+                        value={ttsText}
+                        onChange={(e) => setTtsText(e.target.value)}
+                        rows={5}
+                        style={{ width: "100%" }}
+                      />
+                      {/* Only allow TTS if artist is selected */}
+                      {selectedArtist ? (
+                        <>
+                          <button onClick={handleTTS}>Convert to Speech</button>
+                          {audioSrc && <audio controls src={audioSrc}></audio>}
+                        </>
+                      ) : (
+                        <p style={{ marginTop: "10px" }}>
+                          ✅ Transcript ready. (Select a voice above if you also
+                          want speech playback.)
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
             </>
           )}
         </div>

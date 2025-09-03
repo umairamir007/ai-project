@@ -1,3 +1,4 @@
+import { ElevenLabsClient } from "elevenlabs";
 require("dotenv").config();
 
 export const IS_TEST_MODE = false;
@@ -24,3 +25,7 @@ export const validExchanges = ["raydium", "jupiter"];
 export const ADMIN_EMAIL = "umairamir@decryptedlabs.io"; // admin email
 
 export const FRONTEND_URL = "https://ai-lama.vercel.app"
+
+export const client = new ElevenLabsClient({
+  apiKey: process.env.ELEVENLABS_API_KEY!,
+});
