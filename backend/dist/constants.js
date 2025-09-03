@@ -23,4 +23,4 @@ exports.ONE_WEEK_DURATION = 604800; //7 days
 exports.PROTOCOL_FEES = 0.0002; //0.2%
 exports.validExchanges = ["raydium", "jupiter"];
 exports.ADMIN_EMAIL = "umairamir@decryptedlabs.io"; // admin email
-exports.FRONTEND_URL = "https://ai-project-pearl.vercel.app/";
+exports.FRONTEND_URL = "https://ai-lama.vercel.app";

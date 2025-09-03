@@ -23,4 +23,4 @@ export const PROTOCOL_FEES = 0.0002; //0.2%
 export const validExchanges = ["raydium", "jupiter"];
 export const ADMIN_EMAIL = "umairamir@decryptedlabs.io"; // admin email
 
-export const FRONTEND_URL = "https://ai-project-pearl.vercel.app/"
+export const FRONTEND_URL = "https://ai-lama.vercel.app"
