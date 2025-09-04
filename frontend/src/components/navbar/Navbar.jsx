@@ -10,7 +10,7 @@ const Navbar = ({ type }) => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
   const defaultLinks = [
-    { href: "#home", label: "Home" },
+    // { href: "#home", label: "Home" },
     { href: "#wgpt3", label: "What is iSai?" },
     { href: "#possibility", label: "Tech with a heart" },
     { href: "#features", label: "Case Studies" },
@@ -18,14 +18,14 @@ const Navbar = ({ type }) => {
   ];
 
   const talentLinks = [
-    { href: "#home", label: "Home" },
+    // { href: "#home", label: "Home" },
     // { href: "#Register", label: "Register Voice" },
     // { href: "#NFT", label: "NFT" },
     // { href: "#Royalties", label: "Royalties" },
   ];
 
   const userLinks = [
-    { href: "#home", label: "Home" },
+    // { href: "#home", label: "Home" },
     // { href: "#GeneratePodcast", label: "Generate Podcast" },
   ];
 

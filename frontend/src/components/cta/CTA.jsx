@@ -18,18 +18,38 @@ const CTA = ({
 
   const [voices, setVoices] = useState([]);
   const [voiceLoading, setVoiceLoading] = useState(true);
+
   const [ttsText, setTtsText] = useState("");
   const [audioSrc, setAudioSrc] = useState("");
+
+  // ✅ STT UI state
+  const [sttLoading, setSttLoading] = useState(false);
+  const [sttError, setSttError] = useState(null);
+
   const audioRefs = useRef({});
 
+  // ✅ Robust voice fetch: only mark not-loading after we actually finish
   useEffect(() => {
-    if (voiceSelector) {
-      setVoiceLoading(true);
-      fetchVoices()
-        .then((data) => setVoices(data.voices || data))
-        .catch(console.error);
-      setVoiceLoading(false);
-    }
+    if (!voiceSelector) return;
+
+    let mounted = true;
+    (async () => {
+      try {
+        setVoiceLoading(true);
+        const data = await fetchVoices();
+        if (!mounted) return;
+        setVoices(data?.voices || data || []);
+      } catch (e) {
+        console.error(e);
+        if (mounted) setVoices([]);
+      } finally {
+        if (mounted) setVoiceLoading(false);
+      }
+    })();
+
+    return () => {
+      mounted = false;
+    };
   }, [voiceSelector]);
 
   let type = "";
@@ -58,6 +78,8 @@ const CTA = ({
 
   const handleTTS = async () => {
     if (!selectedArtist) return alert("Please select a voice first.");
+    if (!ttsText.trim()) return alert("Please enter some text to speak.");
+
     try {
       const url = await TextToSpeech(ttsText, selectedArtist.voice_id);
       setAudioSrc(url);
@@ -67,20 +89,33 @@ const CTA = ({
     }
   };
 
-  const handleSTT = async (file) => {
+  const handleSTT = async (incoming) => {
+    if (sttLoading) return; // guard
+    setSttError(null);
+    setSttLoading(true);
     try {
-      const result = await SpeechToText(file);
-      const text = result?.text || "";
+      // Accept File | Blob | FileList | Array<File>
+      let f = incoming;
+      if (Array.isArray(incoming)) {
+        f = incoming[0];
+      } else if (incoming && typeof incoming === "object" && "length" in incoming && incoming.length > 0) {
+        f = incoming[0];
+      }
+
+      const result = await SpeechToText(f);
+      const text = result?.text ?? "";
       setTtsText(text);
 
-      // optional: also auto-run TTS with selected voice
-      if (selectedArtist) {
+      // optional: also auto-run TTS with selected voice if any text
+      if (selectedArtist && text.trim()) {
         const url = await TextToSpeech(text, selectedArtist.voice_id);
         setAudioSrc(url);
       }
     } catch (err) {
       console.error("STT failed:", err);
-      alert("Failed to transcribe speech");
+      setSttError(err?.message || "Failed to transcribe speech");
+    } finally {
+      setSttLoading(false);
     }
   };
 
@@ -108,46 +143,48 @@ const CTA = ({
                 <h3>Select a {type} from our talent pool</h3>
               </div>
 
-              {voiceLoading && (
+              {voiceLoading ? (
                 <Loader2 size={40} className="animate-loader loading-spinner" />
+              ) : (
+                <div className="voice-grid">
+                  {voices?.length ? (
+                    voices.map((voice) => (
+                      <div
+                        key={voice.voice_id}
+                        className="voice-card"
+                        onClick={() => handleSelectedArtist(voice)}
+                      >
+                        <h4>{voice.name}</h4>
+                        <p className="description">
+                          {voice.description && voice.description.length > 200
+                            ? voice.description.slice(0, 200) + "..."
+                            : voice.description}
+                        </p>
+                        <audio
+                          ref={(el) => (audioRefs.current[voice.voice_id] = el)}
+                          controls
+                          src={voice.preview_url}
+                          onPlay={() => handlePlay(voice.voice_id)}
+                        />
+                      </div>
+                    ))
+                  ) : (
+                    <p>No voices found.</p>
+                  )}
+                </div>
               )}
-
-              <div className="voice-grid">
-                {voices.map((voice) => (
-                  <div
-                    key={voice.voice_id}
-                    className="voice-card"
-                    onClick={() => handleSelectedArtist(voice)}
-                  >
-                    <h4>{voice.name}</h4>
-                    <p className="description">
-                      {voice.description && voice.description.length > 200
-                        ? voice.description.slice(0, 200) + "..."
-                        : voice.description}
-                    </p>
-                    <audio
-                      ref={(el) => (audioRefs.current[voice.voice_id] = el)}
-                      controls
-                      src={voice.preview_url}
-                      onPlay={() => handlePlay(voice.voice_id)}
-                    />
-                  </div>
-                ))}
-              </div>
             </>
           ) : (
             <>
               <div className="gpt3__cta-content-user">
                 <h2>
                   {showContent === 2
-                    ? `Upload Your Text for a Stunning Voice Over with ${
-                        selectedArtist?.name || "Selected Voice"
-                      }`
+                    ? `Upload Your Text for a Stunning Voice Over with ${selectedArtist?.name || "Selected Voice"}`
                     : `Upload or Record Audio to Transcribe`}
                 </h2>
 
                 {/* Only show "Choose Again" when a voice is required (Script) */}
-                {showContent === 2 && (
+                {showContent === 2 && selectedArtist && (
                   <button
                     style={{ marginLeft: "20px" }}
                     onClick={() => handleSelectedArtist(null)}
@@ -172,7 +209,9 @@ const CTA = ({
                         rows={5}
                         style={{ width: "100%" }}
                       />
-                      <button onClick={handleTTS}>Speak</button>
+                      <button onClick={handleTTS} disabled={!ttsText.trim()}>
+                        Speak
+                      </button>
                       {audioSrc && <audio controls src={audioSrc}></audio>}
                     </div>
                   )}
@@ -183,36 +222,45 @@ const CTA = ({
               {showContent === 3 && (
                 <div>
                   <AudioRecorder
-                    isLoading={false}
-                    handleSave={(file) => handleSTT(file)}
+                    isLoading={sttLoading}
+                    handleSave={handleSTT}
                     cardText="Speech To Text"
                   />
                   {/* <FileUpload
-                    isLoading={false}
-                    handleSave={(file) => handleSTT(file)}
+                    isLoading={sttLoading}
+                    handleSave={handleSTT}
                     cardText="Speech To Text"
                   /> */}
 
-                  {ttsText && (
-                    <div style={{ marginTop: "20px" }}>
+                  {(sttLoading || ttsText) && (
+                    <div className="input-area" style={{ marginTop: "20px" }}>
                       <h3>Transcribed Text</h3>
-                      <textarea
-                        value={ttsText}
-                        onChange={(e) => setTtsText(e.target.value)}
-                        rows={5}
-                        style={{ width: "100%" }}
-                      />
-                      {/* Only allow TTS if artist is selected */}
-                      {selectedArtist ? (
-                        <>
-                          <button onClick={handleTTS}>Convert to Speech</button>
-                          {audioSrc && <audio controls src={audioSrc}></audio>}
-                        </>
+
+                      {sttLoading ? (
+                        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                          <Loader2 size={24} className="animate-loader loading-spinner" />
+                          <span>Transcribing…</span>
+                        </div>
                       ) : (
-                        <p style={{ marginTop: "10px" }}>
-                          ✅ Transcript ready. (Select a voice above if you also
-                          want speech playback.)
-                        </p>
+                        <>
+                          {sttError && (
+                            <p className="stt-error" style={{ color: "#b00020" }}>{sttError}</p>
+                          )}
+                          <textarea
+                            value={ttsText}
+                            onChange={(e) => setTtsText(e.target.value)}
+                            placeholder="Type in your text here..."
+                          />
+                          {/* Only allow TTS if artist is selected */}
+                          {selectedArtist ? (
+                            <>
+                              <button onClick={handleTTS} disabled={!ttsText.trim()}>
+                                Convert to Speech
+                              </button>
+                              {audioSrc && <audio controls src={audioSrc}></audio>}
+                            </>
+                          ) : null}
+                        </>
                       )}
                     </div>
                   )}
