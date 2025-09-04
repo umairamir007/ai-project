@@ -17,7 +17,7 @@ const Footer = () => (
       <div className="gpt3__footer-links_logo">
         <img
           src={gpt3Logo}
-          style={{ width: "120px", height: "100%" }}
+          style={{ width: "80px", height: "100%" }}
           alt="gpt3_logo"
         />
         <p>Inclusive Smart Artificial Intelligence </p>

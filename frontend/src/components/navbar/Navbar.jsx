@@ -49,7 +49,7 @@ const Navbar = ({ type }) => {
         <div className="gpt3__navbar-links_logo">
           <img
             src={logo}
-            style={{ width: "80px", height: "100%" }}
+            style={{ width: "60px", height: "100%" }}
             alt="Logo"
           />
         </div>
