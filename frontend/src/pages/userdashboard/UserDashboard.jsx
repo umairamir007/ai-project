@@ -19,6 +19,9 @@ const UserDasboard = () => {
   const handleCloseContent = () => {
     setVoiceSelector(false);
     setVoiceLab(false);
+    setShowContent(null);        // ✅ make “back” collapse content
+    setSelectedArtist(null);     // (optional) also clear selection
+    setSelectedCard(null);       // (optional)
   };
 
   const handleSelectedArtist = (user = null) => {
@@ -54,11 +57,13 @@ const UserDasboard = () => {
             selectedCard={selectedCard}
           />
           <CTA
+            key={String(showContent ?? 'none')}   // ✅ remounts when you set null or switch tabs
             showContent={showContent}
             voiceSelector={voiceSelector}
             handleSelectedArtist={handleSelectedArtist}
             selectedArtist={selectedArtist}
           />
+
           {/* <Blog selectedArtist={selectedArtist} /> */}
         </div>
         <Footer />

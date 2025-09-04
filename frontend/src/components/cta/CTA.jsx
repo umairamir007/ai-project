@@ -225,7 +225,14 @@ const CTA = ({
                     isLoading={sttLoading}
                     handleSave={handleSTT}
                     cardText="Speech To Text"
+                    onReset={() => {
+                      setSttError(null);
+                      setAudioSrc("");
+                      setTtsText("");
+                      setSttLoading(false);
+                    }}
                   />
+
                   {/* <FileUpload
                     isLoading={sttLoading}
                     handleSave={handleSTT}
