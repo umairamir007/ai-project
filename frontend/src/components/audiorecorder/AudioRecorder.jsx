@@ -13,6 +13,12 @@ function AudioRecorder({ isLoading, handleSave, cardText, onReset }) {
 
   const startRecording = async () => {
     try {
+      if (audioURL) URL.revokeObjectURL(audioURL);
+      setAudioURL("");
+      setAudioFile(null);
+      audioChunksRef.current = [];
+      if (fileInputRef.current) fileInputRef.current.value = ""; // reset input
+      onReset?.();
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       audioChunksRef.current = [];
       mediaRecorderRef.current = new MediaRecorder(stream);
@@ -96,11 +102,11 @@ function AudioRecorder({ isLoading, handleSave, cardText, onReset }) {
             </button>
           </>
         ) : recording ? (
-          <button className="recording" onClick={stopRecording}>Stop Recording</button>
+          <button style={{ marginTop: 20 }} className="recording" onClick={stopRecording}>Stop Recording</button>
         ) : (
           <>
-            <button onClick={startRecording} disabled={isLoading}>Start Recording</button>
-            <button onClick={handleUploadClick} disabled={isLoading}>Upload Voice</button>
+            <button style={{ marginTop: 20 }} onClick={startRecording} disabled={isLoading}>Start Recording</button>
+            {/* <button onClick={handleUploadClick} disabled={isLoading}>Upload Voice</button> */}
             <input
               ref={fileInputRef}
               type="file"

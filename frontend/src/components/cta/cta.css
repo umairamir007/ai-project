@@ -268,3 +268,33 @@
     margin-right: 0.5rem; /* Adjust margin for smaller screens */
   }
 }
+
+/* ====== APPEND ONLY: STT (speech) layout helpers + white cards ====== */
+.stt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* equal width */
+  gap: 24px;
+  align-items: stretch;              /* equal height */
+  margin-top: 16px;
+}
+
+@media (max-width: 960px) {
+  .stt-grid { grid-template-columns: 1fr; } /* stack on small screens */
+}
+
+.stt-cell {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* White card for each speech section */
+.stt-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}

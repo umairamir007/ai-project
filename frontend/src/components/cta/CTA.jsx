@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import "./cta.css";
-import { TextUpload, AudioRecorder, FileUpload } from "../../components/index";
+import { TextUpload, AudioRecorder } from "../../components/index";
 import { fetchVoices } from "../../api/elevenlabs";
 import { TextToSpeech, SpeechToText } from "../../api/textToSpeech";
 import { Loader2 } from "lucide-react";
@@ -27,6 +27,30 @@ const CTA = ({
 
   const audioRefs = useRef({});
 
+  // Drag & drop + click-to-browse (STT right column)
+  const [isDragging, setIsDragging] = useState(false);
+  const [droppedFile, setDroppedFile] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const onDragOver = (e) => { e.preventDefault(); setIsDragging(true); };
+  const onDragLeave = () => setIsDragging(false);
+  const onDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer?.files?.[0];
+    if (file) {
+      setDroppedFile(file); // stage file only — no auto-transcribe
+    }
+  };
+  const onFilePick = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setDroppedFile(file); // stage file only — no auto-transcribe
+    }
+    e.target.value = ""; // allow picking the same file again
+  };
+  const openFilePicker = () => fileInputRef.current?.click();
+
   // Fetch voices as soon as we enter TTS
   useEffect(() => {
     if (showContent !== 2) return;
@@ -46,9 +70,7 @@ const CTA = ({
       }
     })();
 
-    return () => {
-      mounted = false;
-    };
+    return () => { mounted = false; };
   }, [showContent]);
 
   const handlePlay = (voice_id) => {
@@ -99,6 +121,19 @@ const CTA = ({
     } finally {
       setSttLoading(false);
     }
+  };
+
+  const confirmTranscribe = () => {
+    if (!droppedFile || sttLoading) return;
+    handleSTT(droppedFile);
+  };
+
+  // NEW: clear any existing transcription when recorder starts
+  const handleRecorderStart = () => {
+    setTtsText("");     // this hides the "Transcribed Text" panel
+    setSttError(null);
+    setAudioSrc("");
+    setDroppedFile(null);
   };
 
   return (
@@ -154,8 +189,11 @@ const CTA = ({
             </>
           ) : (
             <>
-              {/* Content heading row (optional “Choose Again” only for TTS with a selected voice) */}
-              <div className="gpt3__cta-content-user" style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              {/* Content heading row */}
+              <div
+                className="gpt3__cta-content-user"
+                style={{ display: "flex", alignItems: "center", gap: 12 }}
+              >
                 <h2 style={{ margin: 0 }}>
                   {showContent === 2
                     ? `Upload Your Text for a Stunning Voice Over${selectedArtist?.name ? ` with ${selectedArtist.name}` : ""}`
@@ -192,21 +230,132 @@ const CTA = ({
                 </div>
               )}
 
-              {/* STT flow (unchanged) */}
+              {/* STT flow (speech section) */}
               {showContent === 3 && (
-                <div>
-                  <AudioRecorder
-                    isLoading={sttLoading}
-                    handleSave={handleSTT}
-                    cardText="Speech To Text"
-                    onReset={() => {
-                      setSttError(null);
-                      setAudioSrc("");
-                      setTtsText("");
-                      setSttLoading(false);
-                    }}
-                  />
+                <>
+                  <div className="stt-grid">
+                    {/* Left: Record Voice */}
+                    <div className="stt-cell">
+                      <div className="stt-card">
+                        <h3 style={{ marginTop: 0 }}>Record Voice</h3>
+                        <AudioRecorder
+                          isLoading={sttLoading}
+                          handleSave={handleSTT}
+                          cardText="Speech To Text"
+                          onStart={handleRecorderStart}  // <-- clears transcription on Start
+                          onReset={() => {
+                            setSttError(null);
+                            setAudioSrc("");
+                            setTtsText("");
+                            setSttLoading(false);
+                            setDroppedFile(null);
+                          }}
+                        />
+                      </div>
+                    </div>
 
+                    {/* Right: Drag & Drop (click opens file picker) */}
+                    <div
+                      className="stt-cell"
+                      onDragOver={onDragOver}
+                      onDragLeave={onDragLeave}
+                      onDrop={onDrop}
+                    >
+                      <div className="stt-card">
+                        <h3 style={{ marginTop: 0, marginBottom: 10 }}>Upload Audio</h3>
+
+                        {/* Clickable dropzone */}
+                        <div
+                          role="button"
+                          tabIndex={0}
+                          onClick={openFilePicker}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") openFilePicker();
+                          }}
+                          style={{
+                            border: isDragging ? "2px dashed rgba(0,0,0,0.5)" : "2px dashed rgba(0,0,0,0.25)",
+                            borderRadius: 12,
+                            padding: 16,
+                            textAlign: "center",
+                            transition: "border-color 0.2s ease",
+                            cursor: "pointer",
+                            outline: "none",
+                          }}
+                          aria-label="Drop an audio file here or click to choose a file"
+                        >
+                          <div style={{ fontSize: 22, marginBottom: 8 }}>📥</div>
+                          <div style={{ fontWeight: 600 }}>Drop file to select</div>
+                          <div style={{ fontSize: 12, opacity: 0.75 }}>MP3, WAV, M4A, or WEBM</div>
+                        </div>
+
+                        {/* Hidden file input (opened when the dropzone is clicked) */}
+                        <input
+                          ref={fileInputRef}
+                          type="file"
+                          accept="audio/*"
+                          onChange={onFilePick}
+                          style={{ display: "none" }}
+                        />
+
+                        {droppedFile && (
+                          <div
+                            style={{
+                              marginTop: 12,
+                              padding: "10px 12px",
+                              borderRadius: 10,
+                              background: "#fff",
+                              border: "1px solid #e5e7eb",
+                              color: "#0f172a",
+                            }}
+                          >
+                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+                              <div>
+                                <strong>{droppedFile.name}</strong>
+                                <span> • {(droppedFile.size / 1024 / 1024).toFixed(2)} MB</span>
+                              </div>
+                              <div style={{ display: "flex", gap: 8 }}>
+                                <button
+                                  onClick={confirmTranscribe}
+                                  disabled={sttLoading}
+                                  style={{
+                                    background: "#5570FF",
+                                    color: "#fff",
+                                    borderRadius: 8,
+                                    padding: "6px 12px",
+                                    border: "1px solid rgba(0,0,0,0.15)",
+                                    cursor: sttLoading ? "not-allowed" : "pointer",
+                                  }}
+                                  title="Confirm and transcribe"
+                                >
+                                  {sttLoading ? "Transcribing…" : "Transcribe"}
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    setDroppedFile(null);
+                                    setTtsText("");
+                                    setSttError(null);
+                                  }}
+                                  style={{
+                                    background: "red",
+                                    color: "white",
+                                    // border: "1px solid #e5e7eb",
+                                    borderRadius: 8,
+                                    padding: "6px 12px",
+                                    cursor: "pointer",
+                                  }}
+                                  title="Remove file"
+                                >
+                                  Remove
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Transcribed text + optional TTS */}
                   {(sttLoading || ttsText) && (
                     <div className="input-area" style={{ marginTop: "20px" }}>
                       <h3>Transcribed Text</h3>
@@ -238,7 +387,7 @@ const CTA = ({
                       )}
                     </div>
                   )}
-                </div>
+                </>
               )}
             </>
           )}
