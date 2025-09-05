@@ -7,7 +7,7 @@ import { TextToSpeech, SpeechToText } from "../../api/textToSpeech";
 import { Loader2 } from "lucide-react";
 
 const CTA = ({
-  voiceSelector,
+  voiceSelector,              // not used for gating anymore
   showContent,
   handleSelectedArtist,
   selectedArtist,
@@ -22,15 +22,14 @@ const CTA = ({
   const [ttsText, setTtsText] = useState("");
   const [audioSrc, setAudioSrc] = useState("");
 
-  // ✅ STT UI state
   const [sttLoading, setSttLoading] = useState(false);
   const [sttError, setSttError] = useState(null);
 
   const audioRefs = useRef({});
 
-  // ✅ Robust voice fetch: only mark not-loading after we actually finish
+  // Fetch voices as soon as we enter TTS
   useEffect(() => {
-    if (!voiceSelector) return;
+    if (showContent !== 2) return;
 
     let mounted = true;
     (async () => {
@@ -50,22 +49,7 @@ const CTA = ({
     return () => {
       mounted = false;
     };
-  }, [voiceSelector]);
-
-  let type = "";
-  switch (showContent) {
-    case 1:
-      type = "Voice";
-      break;
-    case 2:
-      type = "Script";
-      break;
-    case 3:
-      type = "Art";
-      break;
-    default:
-      type = "";
-  }
+  }, [showContent]);
 
   const handlePlay = (voice_id) => {
     Object.entries(audioRefs.current).forEach(([id, audio]) => {
@@ -94,7 +78,6 @@ const CTA = ({
     setSttError(null);
     setSttLoading(true);
     try {
-      // Accept File | Blob | FileList | Array<File>
       let f = incoming;
       if (Array.isArray(incoming)) {
         f = incoming[0];
@@ -106,7 +89,6 @@ const CTA = ({
       const text = result?.text ?? "";
       setTtsText(text);
 
-      // optional: also auto-run TTS with selected voice if any text
       if (selectedArtist && text.trim()) {
         const url = await TextToSpeech(text, selectedArtist.voice_id);
         setAudioSrc(url);
@@ -133,16 +115,12 @@ const CTA = ({
         </div>
       )}
 
-      {voiceSelector && isUserDashboard && showContent && (
+      {/* Show container for TTS and STT without voiceSelector gate */}
+      {isUserDashboard && showContent && (
         <div className="gpt3__cta-user section__margin">
-          {/* Require artist only for Script (2) */}
+          {/* TTS: show voice grid immediately if no voice selected */}
           {showContent === 2 && !selectedArtist ? (
             <>
-              <div className="gpt3__cta-content-user">
-                <p>View Different {type}s Available On Our Platform</p>
-                <h3>Select a {type} from our talent pool</h3>
-              </div>
-
               {voiceLoading ? (
                 <Loader2 size={40} className="animate-loader loading-spinner" />
               ) : (
@@ -176,25 +154,21 @@ const CTA = ({
             </>
           ) : (
             <>
-              <div className="gpt3__cta-content-user">
-                <h2>
+              {/* Content heading row (optional “Choose Again” only for TTS with a selected voice) */}
+              <div className="gpt3__cta-content-user" style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <h2 style={{ margin: 0 }}>
                   {showContent === 2
-                    ? `Upload Your Text for a Stunning Voice Over with ${selectedArtist?.name || "Selected Voice"}`
+                    ? `Upload Your Text for a Stunning Voice Over${selectedArtist?.name ? ` with ${selectedArtist.name}` : ""}`
                     : `Upload or Record Audio to Transcribe`}
                 </h2>
-
-                {/* Only show "Choose Again" when a voice is required (Script) */}
                 {showContent === 2 && selectedArtist && (
-                  <button
-                    style={{ marginLeft: "20px" }}
-                    onClick={() => handleSelectedArtist(null)}
-                  >
+                  <button style={{ marginLeft: "20px" }} onClick={() => handleSelectedArtist(null)}>
                     Choose Again
                   </button>
                 )}
               </div>
 
-              {/* ✅ Content 2: needs artist */}
+              {/* TTS flow */}
               {showContent === 2 && selectedArtist && (
                 <div>
                   <TextUpload
@@ -218,7 +192,7 @@ const CTA = ({
                 </div>
               )}
 
-              {/* ✅ Content 3: works with or without artist */}
+              {/* STT flow (unchanged) */}
               {showContent === 3 && (
                 <div>
                   <AudioRecorder
@@ -232,12 +206,6 @@ const CTA = ({
                       setSttLoading(false);
                     }}
                   />
-
-                  {/* <FileUpload
-                    isLoading={sttLoading}
-                    handleSave={handleSTT}
-                    cardText="Speech To Text"
-                  /> */}
 
                   {(sttLoading || ttsText) && (
                     <div className="input-area" style={{ marginTop: "20px" }}>
@@ -258,7 +226,6 @@ const CTA = ({
                             onChange={(e) => setTtsText(e.target.value)}
                             placeholder="Type in your text here..."
                           />
-                          {/* Only allow TTS if artist is selected */}
                           {selectedArtist ? (
                             <>
                               <button onClick={handleTTS} disabled={!ttsText.trim()}>
