@@ -25,7 +25,6 @@
   font-size: 20px;
   line-height: 28px;
   color: var(--color-text);
-
   margin-top: 1rem;
 }
 
@@ -80,7 +79,6 @@
 .gpt3__header-content__input {
   width: 100%;
   margin: 2rem 0 1rem;
-
   display: flex;
   flex-direction: row;
 }
@@ -98,7 +96,6 @@
   padding: 0 1rem;
   outline: none;
   color: #fff;
-
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
@@ -157,7 +154,6 @@
   justify-content: flex-start;
   align-items: center;
   flex-direction: row;
-
   margin-top: 2rem;
 }
 
@@ -216,7 +212,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .gpt__card-AddButton {
@@ -351,6 +347,69 @@
   transform: translateY(2px);
 }
 
+/* ===== Centered stack for the two cards (icon → title → text) ===== */
+.text-to-speech-card,
+.speech-to-text-card {
+  background: transparent;
+  color: inherit;
+  box-shadow: 0 2px 8px 0 rgba(84, 104, 255, 0.08);
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+
+  /* alignment & layout */
+  display: flex;
+  flex-direction: column;      /* icon → title → text */
+  align-items: center;         /* center horizontally */
+  justify-content: flex-start;
+  text-align: center;          /* center heading & paragraph */
+  gap: 10px;
+  padding: 24px;
+}
+
+.text-to-speech-card:hover,
+.speech-to-text-card:hover {
+  box-shadow: 0 4px 16px 0 rgba(84, 104, 255, 0.13);
+}
+
+/* If you still use the wrapper for icon/title */
+.card-icon-title {
+  display: flex;
+  flex-direction: column;      /* stack icon above title */
+  align-items: center;         /* center both */
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+/* Icon + title + paragraph polish */
+.card-icon {
+  font-size: 2.2rem;
+  color: #5468ff;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.10));
+  line-height: 1;
+  opacity: 0.95;
+  transition: none;
+}
+.text-to-speech-card:hover .card-icon,
+.speech-to-text-card:hover .card-icon {
+  transform: none;
+}
+
+.gpt3__card .card-title {
+  margin: 2px 0 4px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.gpt3__card .card-desc {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* ===== Responsive ===== */
 @media screen and (max-width: 1400px) {
   .gpt3__cards-container {
     grid-template-columns: repeat(2, 1fr);
@@ -453,6 +512,13 @@
     font-size: 14px;
     padding: 8px 16px; /* Adjust button padding */
     margin-left: 19px;
+  }
+
+  /* keep these two centered on mobile */
+  .gpt3__card.text-to-speech-card,
+  .gpt3__card.speech-to-text-card {
+    align-items: center;
+    text-align: center;
   }
 }
 

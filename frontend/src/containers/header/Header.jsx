@@ -86,37 +86,34 @@ const Header = ({
               </div> */}
 
               <div
-                className={`gpt3__card ${selectedCard === 2 ? "selected" : ""}`}
+                className={`gpt3__card text-to-speech-card ${selectedCard === 2 ? "selected" : ""}`}
                 onClick={() => {
                   handleCardClick(2);
                 }}
               >
-                <div>
+                <div className="card-icon-title" style={{ flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                  <i className="fa fa-volume-up card-icon" aria-hidden="true"></i>
                   <h2 className="gradient__text">Text to Speech</h2>
-                  <p>
-                    Submit Your Inspiring Script: Ignite the Path to Ultimate
-                    Achievement!
-                  </p>
                 </div>
-                <button className="select-button">Select</button>
+                <p>
+                  Submit Your Inspiring Script: Ignite the Path to Ultimate
+                  Achievement!
+                </p>
               </div>
 
               <div
-                className={`gpt3__card  ${
-                  selectedCard === 3 ? "selected" : ""
-                }`}
+                className={`gpt3__card speech-to-text-card ${selectedCard === 3 ? "selected" : ""}`}
                 onClick={() => {
                   handleCardClick(3);
                 }}
               >
-                <div>
-                  <h2 className="gradient__text">Visionize</h2>
-                  <p>
-                    {" "}
-                    Submit Your Artwork and Witness its Magical Transformation!{" "}
-                  </p>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                  <i className="fa fa-microphone card-icon" aria-hidden="true"></i>
                 </div>
-                <button className="select-button">Select</button>
+                <h2 className="gradient__text" style={{ textAlign: 'center' }}>Visionize</h2>
+                <p>
+                  Submit Your Artwork and Witness its Magical Transformation!
+                </p>
               </div>
             </div>
           </div>
@@ -144,38 +141,36 @@ const Header = ({
                 <button className="select-button">Select</button>
               </div> */}
 
+              {/* Text To Speech */}
               <div
-                className={`gpt3__card ${selectedCard === 2 ? "selected" : ""}`}
-                onClick={() => {
-                  setShowContent(2);
-                }}
+                className={`gpt3__card text-to-speech-card ${selectedCard === 2 ? "selected" : ""}`}
+                onClick={() => setShowContent(2)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setShowContent(2)}
               >
-                <div>
-                  <h2 className="gradient__text">Text To Speech</h2>
-                  <p>
-                    Submit Your Inspiring Script: Ignite the Path to Ultimate
-                    Achievement!
-                  </p>
-                </div>
-                <button className="select-button">Select</button>
+                {/* <i className="fa fa-volume-up card-icon" aria-hidden="true"></i> */}
+                <h2 className="gradient__text card-title">Text To Speech</h2>
+                <p className="card-desc">
+                  Submit Your Inspiring Script: Ignite the Path to Ultimate Achievement!
+                </p>
               </div>
 
+              {/* Speech To Text */}
               <div
-                className={`gpt3__card  ${
-                  selectedCard === 3 ? "selected" : ""
-                }`}
-                onClick={() => {
-                  setShowContent(3);
-                }}
+                className={`gpt3__card speech-to-text-card ${selectedCard === 3 ? "selected" : ""}`}
+                onClick={() => setShowContent(3)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setShowContent(3)}
               >
-                <div>
-                  <h2 className="gradient__text">Speech To Text</h2>
-                  <p>
-                    Submit Your Artwork and Witness its Magical Transformation!{" "}
-                  </p>
-                </div>
-                <button className="select-button">Select</button>
+                {/* <i className="fa fa-microphone card-icon" aria-hidden="true"></i> */}
+                <h2 className="gradient__text card-title">Speech To Text</h2>
+                <p className="card-desc">
+                  Submit Your Artwork and Witness its Magical Transformation!
+                </p>
               </div>
+
             </div>
           </div>
         </div>
