@@ -44,14 +44,14 @@ const WhatGPT3 = ({
           item instanceof File
             ? item
             : item instanceof Blob
-            ? new File([item], `upload_${Date.now()}.wav`, {
+              ? new File([item], `upload_${Date.now()}.wav`, {
                 type: item.type || "audio/wav",
               })
-            : item?.data instanceof Blob
-            ? new File([item.data], item.name || `upload_${Date.now()}.wav`, {
-                type: item.data.type || "application/octet-stream",
-              })
-            : null;
+              : item?.data instanceof Blob
+                ? new File([item.data], item.name || `upload_${Date.now()}.wav`, {
+                  type: item.data.type || "application/octet-stream",
+                })
+                : null;
 
         if (!file) continue;
 
@@ -127,7 +127,7 @@ const WhatGPT3 = ({
       headingText = "Script Lab : Discover scripts from our talent pool";
       break;
     case 3:
-      headingText = "Art Lab : Discover artwork from our talent pool";
+      headingText = "Speech to Text: Talk, and get text instantly";
       break;
     default:
       headingText = "";
@@ -241,9 +241,8 @@ const WhatGPT3 = ({
 
           <div className={`box`} onClick={handleVoiceSelection}>
             <i
-              className={`fa ${
-                voiceSelector ? "fa-check-circle" : "fa-plus-circle"
-              }`}
+              className={`fa ${voiceSelector ? "fa-check-circle" : "fa-plus-circle"
+                }`}
             ></i>
             {handleSelected()}
           </div>
