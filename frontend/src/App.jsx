@@ -33,7 +33,7 @@ const LandingPage = () => {
 
 const App = () => {
   useEnsureAnonAuth();
-  
+
   return (
     <Router>
       <Routes>

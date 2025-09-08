@@ -185,9 +185,45 @@ const Header = ({
         <div className="gpt3__header section__padding" id="home">
           <div className="gpt3__header-content">
             <button
-              marginleft="0px"
               onClick={handleBackButtonClick}
-              style={{ position: "fixed", top: 16, left: 16, zIndex: 1000, background: "#57A8FF", border: 0, cursor: "pointer" }}
+              style={{
+                // positioning
+                position: "fixed",
+                top: 16,
+                left: 16,
+                zIndex: 1000,
+
+                backgroundImage:
+                  "radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%)",
+                alignItems: "center",
+                WebkitAppearance: "none",
+                appearance: "none",
+                border: 0,
+                borderRadius: 6,
+                boxShadow:
+                  "rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset",
+                boxSizing: "border-box",
+                color: "#fff",
+                cursor: "pointer",
+                display: "inline-flex",
+                height: 48,
+                justifyContent: "center",
+                lineHeight: 1,
+                listStyle: "none",
+                overflow: "hidden",
+                paddingLeft: 16,
+                paddingRight: 16,
+                textAlign: "left",
+                textDecoration: "none",
+                transition: "box-shadow 0.15s, transform 0.15s",
+                userSelect: "none",
+                WebkitUserSelect: "none",
+                touchAction: "manipulation",
+                whiteSpace: "nowrap",
+                willChange: "box-shadow, transform",
+                fontSize: 16,
+                marginLeft: 0, // replaces the old marginleft="0px"
+              }}
             >
               <i className="fa fa-arrow-left"></i>
             </button>
@@ -218,9 +254,45 @@ const Header = ({
         <div className="gpt3__header section__padding" id="home">
           <div className="gpt3__header-content">
             <button
-              marginleft="0px"
               onClick={handleBackButtonClick}
-              style={{ position: "fixed", top: 16, left: 16, zIndex: 1000, background: "#57A8FF", border: 0, cursor: "pointer" }}
+              style={{
+                // positioning
+                position: "fixed",
+                top: 16,
+                left: 16,
+                zIndex: 1000,
+
+                backgroundImage:
+                  "radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%)",
+                alignItems: "center",
+                WebkitAppearance: "none",
+                appearance: "none",
+                border: 0,
+                borderRadius: 6,
+                boxShadow:
+                  "rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset",
+                boxSizing: "border-box",
+                color: "#fff",
+                cursor: "pointer",
+                display: "inline-flex",
+                height: 48,
+                justifyContent: "center",
+                lineHeight: 1,
+                listStyle: "none",
+                overflow: "hidden",
+                paddingLeft: 16,
+                paddingRight: 16,
+                textAlign: "left",
+                textDecoration: "none",
+                transition: "box-shadow 0.15s, transform 0.15s",
+                userSelect: "none",
+                WebkitUserSelect: "none",
+                touchAction: "manipulation",
+                whiteSpace: "nowrap",
+                willChange: "box-shadow, transform",
+                fontSize: 16,
+                marginLeft: 0,
+              }}
             >
               <i className="fa fa-arrow-left"></i>
             </button>
