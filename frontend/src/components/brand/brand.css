@@ -1,5 +1,5 @@
 .gpt3__brand {
-  margin-top: 20px;
+  /* margin-top: 64px; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -15,4 +15,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media screen and (min-width: 1024px){
+  .gpt3__brand {
+    margin-top: 64px;
+  }
 }
