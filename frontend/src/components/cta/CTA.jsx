@@ -4,10 +4,10 @@ import "./cta.css";
 import { TextUpload, AudioRecorder } from "../../components/index";
 import { fetchVoices } from "../../api/elevenlabs";
 import { TextToSpeech, SpeechToText } from "../../api/textToSpeech";
-import { Loader2 } from "lucide-react";
+import { Loader2, Copy, Check } from "lucide-react";
 
 const CTA = ({
-  voiceSelector,              // not used for gating anymore
+  voiceSelector,
   showContent,
   handleSelectedArtist,
   selectedArtist,
@@ -25,6 +25,8 @@ const CTA = ({
   const [sttLoading, setSttLoading] = useState(false);
   const [sttError, setSttError] = useState(null);
 
+  const [copied, setCopied] = useState(false)
+
   const audioRefs = useRef({});
 
   // Drag & drop + click-to-browse (STT right column)
@@ -39,15 +41,15 @@ const CTA = ({
     setIsDragging(false);
     const file = e.dataTransfer?.files?.[0];
     if (file) {
-      setDroppedFile(file); // stage file only — no auto-transcribe
+      setDroppedFile(file);
     }
   };
   const onFilePick = (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      setDroppedFile(file); // stage file only — no auto-transcribe
+      setDroppedFile(file);
     }
-    e.target.value = ""; // allow picking the same file again
+    e.target.value = "";
   };
   const openFilePicker = () => fileInputRef.current?.click();
 
@@ -128,12 +130,37 @@ const CTA = ({
     handleSTT(droppedFile);
   };
 
-  // NEW: clear any existing transcription when recorder starts
+  // Clear any existing transcription when recorder starts
   const handleRecorderStart = () => {
-    setTtsText("");     // this hides the "Transcribed Text" panel
+    setTtsText("");
     setSttError(null);
     setAudioSrc("");
     setDroppedFile(null);
+    setCopied(false);
+  };
+
+  // ⬅️ Copy logic
+  const copyText = async () => {
+    try {
+      const text = ttsText || "";
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1200);
+    } catch (e) {
+      console.error("Copy failed:", e);
+    }
   };
 
   return (
@@ -242,13 +269,14 @@ const CTA = ({
                           isLoading={sttLoading}
                           handleSave={handleSTT}
                           cardText="Speech To Text"
-                          onStart={handleRecorderStart}  // <-- clears transcription on Start
+                          onStart={handleRecorderStart}
                           onReset={() => {
                             setSttError(null);
                             setAudioSrc("");
                             setTtsText("");
                             setSttLoading(false);
                             setDroppedFile(null);
+                            setCopied(false);
                           }}
                         />
                       </div>
@@ -334,11 +362,11 @@ const CTA = ({
                                     setDroppedFile(null);
                                     setTtsText("");
                                     setSttError(null);
+                                    setCopied(false);
                                   }}
                                   style={{
                                     background: "red",
                                     color: "white",
-                                    // border: "1px solid #e5e7eb",
                                     borderRadius: 8,
                                     padding: "6px 12px",
                                     cursor: "pointer",
@@ -358,7 +386,35 @@ const CTA = ({
                   {/* Transcribed text + optional TTS */}
                   {(sttLoading || ttsText) && (
                     <div className="input-area" style={{ marginTop: "20px" }}>
-                      <h3>Transcribed Text</h3>
+
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+                        <h3 style={{ margin: 0 }}>Transcribed Text</h3>
+
+                        {!sttLoading && !!ttsText?.trim() && (
+                          <button
+                            type="button"
+                            onClick={copyText}
+                            aria-label={copied ? "Copied" : "Copy transcribed text"}
+                            title={copied ? "Copied" : "Copy"}
+                            style={{
+                              all: "unset",
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: 6,
+                              padding: "6px 10px",
+                              borderRadius: 8,
+                              cursor: "pointer",
+                              background: "rgba(255,255,255,0.6)",
+                              border: "1px dashed rgba(0,0,0,0.12)",
+                              color: "#111827",
+                              fontWeight: 600,
+                            }}
+                          >
+                            {copied ? <Check size={16} /> : <Copy size={16} />}
+                            <span>{copied ? "Copied" : "Copy"}</span>
+                          </button>
+                        )}
+                      </div>
 
                       {sttLoading ? (
                         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
