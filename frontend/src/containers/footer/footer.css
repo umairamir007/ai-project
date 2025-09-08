@@ -1,17 +1,27 @@
 .gpt3__footer {
-  margin-top:  20px;
+  margin-top: 0;         
+  padding: 16px;              
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   background: var(--color-footer);
+}
+
+@media screen and (min-width: 768px) {
+  .gpt3__footer { padding: 24px; }   
+}
+
+@media screen and (min-width: 1024px) {
+  .gpt3__footer {
+    margin-top: 64px;                
+    padding: 40px;                   
+  }
 }
 
 .gpt3__footer-heading {
   width: 100%;
   text-align: center;
-
   margin-bottom: 3rem;
 }
 
@@ -26,11 +36,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   padding: 1rem;
   border: 1px solid #fff;
   text-align: center;
-
   margin-bottom: 10rem;
   cursor: pointer;
 }
@@ -49,7 +57,6 @@
   align-items: flex-start;
   flex-direction: row;
   flex-wrap: wrap;
-
   width: 100%;
   text-align: left;
 }
@@ -68,7 +75,6 @@
 .gpt3__footer-links_logo img {
   width: 118px;
   height: 30px;
-
   margin-bottom: 1rem;
 }
 
@@ -90,7 +96,6 @@
   line-height: 17px;
   font-family: var(--font-family);
   color: #fff;
-
   margin-bottom: 0.9rem;
 }
 
@@ -99,7 +104,6 @@
   line-height: 15px;
   font-family: var(--font-family);
   color: #fff;
-
   margin: 0.5rem 0;
   cursor: pointer;
 }
@@ -117,6 +121,7 @@
   color: #fff;
 }
 
+/* Typography tweaks */
 @media screen and (max-width: 850px) {
   .gpt3__footer-heading h1 {
     font-size: 44px;
@@ -129,15 +134,8 @@
     font-size: 34px;
     line-height: 42px;
   }
-
-  .gpt3__footer-links div {
-    margin: 1rem 0;
-  }
-
-  .gpt3__footer-btn p {
-    font-size: 14px;
-    line-height: 20px;
-  }
+  .gpt3__footer-links div { margin: 1rem 0; }
+  .gpt3__footer-btn p { font-size: 14px; line-height: 20px; }
 }
 
 @media screen and (max-width: 400px) {

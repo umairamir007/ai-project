@@ -35,6 +35,14 @@
   grid-gap: 2rem;
 }
 
+.heading-2{
+    background: var(--gradient-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 45px;
+}
+
 @media screen and (max-width: 990px) {
   .gpt3__blog-container {
     flex-direction: column-reverse;
@@ -73,6 +81,11 @@
     font-size: 34px;
     line-height: 42px;
   }
+.heading-2{
+  font-size: 28px;
+}
+
+
 }
 .gpt3__blog-container button {
   margin-left: 715px;
