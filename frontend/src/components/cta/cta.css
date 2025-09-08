@@ -109,7 +109,7 @@
   display: inline-block;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin: 0 auto;
+  margin: auto auto;
 }
 
 @keyframes spin {

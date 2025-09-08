@@ -313,7 +313,7 @@ const CTA = ({
                                 <strong>{droppedFile.name}</strong>
                                 <span> • {(droppedFile.size / 1024 / 1024).toFixed(2)} MB</span>
                               </div>
-                              <div style={{ display: "flex", gap: 8 }}>
+                              <div style={{ display: "flex", margin: '2px auto', gap: 8 }}>
                                 <button
                                   onClick={confirmTranscribe}
                                   disabled={sttLoading}
