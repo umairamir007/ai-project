@@ -38,8 +38,6 @@
   );
   border: 0;
   border-radius: 6px;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
@@ -60,19 +58,11 @@
   font-weight: 500; /* Kept from your styles */
   outline: none; /* Kept from your styles */
 }
-.gpt3__header-content button:focus {
-  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
-}
-
 .gpt3__header-content button:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
   transform: translateY(-2px);
 }
 
 .gpt3__header-content button:active {
-  box-shadow: #3c4fe0 0 3px 7px inset;
   transform: translateY(2px);
 }
 
@@ -110,8 +100,6 @@
   );
   border: 0;
   border-radius: 6px;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
@@ -132,19 +120,11 @@
   font-weight: 500; /* Kept from your styles */
   outline: none; /* Kept from your styles */
 }
-.gpt3__header-content__input button:focus {
-  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
-}
-
 .gpt3__header-content__input button:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
   transform: translateY(-2px);
 }
 
 .gpt3__header-content__input button:active {
-  box-shadow: #3c4fe0 0 3px 7px inset;
   transform: translateY(2px);
 }
 
@@ -226,8 +206,6 @@
   );
   border: 0;
   border-radius: 6px;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
@@ -249,19 +227,11 @@
   outline: none; /* Kept from your styles */
 }
 
-.gpt__card-AddButton:focus {
-  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
-}
-
 .gpt__card-AddButton:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
   transform: translateY(-2px);
 }
 
 .gpt3__card-AddButton:active {
-  box-shadow: #3c4fe0 0 3px 7px inset;
   transform: translateY(2px);
 }
 
@@ -308,8 +278,6 @@
   );
   border: 0;
   border-radius: 6px;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
@@ -331,19 +299,11 @@
   outline: none; /* Kept from your styles */
 }
 
-.gpt3__card button:focus {
-  box-shadow: #3c4fe0 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
-}
-
 .gpt3__card button:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
-    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #3c4fe0 0 -3px 0 inset;
   transform: translateY(-2px);
 }
 
 .gpt3__card button:active {
-  box-shadow: #3c4fe0 0 3px 7px inset;
   transform: translateY(2px);
 }
 

@@ -16,7 +16,7 @@ import { useEnsureAnonAuth } from "./hooks/useEnsureAnonAuth";
 const LandingPage = () => {
   return (
     <div className="App">
-      <div className="gradient__bg">
+      <div className="bg-[#040404]">
         <Navbar />
         <Header />
       </div>

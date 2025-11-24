@@ -36,7 +36,7 @@ const Modal = () => {
     <div>
       <button
         type="button"
-        className="open-modal-btn"
+        className="bg-transparent text-white border-2 w-[190px] h-[54px] rounded-[75px]"
         onClick={() => setShowModal(true)}
       >
         Sign In

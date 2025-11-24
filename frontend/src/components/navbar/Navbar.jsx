@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
-import "./navbar.css";
 import Modal from "../modal/Modal";
 import { Logout } from "..";
+import './navbar.css'
 
 const Navbar = ({ type }) => {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -44,12 +44,12 @@ const Navbar = ({ type }) => {
   );
 
   return (
-    <div className="gpt3__navbar">
+    <div className="w-[90%] mx-auto flex justify-between items-center">
       <div className="gpt3__navbar-links">
         <div className="gpt3__navbar-links_logo">
           <img
             src={logo}
-            style={{ width: "60px", height: "100%" }}
+            style={{ width: "100px", height: "105px" }}
             alt="Logo"
           />
         </div>

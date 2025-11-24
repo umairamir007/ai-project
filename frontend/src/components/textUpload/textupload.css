@@ -28,7 +28,7 @@
   margin: 40px auto; /* center the frame on the page */
   background-color: #fff;
 }
-button,
+.app-frame button,
 .voice-dropdown select {
   margin-left: 10px;
   padding: 5px 10px;
@@ -39,7 +39,7 @@ button,
   transition: background-color 0.3s;
 }
 
-button:hover,
+.app-frame button:hover,
 .voice-dropdown select:hover {
   background-color: #ccc;
 }

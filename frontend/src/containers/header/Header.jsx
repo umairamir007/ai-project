@@ -37,7 +37,7 @@ const Header = ({
       {isLanding && (
         <div className="gpt3__header section__padding um_container" id="home">
           <div className="gpt3__header-content um_content-container">
-            <h1 className="text-blue-600">
+            <h1 className="text-re">
               Experience the future of content creation. iSai your All-in-One
               Content Magic.
             </h1>
@@ -200,8 +200,6 @@ const Header = ({
                 appearance: "none",
                 border: 0,
                 borderRadius: 6,
-                boxShadow:
-                  "rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset",
                 boxSizing: "border-box",
                 color: "#fff",
                 cursor: "pointer",
@@ -269,8 +267,6 @@ const Header = ({
                 appearance: "none",
                 border: 0,
                 borderRadius: 6,
-                boxShadow:
-                  "rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, rgba(58, 65, 111, 0.5) 0 -3px 0 inset",
                 boxSizing: "border-box",
                 color: "#fff",
                 cursor: "pointer",
