@@ -37,7 +37,7 @@ const Header = ({
       {isLanding && (
         <div className="gpt3__header section__padding um_container" id="home">
           <div className="gpt3__header-content um_content-container">
-            <h1 className="gradient__text">
+            <h1 className="text-blue-600">
               Experience the future of content creation. iSai your All-in-One
               Content Magic.
             </h1>
