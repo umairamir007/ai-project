@@ -34,13 +34,32 @@ const Modal = () => {
 
   return (
     <div>
-      <button
-        type="button"
-        className="bg-transparent text-white border-2 px-12 py-2.5 rounded-full"
-        onClick={() => setShowModal(true)}
+      <div
+        className="
+    container relative  rounded-full
+    border-2 border-white
+    transition-all duration-[0.4s]
+    before:content-[''] before:absolute before:inset-0 before:m-auto
+    before:rounded-[0.9em] before:-z-10
+    before:filter before:blur-[0] before:transition-[filter] before:duration-[0.4s]
+    hover:before:bg-[linear-gradient(90deg,#0C3A2A,#0C3A2A)]
+    hover:before:blur-[1.2em]
+    active:before:blur-[0.2em]
+  "
       >
-        Sign In
-      </button>
+        <button
+          className="
+      text-white bg-black cursor-pointer
+      text-[1.4em] py-2 px-10 rounded-full
+       border-none
+      shadow-[2px_2px_3px_#000000b4]
+    "
+        >
+          Sign In
+        </button>
+      </div>
+
+
       <Snackbar
         message={snack.message}
         type={snack.type}
