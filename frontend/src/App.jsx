@@ -12,13 +12,15 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import TalentDashboard from "./pages/talentdashboard/TalentDashboard";
 import UserDasboard from "./pages/userdashboard/UserDashboard";
 import { useEnsureAnonAuth } from "./hooks/useEnsureAnonAuth";
+import Top from "./components/top/Top";
 
 const LandingPage = () => {
   return (
     <div className="App">
       <div className="bg-[#040404]">
-        <Navbar />
-        <Header />
+        {/* <Navbar />
+        <Header /> */}
+        <Top />
       </div>
       <Brand />
       <WhatGPT3 />

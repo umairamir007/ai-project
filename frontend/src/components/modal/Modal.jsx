@@ -36,7 +36,7 @@ const Modal = () => {
     <div>
       <button
         type="button"
-        className="bg-transparent text-white border-2 w-[190px] h-[54px] rounded-[75px]"
+        className="bg-transparent text-white border-2 px-12 py-2.5 rounded-full"
         onClick={() => setShowModal(true)}
       >
         Sign In

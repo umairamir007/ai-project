@@ -44,20 +44,21 @@ const Navbar = ({ type }) => {
   );
 
   return (
-    <div className="w-[90%] mx-auto flex justify-between items-center">
-      <div className="gpt3__navbar-links">
-        <div className="gpt3__navbar-links_logo">
-          <img
-            src={logo}
-            style={{ width: "100px", height: "105px" }}
-            alt="Logo"
-          />
-        </div>
+    <div className="w-full flex justify-around items-center top-0 sticky py-4">
+      <div className="h-20 w-20">
+        <img
+          src={logo}
+          className="h-full w-full overflow-hidden object-cover"
+          alt="Logo"
+        />
+      </div>
+      <div className="">
+
         {!type && renderLinks(defaultLinks)}
         {type === "Talent" && <>{renderLinks([...talentLinks])}</>}
         {type === "User" && <>{renderLinks([...userLinks])}</>}
       </div>
-      <div className="gpt3__navbar-sign">
+      <div className="">
         {!type && <Modal />}
         {(type === "Talent" || type === "User") && (
           <>
@@ -70,6 +71,7 @@ const Navbar = ({ type }) => {
           </>
         )}
       </div>
+
 
       {/* <div className="gpt3__navbar-menu">
         {toggleMenu ? (
