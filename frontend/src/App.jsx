@@ -15,14 +15,16 @@ import { useEnsureAnonAuth } from "./hooks/useEnsureAnonAuth";
 import Top from "./components/top/Top";
 import StepsScroll from "./components/animation/StepsScroll";
 import TestScrollAnimation from "./test/TestScrollAnimation";
+import Hero from "./components/hero/Hero";
 
 const LandingPage = () => {
   return (
     <div className="App">
       <div className="bg-[#040404]">
         <Navbar />
-        <Header />
+        {/* <Header /> */}
         {/* <Top /> */}
+        <Hero />
       </div>
       <Brand />
       <TestScrollAnimation />

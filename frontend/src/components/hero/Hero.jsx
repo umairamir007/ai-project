@@ -1,25 +1,37 @@
+"use client";
 import React from "react";
 
-const Hero = () => {
+export default function Hero() {
     return (
-        <div className="flex flex-col items-center text-center gap-6 py-20 px-4 max-w-5xl mx-auto">
+        <section className="relative w-full h-[550px] sm:h-[650px] flex items-center justify-center overflow-hidden">
 
-            <p className="font-[Satoshi] font-bold text-white 
-                text-2xl sm:text-4xl md:text-5xl leading-snug md:leading-[3.5rem]">
-                Turn your ideas into polished podcasts and YouTube videos—no studio needed.
-            </p>
+            <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover opacity-60"
+            >
+                <source src="/videos/waves.mp4" type="video/mp4" />
+            </video>
 
-            <p className="font-[Satoshi] font-medium text-[#DEDEDE] 
-                text-base sm:text-lg md:text-2xl leading-relaxed md:leading-[2.2rem] max-w-2xl">
-                iSai uses AI voice cloning and ElevenLabs tech to create lifelike audio — fast, high-quality, and studio-free.
-            </p>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
 
-            <button className="magic-btn rounded-full px-8 py-3  font-bold  text-xl text-black bg-white border-none">
-                Get Started
-            </button>
+            <div className="relative z-10 flex flex-col items-center text-center max-w-4xl px-6 gap-6">
+                <p className="font-[Satoshi] font-bold text-white 
+                    text-2xl sm:text-4xl md:text-5xl leading-snug md:leading-[3.5rem]">
+                    Turn your ideas into polished podcasts and YouTube videos—no studio needed.
+                </p>
 
-        </div>
+                <p className="font-[Satoshi] font-medium text-[#DEDEDE] 
+                    text-base sm:text-lg md:text-2xl leading-relaxed md:leading-[2.2rem] max-w-2xl">
+                    iSai uses AI voice cloning and ElevenLabs tech to create lifelike audio — fast, high-quality, and studio-free.
+                </p>
+
+                <button className="magic-btn rounded-full px-8 py-3 font-bold text-xl bg-white text-black hover:bg-[#f1f1f1] transition">
+                    Get Started
+                </button>
+            </div>
+        </section>
     );
-};
-
-export default Hero;
+}

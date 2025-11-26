@@ -44,7 +44,7 @@ const Navbar = ({ type }) => {
   );
 
   return (
-    <div className="w-full flex justify-around items-center top-0 sticky py-4">
+    <div className="w-full flex justify-around items-center  py-4">
       <div className="h-20 w-20">
         <img
           src={logo}
