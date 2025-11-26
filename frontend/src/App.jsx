@@ -14,17 +14,19 @@ import UserDasboard from "./pages/userdashboard/UserDashboard";
 import { useEnsureAnonAuth } from "./hooks/useEnsureAnonAuth";
 import Top from "./components/top/Top";
 import StepsScroll from "./components/animation/StepsScroll";
+import TestScrollAnimation from "./test/TestScrollAnimation";
 
 const LandingPage = () => {
   return (
     <div className="App">
       <div className="bg-[#040404]">
-        {/* <Navbar />
-        <Header /> */}
-        <Top />
+        <Navbar />
+        <Header />
+        {/* <Top /> */}
       </div>
       <Brand />
-      <StepsScroll />
+      <TestScrollAnimation />
+      {/* <StepsScroll /> */}
       {/* <WhatGPT3 /> */}
       <Features />
       <Possibility />
