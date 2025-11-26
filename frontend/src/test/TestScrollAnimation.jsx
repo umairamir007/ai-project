@@ -120,7 +120,7 @@ export default function ScrollSteps() {
                                     transition={{ duration: 0.45 }}
                                     className="text-left max-w-sm"
                                 >
-                                    <p className="text-[#DEDEDE] sm:text-lg text-sm leading-relaxed">{step.description}</p>
+                                    <p className="text-[#DEDEDE] sm:text-lg text-xs leading-relaxed">{step.description}</p>
                                 </motion.div>
                             </div>
                         ))}
