@@ -47,19 +47,19 @@ export default function ScrollSteps() {
     return (
         <section
             ref={ref}
-            className="bg-black text-white relative"
+            className="bg-black text-white relative my-24 "
             style={{ height: `${steps.length * 50}vh` }}
         >
-            <div className="sticky top-0 max-h-[1000px] mb-10">
+            <div className="sticky top-0 max-h-[1000px] ">
                 <h1
                     className="
-    w-[50%] md:w-[80%] lg:w-[40%]
+    w-[70%] md:w-[80%] lg:w-[50%]
     mx-auto font-bold 
     text-center 
     text-2xl sm:text-5xl 
     leading-8 sm:leading-[58px] 
     py-0 sm:py-8 
-    mb-10
+    mb-12
   "
                 >
                     High-Quality Content Made Easy
@@ -67,12 +67,12 @@ export default function ScrollSteps() {
 
 
                 <div className="flex items-center justify-center">
-                    <div className="max-w-3xl w-full px-6 space-y-10 ">
+                    <div className="max-w-3xl w-full px-6 space-y-14 ">
 
                         {steps.map((step, index) => (
                             <div
                                 key={step.title}
-                                className="grid grid-cols-[minmax(0,1.4fr)_auto_minmax(0,1.4fr)] sm:gap-10 gap-0 items-start"
+                                className="grid grid-cols-[minmax(0,1.4fr)_auto_minmax(0,1.4fr)] sm:gap-10 gap-4 items-start"
                             >
                                 {/* LEFT TITLE */}
                                 <motion.div
