@@ -13,6 +13,7 @@ import TalentDashboard from "./pages/talentdashboard/TalentDashboard";
 import UserDasboard from "./pages/userdashboard/UserDashboard";
 import { useEnsureAnonAuth } from "./hooks/useEnsureAnonAuth";
 import Top from "./components/top/Top";
+import StepsScroll from "./components/animation/StepsScroll";
 
 const LandingPage = () => {
   return (
@@ -23,7 +24,8 @@ const LandingPage = () => {
         <Top />
       </div>
       <Brand />
-      <WhatGPT3 />
+      <StepsScroll />
+      {/* <WhatGPT3 /> */}
       <Features />
       <Possibility />
       <CTA />
