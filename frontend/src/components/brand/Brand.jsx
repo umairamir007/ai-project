@@ -4,7 +4,7 @@ import "./brand.css";
 const brands = [google, slack, atlassian, dropbox, shopify];
 
 const Brand = () => (
-  <div className="flex flex-wrap justify-center items-center gap-16 sm:gap-12 xs:gap-6">
+  <div className="flex flex-wrap justify-center items-center gap-16 sm:gap-12 xs:gap-6 py-12 ">
     {brands.map((logo, index) => (
       <div
         key={index}

@@ -13,7 +13,7 @@ export const Heading = ({
         large: 'text-xl md:text-3xl lg:text-5xl',
         medium: 'text-[40px] sm:text-5xl 3xl:text-[55px]',
         sm: 'text-base sm:text-lg',
-        why_heading: 'sm:text-2xl text-xl 3xl:text-3xl',
+        why_heading: 'sm:text-2xl text-lg 3xl:text-3xl',
         card: 'text-[28px] xl:text-[35px]',
         lg: 'sm:text-lg text-base 3xl:text-xl'
     };

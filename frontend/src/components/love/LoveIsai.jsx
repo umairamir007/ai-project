@@ -4,10 +4,10 @@ import { Card, CardContent } from '../layout/card'
 
 const LoveIsai = () => {
     return (
-        <Card className={'bg-theme min-h-[900px] w-[95%] mx-auto'}>
-            <Heading size='large' className='text-white text-center' title={"Why Choose Our Platform"} />
+        <Card className={'bg-theme w-[95%] mx-auto  p-0 gap-0 '}>
+            <Heading size='large' className='text-white text-center py-20' title={"Why Choose Our Platform"} />
 
-            <div className="grid sm:grid-cols-3 grid-cols-1 gap-4 py-16">
+            <div className="grid sm:grid-cols-3 grid-cols-1 gap-5">
 
                 {/* center top on desktop, full width mobile */}
                 <Card className="sm:col-start-2 w-full h-[200px] rounded-[32px] shadow-[0px_0px_49px_1px_rgba(255,255,255,0.25)] bg-white">

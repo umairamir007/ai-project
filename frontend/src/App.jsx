@@ -17,6 +17,7 @@ import StepsScroll from "./components/animation/StepsScroll";
 import TestScrollAnimation from "./test/TestScrollAnimation";
 import Hero from "./components/hero/Hero";
 import LoveIsai from "./components/love/LoveIsai";
+import WhyIsai from "./components/why/WhyIsai";
 
 const LandingPage = () => {
   return (
@@ -33,7 +34,8 @@ const LandingPage = () => {
       {/* <WhatGPT3 /> */}
       {/* <Features /> */}
       <LoveIsai />
-      <Possibility />
+      <WhyIsai />
+      {/* <Possibility /> */}
       <CTA />
       <Blog />
       <Footer />
