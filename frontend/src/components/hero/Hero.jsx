@@ -1,5 +1,3 @@
-"use client";
-import React from "react";
 
 export default function Hero() {
     return (
@@ -12,7 +10,7 @@ export default function Hero() {
                 playsInline
                 className="absolute inset-0 w-full h-full object-cover opacity-60"
             >
-                <source src="/videos/waves.mp4" type="video/mp4" />
+                <source src="/videos/hero.mp4" type="video/mp4" />
             </video>
 
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
