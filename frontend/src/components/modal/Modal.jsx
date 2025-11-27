@@ -50,9 +50,9 @@ const Modal = () => {
         <button
           className="
       text-white bg-black cursor-pointer
-      text-[1.4em] py-2 px-10 rounded-full
+      text-lg py-2 px-8 rounded-full
        border-none
-      shadow-[2px_2px_3px_#000000b4]
+      
     "
         >
           Sign In

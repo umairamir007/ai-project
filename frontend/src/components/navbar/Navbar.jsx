@@ -45,10 +45,10 @@ const Navbar = ({ type }) => {
 
   return (
     <div className="w-full flex justify-around items-center  py-4">
-      <div className="h-20 w-20">
+      <div className="h-16 w-16">
         <img
           src={logo}
-          className="h-full w-full overflow-hidden object-cover"
+          className="h-full w-full aspect-square overflow-hidden object-contain"
           alt="Logo"
         />
       </div>

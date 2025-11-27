@@ -26,7 +26,7 @@ export default function Hero() {
                     iSai uses AI voice cloning and ElevenLabs tech to create lifelike audio — fast, high-quality, and studio-free.
                 </p>
 
-                <button className="magic-btn rounded-full px-8 py-3 font-bold text-xl bg-white text-black hover:bg-[#f1f1f1] transition">
+                <button className="magic-btn rounded-full px-6 py-3 font-bold text-lg bg-white text-black hover:bg-[#f1f1f1] transition">
                     Get Started
                 </button>
             </div>

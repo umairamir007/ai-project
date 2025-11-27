@@ -18,6 +18,7 @@ import TestScrollAnimation from "./test/TestScrollAnimation";
 import Hero from "./components/hero/Hero";
 import LoveIsai from "./components/love/LoveIsai";
 import WhyIsai from "./components/why/WhyIsai";
+import Case from "./components/case/Case";
 
 const LandingPage = () => {
   return (
@@ -35,9 +36,10 @@ const LandingPage = () => {
       {/* <Features /> */}
       <LoveIsai />
       <WhyIsai />
+      <Case />
       {/* <Possibility /> */}
-      <CTA />
-      <Blog />
+      {/* <CTA /> */}
+      {/* <Blog /> */}
       <Footer />
     </div>
   );

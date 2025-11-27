@@ -11,7 +11,7 @@ export const Para = ({
     medium: 'text-sm xs:text-base sm:text-lg md:text-xl xl:text-[25px]',
     large: 'text-base xxxs:text-lg sm:text-xl lg:text-2xl 3xl:text-[30px]',
     card: 'text-sm sm:text-base xl:text-lg text-center font-medium px-2',
-    why: 'sm:text-xl text-base leading-lg font-medium text-[#DEDEDE]'
+    why: 'sm:text-base text-sm leading-lg font-medium text-[#DEDEDE] md:text-xl'
   };
 
   return (
