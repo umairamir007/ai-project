@@ -8,12 +8,12 @@ export default function Hero() {
                 muted
                 loop
                 playsInline
-                className="absolute inset-0 w-full h-full object-cover opacity-60"
+                className="absolute inset-0 w-full h-full object-cover "
             >
                 <source src="/videos/hero.mp4" type="video/mp4" />
             </video>
 
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black"></div>
+            <div className="absolute inset-0 "></div>
 
             <div className="relative z-10 flex flex-col items-center text-center max-w-4xl px-6 gap-6">
                 <p className="font-[Satoshi] font-bold text-white 
