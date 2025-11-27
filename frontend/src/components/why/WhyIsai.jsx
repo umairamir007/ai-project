@@ -46,9 +46,9 @@ const WhyIsai = () => {
                     className="
         bg-[linear-gradient(180deg,rgba(255,255,255,0.1491)_0%,rgba(0,0,0,0.0994)_100%)]
         rounded-[32px] border border-white/20 px-4
-        flex items-center
+        flex flex-col sm:flex-row items-center
         h-auto
-        lg:col-span-5 lg:row-span-2 lg:col-start-4 lg:row-start-1
+        lg:col-span-5 lg:row-span-2 lg:col-start-4 lg:row-start-1 sm:py-0 py-4
       "
                 >
                     <div className="py-6">
@@ -57,18 +57,16 @@ const WhyIsai = () => {
                     </div>
 
                     <div className="ml-auto flex items-center">
-                        <img src={script} alt="script" className="w-[160px] sm:w-[200px] h-auto object-contain" />
+                        <img src={script} alt="script" className="w-full sm:w-[200px] h-auto object-contain" />
                     </div>
                 </div>
-
-                {/* 3️⃣ Instant Editing */}
                 <div
                     className="
         bg-[linear-gradient(180deg,rgba(255,255,255,0.1491)_0%,rgba(0,0,0,0.0994)_100%)]
         rounded-[32px] border border-white/20 px-4
-        flex items-center
+        flex flex-col sm:flex-row items-center
         h-auto
-        lg:col-span-5 lg:row-span-2 lg:col-start-4 lg:row-start-3
+        lg:col-span-5 lg:row-span-2 lg:col-start-4 lg:row-start-3 py-4 sm:py-0
       "
                 >
                     <div className="py-6">
@@ -77,18 +75,18 @@ const WhyIsai = () => {
                     </div>
 
                     <div className="ml-auto flex items-center">
-                        <img src={instant} alt="instant" className="w-[160px] sm:w-[200px] h-auto object-contain" />
+                        <img src={instant} alt="instant" className="w-full sm:w-[200px] h-full object-contain" />
+
                     </div>
                 </div>
 
-                {/* 4️⃣ Multi-Platform Publishing */}
                 <div
                     className="
         bg-[linear-gradient(180deg,rgba(255,255,255,0.15)_0%,rgba(0,0,0,0.10)_100%)]
         rounded-[32px] border border-white/20 py-4 px-6
         flex items-center justify-between
         h-auto
-        lg:col-span-4 lg:row-span-3 lg:col-start-1 lg:row-start-5
+        lg:col-span-4 lg:row-span-3 lg:col-start-1 lg:row-start-5 flex-col sm:flex-row 
       "
                 >
                     <div>
@@ -101,14 +99,13 @@ const WhyIsai = () => {
                     </div>
                 </div>
 
-                {/* 5️⃣ Collaboration Tools */}
                 <div
                     className="
         bg-[linear-gradient(180deg,rgba(255,255,255,0.15)_0%,rgba(0,0,0,0.10)_100%)]
         rounded-[32px] border border-white/20 py-4 px-6
         flex items-center justify-between
         h-auto
-        lg:col-span-4 lg:row-span-3 lg:col-start-5 lg:row-start-5
+        lg:col-span-4 lg:row-span-3 lg:col-start-5 lg:row-start-5 flex-col sm:flex-row 
       "
                 >
                     <div>
@@ -116,7 +113,7 @@ const WhyIsai = () => {
                         <Para size="why" para={"Share projects and work in real-time with your team."} />
                     </div>
 
-                    <div className="w-[150px] sm:w-[220px]">
+                    <div className="w-[150px] sm:w-[220px] mt-4 sm:pt-0">
                         <img src={collaboration} alt="collaboration" className="w-full h-auto" />
                     </div>
                 </div>
