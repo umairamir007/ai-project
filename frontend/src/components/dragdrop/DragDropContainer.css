@@ -23,7 +23,7 @@
   background-color: #f5f5f5;
 }
 
-ul {
+.file-upload-container ul {
   list-style-type: none;
   padding: 0;
   margin: 0; /* Reset any default margin */
@@ -32,7 +32,7 @@ ul {
   max-height: 150px; /* Adjust if needed */
 }
 
-li {
+.file-upload-container li {
   font-size: 16px;
   padding: 5px 10px; /* Added some horizontal padding */
   display: flex;
@@ -41,11 +41,11 @@ li {
   border-bottom: 1px solid #f0f0f0; /* Add a separator */
 }
 
-li:last-child {
+.file-upload-container li:last-child {
   border-bottom: none; /* Remove separator for the last item */
 }
 
-button.remove-file {
+.file-upload-container button.remove-file {
   background-color: #ff6666;
   color: #fff;
   border: none;
@@ -64,7 +64,7 @@ button.remove-file:hover {
     width: 80%; /* Take up 80% of the viewport width */
   }
 
-  li {
+  .file-upload-container li {
     font-size: 14px; /* Slightly smaller font size for smaller screens */
     padding: 4px 0; /* Adjusted padding for smaller screens */
   }
@@ -75,7 +75,7 @@ button.remove-file:hover {
     width: 100%; /* Take up the full viewport width */
   }
 
-  li {
+  .file-upload-container li {
     font-size: 12px; /* Even smaller font size for very small screens */
     padding: 3px 0; /* Adjusted padding for very small screens */
   }

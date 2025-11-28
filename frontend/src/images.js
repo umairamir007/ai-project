@@ -7,6 +7,10 @@ import speaker from './assets/speaker.png'
 import player from './assets/player.png'
 import trainer from './assets/trainer.png'
 import subs from './assets/subs.png'
+import logo from './assets/logo.svg'
+import facebook from './assets/facebook.png'
+import insta from './assets/insta.png'
+import twitter from './assets/twitter.png'
 
 export {
     script,
@@ -17,5 +21,10 @@ export {
     speaker,
     player,
     trainer,
-    subs
+    subs,
+    logo,
+    facebook,
+    insta,
+    twitter
+
 }

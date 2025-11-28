@@ -1,4 +1,4 @@
-import { Footer, WhatGPT3, Header } from "../../containers";
+import { WhatGPT3, Header } from "../../containers";
 import { CTA } from "../../components";
 import { Navbar } from "../../components";
 
@@ -66,7 +66,7 @@ const UserDasboard = () => {
 
           {/* <Blog selectedArtist={selectedArtist} /> */}
         </div>
-        <Footer />
+        {/* <Footer /> */}
         {/* )} */}
       </div>
     </div>

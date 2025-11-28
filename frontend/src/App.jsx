@@ -1,12 +1,4 @@
 import "./App.css";
-import {
-  Footer,
-  Blog,
-  Possibility,
-  Features,
-  WhatGPT3,
-  Header,
-} from "./containers";
 import { CTA, Brand, Navbar } from "./components";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import TalentDashboard from "./pages/talentdashboard/TalentDashboard";
@@ -21,6 +13,7 @@ import WhyIsai from "./components/why/WhyIsai";
 import Case from "./components/case/Case";
 import Pricing from "./components/pricing/Pricing";
 import Subscribe from "./components/subscribe/Subscribe";
+import Footer from "./components/footer/Footer";
 
 const LandingPage = () => {
   return (
