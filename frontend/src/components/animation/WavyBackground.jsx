@@ -30,7 +30,7 @@ export const WavyBackground = ({
             case "slow":
                 return 0.001;
             case "fast":
-                return 0.002;
+                return 0.004;
             default:
                 return 0.001;
         }
@@ -66,7 +66,7 @@ export const WavyBackground = ({
             ctx.strokeStyle = waveColors[i % waveColors.length];
             for (x = 0; x < w; x += 5) {
                 var y = noise(x / 800, 0.3 * i, nt) * 100;
-                ctx.lineTo(x, y + h * 0.5); // adjust for height, currently at 50% of the container
+                ctx.lineTo(x, y + h * 0.4); // adjust for height, currently at 50% of the container
             }
             ctx.stroke();
             ctx.closePath();
@@ -109,7 +109,7 @@ export const WavyBackground = ({
     return (
         <div
             className={cn(
-                "h-screen w-full overflow-hidden relative flex flex-col items-center justify-center",
+                " w-full overflow-hidden relative flex flex-col items-center justify-center  h-[600px]",
                 containerClassName
             )}
         >
