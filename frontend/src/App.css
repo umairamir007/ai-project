@@ -162,3 +162,7 @@ a {
 .magic-btn:hover::after {
   transform: scaleY(1);
 }
+
+/* html, body {
+  overflow-x: hidden !important;
+} */

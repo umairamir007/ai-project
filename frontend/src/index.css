@@ -38,3 +38,6 @@
   color: var(--color-white);
 }
 
+/* html, body {
+  overflow-x: hidden !important;
+} */
