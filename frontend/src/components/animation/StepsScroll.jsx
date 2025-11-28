@@ -32,7 +32,7 @@ export default function StepsScroll() {
     return (
         <section
             ref={ref}
-            className="bg-black text-white relative"
+            className="bg-[#040404] text-white relative"
             style={{ height: `${steps.length * 100}vh` }}
         >
             <div className="sticky top-0 h-screen flex items-center justify-center">

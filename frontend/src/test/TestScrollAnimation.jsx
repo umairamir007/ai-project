@@ -47,7 +47,7 @@ export default function ScrollSteps() {
     return (
         <section
             ref={ref}
-            className="bg-black text-white relative space-y-12"
+            className="bg-[#040404] text-white relative space-y-12"
             style={{ height: `${steps.length * 50}vh` }}
         >
             <div className="sticky top-0">

@@ -5,7 +5,7 @@ import Threads from '../animation/Threads'
 
 const Top = () => {
     return (
-        <section className="relative w-full min-h-screen bg-black text-white overflow-hidden flex flex-col">
+        <section className="relative w-full min-h-screen bg-[#040404] text-white overflow-hidden flex flex-col">
             <Navbar />
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 {/* <Threads amplitude={3} distance={0} enableMouseInteraction={true} /> */}
