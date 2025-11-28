@@ -6,6 +6,7 @@ import mic from './assets/mic.png'
 import speaker from './assets/speaker.png'
 import player from './assets/player.png'
 import trainer from './assets/trainer.png'
+import subs from './assets/subs.png'
 
 export {
     script,
@@ -15,5 +16,6 @@ export {
     mic,
     speaker,
     player,
-    trainer
+    trainer,
+    subs
 }

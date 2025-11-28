@@ -20,6 +20,7 @@ import LoveIsai from "./components/love/LoveIsai";
 import WhyIsai from "./components/why/WhyIsai";
 import Case from "./components/case/Case";
 import Pricing from "./components/pricing/Pricing";
+import Subscribe from "./components/subscribe/Subscribe";
 
 const LandingPage = () => {
   return (
@@ -39,6 +40,7 @@ const LandingPage = () => {
       <WhyIsai />
       <Case />
       <Pricing />
+      <Subscribe />
       {/* <Possibility /> */}
       {/* <CTA /> */}
       {/* <Blog /> */}
