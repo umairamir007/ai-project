@@ -5,7 +5,7 @@ import { Card, CardContent } from '../layout/card'
 const LoveIsai = () => {
     return (
         <Card className={'bg-theme max-w-7xl mx-auto  p-4 gap-0 '}>
-            <Heading size='large' className='text-white text-center py-20' title={"Why Choose Our Platform"} />
+            <Heading size='large' className='text-white text-center py-20 mb-4' title={"Why Choose Our Platform"} />
 
             <div className="grid sm:grid-cols-3 grid-cols-1 gap-5">
 
