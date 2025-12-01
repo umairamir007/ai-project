@@ -14,6 +14,7 @@ import twitter from './assets/twitter.png'
 import text from './assets/text.png'
 import speech from './assets/speech.png'
 import folder from './assets/folder.png'
+import profile from './assets/profile.png'
 
 export {
     script,
@@ -31,6 +32,7 @@ export {
     twitter,
     text,
     speech,
-    folder
+    folder,
+    profile
 
 }

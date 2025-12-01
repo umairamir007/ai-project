@@ -63,6 +63,7 @@ const UserDasboard = () => {
             voiceSelector={voiceSelector}
             handleSelectedArtist={handleSelectedArtist}
             selectedArtist={selectedArtist}
+            onBack={handleCloseContent}
           />
 
           {/* <Blog selectedArtist={selectedArtist} /> */}

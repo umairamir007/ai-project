@@ -263,7 +263,7 @@ const Header = ({
       {showContent === 2 && (
         <div className="gpt3__header section__padding" id="home">
           <div className="gpt3__header-content">
-            <button
+            {/* <button
               onClick={handleBackButtonClick}
               style={{
                 position: "fixed",
@@ -302,7 +302,7 @@ const Header = ({
               }}
             >
               <i className="fa fa-arrow-left"></i>
-            </button>
+            </button> */}
             <div className="um_gpt_container">
               <div>
                 {/* KEEP the TTS heading visible */}

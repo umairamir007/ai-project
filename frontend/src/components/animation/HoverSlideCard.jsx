@@ -14,10 +14,10 @@ export default function HoverSlideCard({ heading, users, description, className 
             </div>
 
             {/* Front Card - Stays in place */}
-            <div className="relative bg-white  p-6  h-48 rounded-[32px] shadow-[0px_0px_49px_1px_rgba(255,255,255,0.25)]">
+            <div className="relative bg-white  p-6  h-48 rounded-[32px] shadow-[0px_0px_49px_5px_rgba(255,255,255,0.25)]">
                 <div className="flex flex-col justify-between h-full">
                     <h3 className="sm:text-2xl text-lg font-semibold text-black">{heading}</h3>
-                    <span className="sm:text-4xl text-3xl md:text-6xl font-semibold leading-none text-black">{users}</span>
+                    <span className="sm:text-4xl text-3xl md:text-6xl font-bold leading-none text-black">{users}</span>
                 </div>
 
             </div>

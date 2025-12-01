@@ -4,13 +4,16 @@ import "./cta.css";
 import { TextUpload, AudioRecorder } from "../../components/index";
 import { fetchVoices } from "../../api/elevenlabs";
 import { TextToSpeech, SpeechToText } from "../../api/textToSpeech";
-import { Loader2, Copy, Check } from "lucide-react";
+import { Loader2, Copy, Check, CircleChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "../layout/button";
+import { profile } from "../../images";
 
 const CTA = ({
   voiceSelector,
   showContent,
   handleSelectedArtist,
   selectedArtist,
+  onBack,
 }) => {
   const location = useLocation();
   const isUserDashboard = location.pathname === "/user-dashboard";
@@ -180,15 +183,60 @@ const CTA = ({
       {/* Show container for TTS and STT without voiceSelector gate */}
       {isUserDashboard && showContent && (
         <div>
-          <div className="h-[500px] border-2 border-red-500 max-w-6xl mx-auto rounded-[32px]">
-            <div className="h-[20%] bg-white">
+          <div className="h-[500px]  max-w-6xl mx-auto rounded-[32px]">
+            <div className="h-[20%] bg-white rounded-t-[32px] px-6 py-5 flex items-center gap-4">
+
+              {/* Icon */}
+              <div className="h-6 w-6">
+                <button
+                  type="button"
+                  onClick={() => onBack?.()}
+                  aria-label="Go back"
+                  className="h-full w-full flex items-center justify-center text-gray-700 hover:text-gray-900"
+                >
+                  <CircleChevronLeft size={22} />
+                </button>
+              </div>
+
+              {/* Text Section */}
+              <div className="flex flex-col">
+                <h3 className="text-black font-semibold text-[16px]">
+                  Text To Speech
+                </h3>
+                <p className="text-gray-500 text-[14px]">
+                  From text to natural speech — effortlessly.
+                </p>
+              </div>
 
             </div>
-            <div className="h-[80%] bg-[linear-gradient(135deg,rgba(5,20,15,1)_0%,rgba(0,0,0,1)_100%)]
-    shadow-[0_0_40px_rgba(0,0,0,0.45)]
-    border border-white/10 rounded-b-[32px]">
 
+            <div
+              className="h-[80%]
+    bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(12,66,48,0.34)_100%)]
+    border border-white/10
+    rounded-b-[32px] p-8"
+            >
+              <div className="flex flex-col justify-between h-full">
+                <p className="text-white font-semibold sm:text-xl text-lg text-3xl:text-2xl ">
+                  Good afternoon, everyone. <br />
+                  <span className="">
+                    We live in a time where communication defines how we connect, learn, and grow. Every word matters — whether spoken or written — and technology now allows us to bridge the gap between the two.
+                  </span>
+                </p>
+                <div className="flex justify-between items-center">
+                  <Button className='max-w-36 py-1' variant='alpha' >
+                    <img className="h-12 w-12" src={profile} alt="" />
+                    <p>Lila</p>
+                    <ChevronRight />
+                  </Button>
+                  <Button className='max-w-48' variant='alpha'>
+                    Download Speech
+                  </Button>
+
+                </div>
+              </div>
             </div>
+
           </div>
           <div className="gpt3__cta-user section__margin">
             {/* TTS: show voice grid immediately if no voice selected */}
@@ -459,7 +507,7 @@ const CTA = ({
               </>
             )}
           </div>
-        </div>
+        </div >
 
       )}
     </>

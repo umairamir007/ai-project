@@ -30,7 +30,7 @@ const buttonVariants = cva(
         tableHeader:
           "sm:text-base text-sm 3xl:text-lg rounded-md font-semibold !px-0 text-iconGrey",
         grey: "bg-iconGrey text-white rounded-full hover:bg-iconGrey/90",
-        alpha: "bg-white text-black py-2 w-full rounded-full text-xl font-bold",
+        alpha: "bg-white text-black py-2 w-full rounded-full text-xl font-bold text-lg text-[#0C4230] h-16 shadow-[0px_0px_21.9px_5px_#000000]",
       },
       size: {
         default: "p-3 px-6 py-4 has-[>svg]:px-4",
