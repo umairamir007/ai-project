@@ -7,11 +7,11 @@ import { Card, CardContent } from '../layout/card'
 
 const WhyIsai = () => {
     return (
-        <Card className='bg-[#040404] max-w-6xl  mx-auto'>
+        <Card className='bg-[#040404] max-w-6xl p-0 mx-auto'>
             <CardContent>
                 <div>
                     <Heading
-                        className="text-white text-center py-14 mb-6"
+                        className="text-white text-center "
                         size="large"
                         title={"Why You'll Love Isai"}
                     />
@@ -22,10 +22,9 @@ const WhyIsai = () => {
       mx-auto
       grid gap-6
       grid-cols-1
-      lg:grid-cols-8 lg:grid-rows-7 
+      lg:grid-cols-8 lg:grid-rows-7 py-28
     "
                     >
-                        {/* 1️⃣ Custom Voice Agent */}
                         <div
                             className="
         bg-[linear-gradient(180deg,rgba(255,255,255,0.1491)_0%,rgba(0,0,0,0.0994)_100%)]

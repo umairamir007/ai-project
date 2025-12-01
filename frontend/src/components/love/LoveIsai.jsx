@@ -1,46 +1,58 @@
 import React from 'react'
 import { Heading } from '../layout/heading'
-import { Card, CardContent } from '../layout/card'
+import { Card } from '../layout/card'
+import HoverSlideCard from '../animation/HoverSlideCard'
+
+const cards = [
+    {
+        id: 1,
+        title: "High Performance",
+        number: "01",
+        description: "From one episode per week to daily content without extra overhead.",
+        className: "sm:col-start-2"
+    },
+    {
+        id: 2,
+        title: "Global Expansion",
+        number: "03",
+        description: "From one episode per week to daily content without extra overhead.",
+        className: "sm:row-start-2"
+    },
+    {
+        id: 3,
+        title: "Multi-Chain Support",
+        number: "04",
+        description: "From one episode per week to daily content without extra overhead.",
+        className: "sm:col-start-3 sm:row-start-2"
+    },
+    {
+        id: 4,
+        title: "Advanced Security",
+        number: "05",
+        description: "From one episode per week to daily content without extra overhead.",
+        className: "sm:col-start-2 sm:row-start-3"
+    }
+]
 
 const LoveIsai = () => {
     return (
-        <Card className={'bg-theme max-w-7xl mx-auto  p-4 gap-0 '}>
-            <Heading size='large' className='text-white text-center py-20 mb-4' title={"Why Choose Our Platform"} />
+        <Card className="bg-theme max-w-7xl mx-auto px-4 p-0 gap-0 ">
+            <Heading
+                size="large"
+                className="text-white text-center "
+                title={"Why Choose Our Platform"}
+            />
 
-            <div className="grid sm:grid-cols-3 grid-cols-1 gap-5">
-
-                {/* center top on desktop, full width mobile */}
-                <Card className="sm:col-start-2 w-full sm:h-[200px] h-[160px] rounded-[32px] shadow-[0px_0px_49px_1px_rgba(255,255,255,0.25)] bg-white">
-                    <CardContent className="flex flex-col justify-between h-full">
-                        <h3 className="sm:text-2xl text-lg font-semibold text-black">Scalable Production</h3>
-                        <span className="sm:text-4xl text-3xl md:text-6xl font-semibold leading-none text-black">02</span>
-                    </CardContent>
-                </Card>
-
-                {/* left bottom - stays full width on mobile */}
-                <Card className="sm:row-start-2 w-full sm:h-[200px] h-[160px] rounded-[32px] shadow-[0px_0px_49px_1px_rgba(255,255,255,0.25)] bg-white">
-                    <CardContent className="flex flex-col justify-between h-full">
-                        <h3 className="sm:text-2xl text-lg font-semibold text-black">Scalable Production</h3>
-                        <span className="sm:text-4xl text-3xl md:text-6xl font-semibold leading-none text-black">02</span>
-                    </CardContent>
-                </Card>
-
-                {/* right bottom */}
-                <Card className="sm:col-start-3 sm:row-start-2 w-full sm:h-[200px] h-[160px] rounded-[32px] shadow-[0px_0px_49px_1px_rgba(255,255,255,0.25)] bg-white">
-                    <CardContent className="flex flex-col justify-between h-full">
-                        <h3 className="sm:text-2xl text-lg font-semibold text-black">Scalable Production</h3>
-                        <span className="sm:text-4xl text-3xl md:text-6xl font-semibold leading-none text-black">02</span>
-                    </CardContent>
-                </Card>
-
-                {/* bottom center */}
-                <Card className="sm:col-start-2 sm:row-start-3 w-full sm:h-[200px] h-[160px] rounded-[32px] shadow-[0px_0px_49px_1px_rgba(255,255,255,0.25)] bg-white">
-                    <CardContent className="flex flex-col justify-between h-full">
-                        <h3 className="sm:text-2xl text-lg font-semibold text-black">Scalable Production</h3>
-                        <span className="sm:text-4xl text-3xl md:text-6xl font-semibold leading-none text-black">02</span>
-                    </CardContent>
-                </Card>
-
+            <div className="grid sm:grid-cols-3 grid-cols-1 gap-5 py-28">
+                {cards.map((card) => (
+                    <HoverSlideCard
+                        key={card.id}
+                        heading={card.title}
+                        users={card.number}
+                        description={card.description}
+                        className={card.className}
+                    />
+                ))}
             </div>
         </Card>
     )

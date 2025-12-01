@@ -2,13 +2,52 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import Font */
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+/* Satoshi font stack */
+@font-face {
+  font-family: "Satoshi";
+  src: url("./assets/Satoshi_Complete/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Light.woff2") format("woff2"),
+       url("./assets/Satoshi_Complete/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("./assets/Satoshi_Complete/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Regular.woff2") format("woff2"),
+       url("./assets/Satoshi_Complete/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("./assets/Satoshi_Complete/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Medium.woff2") format("woff2"),
+       url("./assets/Satoshi_Complete/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("./assets/Satoshi_Complete/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Bold.woff2") format("woff2"),
+       url("./assets/Satoshi_Complete/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("./assets/Satoshi_Complete/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Black.woff2") format("woff2"),
+       url("./assets/Satoshi_Complete/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ROOT VARIABLES */
 :root {
   /* Typography */
-  --font-family: "Manrope", sans-serif;
+  --font-family: "Satoshi";
 
   /* Brand Gradients */
   --gradient-text: linear-gradient(89.97deg, #ae67fa 1.84%, #f49867 102.67%);
@@ -36,6 +75,10 @@
 
 .text-white {
   color: var(--color-white);
+}
+
+body {
+  font-family: var(--font-family);
 }
 
 /* html, body {

@@ -5,6 +5,10 @@
   scroll-behavior: smooth;
 }
 
+.App {
+  font-family: var(--font-family);
+}
+
 .magic-btn {
   position: relative;
   overflow: hidden;

@@ -47,7 +47,7 @@ export default function ScrollSteps() {
     return (
         <section
             ref={ref}
-            className="bg-[#040404] text-white relative space-y-12"
+            className="bg-[#040404] text-white relative space-y-12 p-0 my-0"
             style={{ height: `${steps.length * 50}vh` }}
         >
             <div className="sticky top-0">
@@ -57,14 +57,14 @@ export default function ScrollSteps() {
     mx-auto font-bold 
     text-center 
     text-2xl sm:text-5xl 
-    leading-8 sm:leading-[58px] py-16
+    leading-8 sm:leading-[58px] 
   "
                 >
                     High-Quality Content Made Easy
                 </h1>
 
 
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center py-28">
                     <div className="max-w-3xl w-full px-6 space-y-14 ">
 
                         {steps.map((step, index) => (
