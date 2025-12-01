@@ -48,15 +48,15 @@ const Modal = () => {
   "
       >
         <button
+          onClick={() => navigate("/sign-in")}
           className="
-      text-white bg-[#040404] cursor-pointer
-      text-lg py-2 px-8 rounded-full
-       border-none
-      
-    "
+    text-white bg-[#040404] cursor-pointer
+    text-lg py-2 px-8 rounded-full border-none
+  "
         >
           Sign In
         </button>
+
       </div>
 
 

@@ -2,8 +2,10 @@ import React from 'react'
 import { Heading } from '../layout/heading'
 import { logo } from '../../images'
 import { Button } from '../layout/button'
+import { useNavigate } from 'react-router-dom'
 
 const SignIn = () => {
+    const navigate = useNavigate()
     return (
         <div
             className="
@@ -21,7 +23,7 @@ const SignIn = () => {
             <div className="flex flex-1 flex-col justify-start items-center pt-20">
                 <div
                     className="
-        w-[380px] 
+        max-w-[380px] 
         px-6 py-8 
         rounded-xl 
         border border-white/30 
@@ -64,7 +66,12 @@ const SignIn = () => {
 
 
                 <p className="text-white sm:text-base text-xs mt-6 font-bold">
-                    Have an account? <span className="underline cursor-pointer">Sign In</span>
+                    Don't have account?     <span
+                        onClick={() => navigate("/sign-up")}
+                        className="underline cursor-pointer"
+                    >
+                        Sign Up
+                    </span>
                 </p>
 
             </div>
