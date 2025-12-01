@@ -63,7 +63,7 @@ const Pricing = () => {
                                 </h1>
 
                                 <p className="py-6 mt-4">
-                                    <span className="text-white text-5xl">${plan.price}</span>
+                                    <span className="text-white text-5xl font-bold">${plan.price}</span>
                                     <span className="text-[#BDBDBD] text-5xl font-normal">/</span>
                                     <span className="text-[#BDBDBD] font-normal">month</span>
                                 </p>

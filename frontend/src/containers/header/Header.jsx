@@ -266,7 +266,6 @@ const Header = ({
             <button
               onClick={handleBackButtonClick}
               style={{
-                // positioning
                 position: "fixed",
                 top: 16,
                 left: 16,
@@ -307,11 +306,11 @@ const Header = ({
             <div className="um_gpt_container">
               <div>
                 {/* KEEP the TTS heading visible */}
-                <h1 className="gradient__text">Text Synthesis</h1>
+                {/* <h1 className="gradient__text">Text Synthesis</h1>
                 <p>
                   Unleash the power of our cutting edge technology to create
                   various scripts
-                </p>
+                </p> */}
               </div>
               {/* COMMENT OUT the Add Text button (no extra step) */}
               {/*
