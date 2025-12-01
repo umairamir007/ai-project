@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+
 const steps = [
     {
         title: "Write or Upload Your Script",
@@ -33,10 +34,13 @@ export default function ScrollSteps() {
 
     const { scrollYProgress } = useScroll({
         target: ref,
-        offset: ["start center", "end center"],
+        offset: ["start 80%", "end 20%"],
     });
 
-    const fill = useSpring(scrollYProgress, { stiffness: 100, damping: 20 });
+    const fill = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 20,
+    });
 
     useEffect(() => {
         return scrollYProgress.on("change", (p) => {
@@ -53,19 +57,18 @@ export default function ScrollSteps() {
             <div className="sticky top-0">
                 <h1
                     className="
-    w-[70%] md:w-[80%] lg:w-[50%]
-    mx-auto font-bold 
-    text-center 
-    text-2xl sm:text-5xl 
-    leading-8 sm:leading-[58px] 
-  "
+                        w-[70%] md:w-[80%] lg:w-[50%]
+                        mx-auto font-bold 
+                        text-center 
+                        text-2xl sm:text-5xl 
+                        leading-8 sm:leading-[58px]
+                    "
                 >
                     High-Quality Content Made Easy
                 </h1>
 
-
                 <div className="flex items-center justify-center py-28">
-                    <div className="max-w-3xl w-full px-6 space-y-14 ">
+                    <div className="max-w-3xl w-full px-6 space-y-14">
 
                         {steps.map((step, index) => (
                             <div
@@ -79,7 +82,9 @@ export default function ScrollSteps() {
                                     transition={{ duration: 0.4 }}
                                     className="text-left"
                                 >
-                                    <h3 className="sm:text-2xl text-base font-semibold leading-snug">{step.title}</h3>
+                                    <h3 className="sm:text-2xl text-base font-semibold leading-snug">
+                                        {step.title}
+                                    </h3>
                                 </motion.div>
 
                                 {/* CENTER LINE + STEP */}
@@ -95,7 +100,11 @@ export default function ScrollSteps() {
                                     </div>
 
                                     <motion.div
-                                        animate={index <= active ? { opacity: 1, y: 0 } : { opacity: 0.2, y: 4 }}
+                                        animate={
+                                            index <= active
+                                                ? { opacity: 1, y: 0 }
+                                                : { opacity: 0.2, y: 4 }
+                                        }
                                         transition={{ duration: 0.4 }}
                                         className="mt-4 flex items-center gap-2 text-sm text-white"
                                     >
@@ -103,7 +112,8 @@ export default function ScrollSteps() {
                                             <FontAwesomeIcon
                                                 icon={faCircleCheck}
                                                 style={{
-                                                    color: index === active ? "#22C55E" : "#D5D5D5",
+                                                    color:
+                                                        index === active ? "#22C55E" : "#D5D5D5",
                                                 }}
                                             />
                                         </span>
@@ -118,14 +128,16 @@ export default function ScrollSteps() {
                                     transition={{ duration: 0.45 }}
                                     className="text-left max-w-sm"
                                 >
-                                    <p className="text-[#DEDEDE] sm:text-lg text-xs leading-relaxed">{step.description}</p>
+                                    <p className="text-[#DEDEDE] sm:text-lg text-xs leading-relaxed">
+                                        {step.description}
+                                    </p>
                                 </motion.div>
                             </div>
                         ))}
+
                     </div>
                 </div>
-
             </div>
-        </section >
+        </section>
     );
 }
