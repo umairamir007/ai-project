@@ -36,8 +36,9 @@ const UserDasboard = () => {
 
   return (
     <div className="App">
-      <div className="gradient__bg">
-        <Navbar type="User" />
+      <div className="">
+        {/* <Navbar type="User" /> */}
+        <Navbar />
         {/* {isConnected && address && ( */}
         <div className="min-h-screen">
           <Header

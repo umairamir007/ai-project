@@ -3,6 +3,8 @@ import people from "../../assets/people.png";
 import ai from "../../assets/ai.png";
 import "./header.css";
 import { useLocation } from "react-router-dom";
+import { folder, speech, text } from "../../images";
+import { Heading } from "../../components/layout/heading";
 
 const Header = ({
   selectedCard,
@@ -109,48 +111,125 @@ const Header = ({
       )}
 
       {isUserDashboard && showContent === null && (
-        <div className="gpt3__header section__padding" id="home">
-          <div className="gpt3__header-content">
-            <h1 className="gradient__text">
+        <div className="py-20 flex flex-col gap-4 max-w-4xl  mx-auto" id="home">
+
+          {/* <h1 className="gradient__text">
               Embark on a journey to create something amazing
             </h1>
             <p>
               please select from our talent pool or upload your own work to
               generate your podcast
-            </p>
-            <div className="gpt3__cards-container">
-              {/* Text To Speech */}
-              <div
+            </p> */}
+          <div className="flex  gap-4 ">
+
+            {/* <div
                 className={`gpt3__card text-to-speech-card ${selectedCard === 2 ? "selected" : ""}`}
-                onClick={() => { setSelectedCard(2); setShowContent(2); /* no extra step */ }}
+                onClick={() => { setSelectedCard(2); setShowContent(2); }}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (setSelectedCard(2), setShowContent(2))}
               >
-                {/* <i className="fa fa-volume-up card-icon" aria-hidden="true"></i> */}
+
                 <h2 className="gradient__text card-title">Text To Speech</h2>
                 <p className="card-desc">
                   Submit Your Inspiring Script: Ignite the Path to Ultimate Achievement!
                 </p>
-              </div>
+              </div> */}
+            <div
+              className="
+    relative
+    w-full
+    rounded-3xl
+    p-8
+    overflow-hidden
+    bg-[linear-gradient(135deg,rgba(5,20,15,1)_0%,rgba(0,0,0,1)_100%)]
+    shadow-[0_0_40px_rgba(0,0,0,0.45)]
+    border border-white/10  h-[260px]"  onClick={() => { setSelectedCard(2); setShowContent(2); }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (setSelectedCard(2), setShowContent(2))} >
+              {/* TEXT */}
+              <div className="flex flex-col gap-3 z-10 relative">
+                <h2 className="text-white text-2xl font-semibold">
+                  Text To Speech
+                </h2>
 
-              {/* Speech To Text */}
-              <div
+                <p className="text-[#DEDEDE] text-base sm:text-lg leading-relaxed ">
+                  From text to natural speech — effortlessly.
+                </p>
+              </div>
+              <img
+                src={text}
+                alt="icon"
+                className="
+      absolute
+   bottom-[-60px]
+      right-[-28px]
+      w-56
+      object-contain"
+              />
+            </div>
+
+
+            {/* Speech To Text */}
+            {/* <div
                 className={`gpt3__card speech-to-text-card ${selectedCard === 3 ? "selected" : ""}`}
                 onClick={() => setShowContent(3)}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setShowContent(3)}
               >
-                {/* <i className="fa fa-microphone card-icon" aria-hidden="true"></i> */}
                 <h2 className="gradient__text card-title">Speech To Text</h2>
                 <p className="card-desc">
                   Submit Your Artwork and Witness its Magical Transformation!
                 </p>
-              </div>
+              </div> */}
+            <div
+              className="
+    relative
+    w-full
+    rounded-3xl
+    p-8
+    overflow-hidden
+    bg-[linear-gradient(135deg,rgba(5,20,15,1)_0%,rgba(0,0,0,1)_100%)]
+    shadow-[0_0_40px_rgba(0,0,0,0.45)]
+    border border-white/10 
+    h-[260px]" onClick={() => setShowContent(3)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setShowContent(3)}>
+              {/* TEXT */}
+              <div className="flex flex-col gap-3 z-10 relative">
+                <h2 className="text-white text-2xl font-semibold">
+                  Speech to Text
+                </h2>
 
+                <p className="text-[#DEDEDE] text-base sm:text-lg leading-relaxed ">
+                  Turn speech into accurate, editable text.
+                </p>
+              </div>
+              <img
+                src={speech}
+                alt="icon"
+                className="
+      absolute bottom-[-50px] right-[-10px] -rotate-12 w-48 object-contain"/>
+            </div>
+
+          </div>
+          <div
+            class="h-56 w-full border border-white/20 rounded-[32px] bg-[linear-gradient(180deg,rgba(0,0,0,0.6)_0%,rgba(12,66,48,0.34)_100%)] p-6"
+          >
+            <div className="h-full flex items-center justify-between ">
+              <div>
+                <Heading size="normal" title={'My Library'} />
+                <p className="mt-4 text-[#DEDEDE] sm:text-lg  text-3xl:text-xl text-sm font-medium">
+                  Your personal hub to securely store, organize, and manage every file you’ve created. Quickly access past work, keep projects structured, and maintain all your content in one reliable place.
+                </p>
+              </div>
+              <img className="h-36 w-36 object-contain " src={folder} alt="" />
             </div>
           </div>
+
         </div>
       )}
 

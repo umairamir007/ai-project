@@ -15,7 +15,8 @@ export const Heading = ({
         sm: 'text-base sm:text-lg',
         why_heading: 'sm:text-2xl text-lg 3xl:text-3xl',
         card: 'text-[28px] xl:text-[35px]',
-        lg: 'sm:text-lg text-base 3xl:text-xl'
+        lg: 'sm:text-lg text-base 3xl:text-xl',
+        normal: 'text-2xl sm:text-xl text-lg font-bold text-white'
     };
 
     const Tag = as; // 'h1' or 'h2'

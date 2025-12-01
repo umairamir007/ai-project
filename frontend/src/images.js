@@ -11,6 +11,9 @@ import logo from './assets/logo.svg'
 import facebook from './assets/facebook.png'
 import insta from './assets/insta.png'
 import twitter from './assets/twitter.png'
+import text from './assets/text.png'
+import speech from './assets/speech.png'
+import folder from './assets/folder.png'
 
 export {
     script,
@@ -25,6 +28,9 @@ export {
     logo,
     facebook,
     insta,
-    twitter
+    twitter,
+    text,
+    speech,
+    folder
 
 }
