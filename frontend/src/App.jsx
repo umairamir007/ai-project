@@ -14,6 +14,7 @@ import Case from "./components/case/Case";
 import Pricing from "./components/pricing/Pricing";
 import Subscribe from "./components/subscribe/Subscribe";
 import Footer from "./components/footer/Footer";
+import SignIn from "./components/auth/SignIn";
 
 const LandingPage = () => {
   return (
@@ -51,6 +52,7 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/talent-dashboard" element={<TalentDashboard />} />
         <Route path="/user-dashboard" element={<UserDasboard />} />
+        <Route path="/sign-in" element={<SignIn />} />
       </Routes>
     </Router>
   );
