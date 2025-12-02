@@ -11,6 +11,7 @@
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.0",
+    "@radix-ui/react-dialog": "^1.1.15",
     "@rainbow-me/rainbowkit": "^1.0.11",
     "axios": "^1.11.0",
     "class-variance-authority": "^0.7.1",
@@ -35,6 +36,7 @@
     "react-router-dom": "^6.16.0",
     "simplex-noise": "^4.0.3",
     "tailwind-merge": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7",
     "viem": "^1.15.4",
     "wagmi": "^1.4.3"
   },

@@ -4,9 +4,10 @@ import "./cta.css";
 import { TextUpload, AudioRecorder } from "../../components/index";
 import { fetchVoices } from "../../api/elevenlabs";
 import { TextToSpeech, SpeechToText } from "../../api/textToSpeech";
-import { Loader2, Copy, Check, CircleChevronLeft, ChevronRight } from "lucide-react";
+import { Loader2, Copy, Check, CircleChevronLeft, ChevronRight, Play, EllipsisVertical } from "lucide-react";
 import { Button } from "../layout/button";
 import { profile } from "../../images";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "../layout/sheet";
 
 const CTA = ({
   voiceSelector,
@@ -224,15 +225,78 @@ const CTA = ({
                   </span>
                 </p>
                 <div className="flex justify-between items-center">
-                  <Button className='max-w-36 py-1' variant='alpha' >
-                    <img className="h-12 w-12" src={profile} alt="" />
-                    <p>Lila</p>
-                    <ChevronRight />
-                  </Button>
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <Button className="max-w-36 py-1" variant="alpha">
+                        <img className="h-12 w-12" src={profile} alt="" />
+                        <p>Lila</p>
+                        <ChevronRight />
+                      </Button>
+                    </SheetTrigger>
+
+                    <SheetContent
+                      side="right"
+                      className="
+      bg-[#000000bf] 
+      backdrop-blur-xl 
+      border-l border-white/10 
+      w-[360px] 
+      rounded-[32px]
+      rounded-b-none
+      p-0 
+      text-white
+    "
+                    >
+                      {/* HEADER */}
+                      <div className="p-5 pb-3">
+                        <h2 className="text-lg font-semibold">Pick a Voice</h2>
+                        <div className="mt-3">
+                          <input
+                            type="text"
+                            placeholder="Search Voices"
+                            className="w-full h-11 rounded-[75px] bg-[#DEDEDE] placeholder-[#3C3C3C] px-4
+            text-base outline-none focus:ring-2 focus:ring-white/20 text-black"/>
+                        </div>
+                      </div>
+                      {/* LIST */}
+                      <div className="px-3 space-y-1 overflow-y-auto max-h-[85vh] pb-4">
+
+                        {[
+                          { name: "Lila", desc: "Easygoing & Playful", img: "/lila.png" },
+                          { name: "Anna", desc: "Easygoing & Playful", img: "/anna.png", selected: true },
+                          { name: "Sam", desc: "Easygoing & Playful", img: "/sam.png" },
+                          { name: "Sarah", desc: "Easygoing & Playful", img: "/sarah.png" },
+                        ].map((item, i) => (
+                          <div
+                            key={i}
+                            className={`
+            flex items-center justify-between 
+            px-3 py-5  cursor-pointer
+            transition border-b-2 border-white}`}>
+                            <div className="flex items-center gap-3">
+                              <img src={item.img} className="w-11 h-11 rounded-full" />
+                              <div>
+                                <p className="font-medium">{item.name}</p>
+                                <p className="text-xs text-white/60">{item.desc}</p>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center gap-3">
+                              {/* PLAY BUTTON */}
+                              <button className="p-2 hover:bg-white/10 rounded-full">
+                                <Play size={18} />
+                              </button>
+
+                              <EllipsisVertical />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </SheetContent>
+                  </Sheet>
                   <Button className='max-w-48' variant='alpha'>
                     Download Speech
                   </Button>
-
                 </div>
               </div>
             </div>
