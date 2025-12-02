@@ -23,8 +23,12 @@ const CTA = ({
   const [voices, setVoices] = useState([]);
   const [voiceLoading, setVoiceLoading] = useState(true);
 
-  const [ttsText, setTtsText] = useState("");
+  const [ttsText, setTtsText] = useState(
+    "Good afternoon, everyone. We live in a time where communication defines how we connect, learn, and grow. Every word matters — whether spoken or written — and technology now allows us to bridge the gap between the two."
+  );
   const [audioSrc, setAudioSrc] = useState("");
+  const [heroProgress, setHeroProgress] = useState(0);
+  const [isHeroGenerating, setIsHeroGenerating] = useState(false);
 
   const [sttLoading, setSttLoading] = useState(false);
   const [sttError, setSttError] = useState(null);
@@ -32,6 +36,7 @@ const CTA = ({
   const [copied, setCopied] = useState(false)
 
   const audioRefs = useRef({});
+  const heroAudioRef = useRef(null);
 
   // Drag & drop + click-to-browse (STT right column)
   const [isDragging, setIsDragging] = useState(false);
@@ -95,11 +100,49 @@ const CTA = ({
     try {
       const url = await TextToSpeech(ttsText, selectedArtist.voice_id);
       setAudioSrc(url);
+      return url;
     } catch (err) {
       console.error("TTS failed:", err);
       alert("Failed to convert text to speech");
     }
   };
+
+  const handleHeroGenerate = async () => {
+    if (!selectedArtist || !ttsText.trim() || isHeroGenerating) return;
+    setIsHeroGenerating(true);
+    setHeroProgress(0);
+    try {
+      const url = await TextToSpeech(ttsText, selectedArtist.voice_id);
+      setAudioSrc(url);
+      if (heroAudioRef.current) {
+        heroAudioRef.current.src = url;
+        await heroAudioRef.current.play();
+      }
+    } catch (err) {
+      console.error("Hero TTS failed:", err);
+      alert("Failed to convert text to speech");
+    } finally {
+      setIsHeroGenerating(false);
+    }
+  };
+
+  useEffect(() => {
+    const audio = heroAudioRef.current;
+    if (!audio) return;
+    const update = () => {
+      if (!audio.duration) return;
+      setHeroProgress((audio.currentTime / audio.duration) * 100);
+    };
+    const reset = () => setHeroProgress(0);
+
+    audio.addEventListener("timeupdate", update);
+    audio.addEventListener("ended", reset);
+
+    return () => {
+      audio.removeEventListener("timeupdate", update);
+      audio.removeEventListener("ended", reset);
+    };
+  }, [audioSrc]);
 
   const handleSTT = async (incoming) => {
     if (sttLoading) return; // guard
@@ -183,7 +226,7 @@ const CTA = ({
 
       {/* Show container for TTS and STT without voiceSelector gate */}
       {isUserDashboard && showContent && (
-        <div>
+        <div className="py-10">
           <div className="h-[500px]  max-w-6xl mx-auto rounded-[32px]">
             <div className="h-[20%] bg-white rounded-t-[32px] px-6 py-5 flex items-center gap-4">
 
@@ -222,6 +265,8 @@ const CTA = ({
                   placeholder="Type in your text here ..."
                   className="w-full bg-transparent text-white font-semibold sm:text-xl text-lg text-3xl:text-2xl outline-none resize-none"
                   rows={5}
+                  value={ttsText}
+                  onChange={(e) => setTtsText(e.target.value)}
                 />
                 <div className="flex justify-between items-center">
                   <Sheet>
@@ -319,21 +364,34 @@ const CTA = ({
                   {selectedArtist && (
                     <div className="flex flex-col items-center gap-2">
                       <div className="w-[200px] h-[6px] bg-white/20 rounded-full overflow-hidden">
-                        <div className="w-[40%] h-full bg-white rounded-full" />
+                        <div
+                          className={`h-full bg-white rounded-full transition-all duration-300 ${isHeroGenerating ? "animate-pulse" : ""}`}
+                          style={{ width: `${Math.min(heroProgress || (isHeroGenerating ? 30 : 0), 100)}%` }}
+                        />
                       </div>
                       <div className="flex items-center gap-4 mt-2">
                         <button className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow">
                           <UndoDot className="w-5 h-5" />
                         </button>
 
-                        <button className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow">
-                          <Play className="w-5 h-5" />
+                        <button
+                          className={`w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow transition ${!selectedArtist || !ttsText.trim() ? "opacity-50 cursor-not-allowed" : "hover:bg-white/90"
+                            }`}
+                          onClick={handleHeroGenerate}
+                          disabled={!selectedArtist || !ttsText.trim() || isHeroGenerating}
+                        >
+                          {isHeroGenerating ? (
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                          ) : (
+                            <Play className="w-5 h-5" />
+                          )}
                         </button>
 
                         <button className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow">
                           <RedoDot className="w-5 h-5" />
                         </button>
                       </div>
+                      <audio ref={heroAudioRef} className="hidden" />
                     </div>
                   )}
 
@@ -345,8 +403,8 @@ const CTA = ({
             </div>
 
           </div>
-          <div className="gpt3__cta-user section__margin">
-            {/* TTS: show voice grid immediately if no voice selected */}
+          {/* <div className="gpt3__cta-user section__margin">
+            TTS: show voice grid immediately if no voice selected
             {showContent === 2 && !selectedArtist ? (
               <>
                 {voiceLoading ? (
@@ -382,7 +440,7 @@ const CTA = ({
               </>
             ) : (
               <>
-                {/* Content heading row */}
+                Content heading row
                 <div
                   className="gpt3__cta-content-user"
                   style={{ display: "flex", alignItems: "center", gap: 12 }}
@@ -399,7 +457,7 @@ const CTA = ({
                   )}
                 </div>
 
-                {/* TTS flow */}
+                TTS flow
                 {showContent === 2 && selectedArtist && (
                   <div>
                     <TextUpload
@@ -423,11 +481,11 @@ const CTA = ({
                   </div>
                 )}
 
-                {/* STT flow (speech section) */}
+                STT flow (speech section)
                 {showContent === 3 && (
                   <>
                     <div className="stt-grid">
-                      {/* Left: Record Voice */}
+                      Left: Record Voice
                       <div className="stt-cell">
                         <div className="stt-card">
                           <h3 style={{ marginTop: 0 }}>Record Voice</h3>
@@ -448,7 +506,7 @@ const CTA = ({
                         </div>
                       </div>
 
-                      {/* Right: Drag & Drop (click opens file picker) */}
+                      Right: Drag & Drop (click opens file picker)
                       <div
                         className="stt-cell"
                         onDragOver={onDragOver}
@@ -458,7 +516,7 @@ const CTA = ({
                         <div className="stt-card">
                           <h3 style={{ marginTop: 0, marginBottom: 10 }}>Upload Audio</h3>
 
-                          {/* Clickable dropzone */}
+                          Clickable dropzone
                           <div
                             role="button"
                             tabIndex={0}
@@ -482,7 +540,7 @@ const CTA = ({
                             <div style={{ fontSize: 12, opacity: 0.75 }}>MP3, WAV, M4A, or WEBM</div>
                           </div>
 
-                          {/* Hidden file input (opened when the dropzone is clicked) */}
+                          Hidden file input (opened when the dropzone is clicked)
                           <input
                             ref={fileInputRef}
                             type="file"
@@ -549,7 +607,7 @@ const CTA = ({
                       </div>
                     </div>
 
-                    {/* Transcribed text + optional TTS */}
+                    Transcribed text + optional TTS
                     {(sttLoading || ttsText) && (
                       <div className="input-area" style={{ marginTop: "20px" }}>
 
@@ -613,7 +671,7 @@ const CTA = ({
                 )}
               </>
             )}
-          </div>
+          </div> */}
         </div >
 
       )}
