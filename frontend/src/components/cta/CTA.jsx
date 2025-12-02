@@ -4,7 +4,7 @@ import "./cta.css";
 import { TextUpload, AudioRecorder } from "../../components/index";
 import { fetchVoices } from "../../api/elevenlabs";
 import { TextToSpeech, SpeechToText } from "../../api/textToSpeech";
-import { Loader2, Copy, Check, CircleChevronLeft, ChevronRight, Play, EllipsisVertical } from "lucide-react";
+import { Loader2, Copy, Check, CircleChevronLeft, ChevronRight, Play, EllipsisVertical, RotateCcw, RotateCw, RedoDot, UndoDot } from "lucide-react";
 import { Button } from "../layout/button";
 import { profile } from "../../images";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "../layout/sheet";
@@ -176,8 +176,8 @@ const CTA = ({
             <h3>Register Today & start exploring the endless possibilities.</h3>
           </div>
           {/* <div className="gpt3__cta-btn">
-            <button type="button">Get Started</button>
-          </div> */}
+              <button type="button">Get Started</button>
+            </div> */}
         </div>
       )}
 
@@ -201,10 +201,10 @@ const CTA = ({
 
               {/* Text Section */}
               <div className="flex flex-col">
-                <h3 className="text-black font-semibold text-[16px]">
+                <h3 className="text-black font-semibold sm:text-xl text-lg 3xl:text-2xl">
                   Text To Speech
                 </h3>
-                <p className="text-gray-500 text-[14px]">
+                <p className="text-[#3C3C3C] sm:text-lg text-sm 3xl:text-xl">
                   From text to natural speech — effortlessly.
                 </p>
               </div>
@@ -213,23 +213,22 @@ const CTA = ({
 
             <div
               className="h-[80%]
-    bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(12,66,48,0.34)_100%)]
-    border border-white/10
-    rounded-b-[32px] p-8"
+      bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(12,66,48,0.34)_100%)]
+      border border-white/10
+      rounded-b-[32px] p-8"
             >
               <div className="flex flex-col justify-between h-full">
-                <p className="text-white font-semibold sm:text-xl text-lg text-3xl:text-2xl ">
-                  Good afternoon, everyone. <br />
-                  <span className="">
-                    We live in a time where communication defines how we connect, learn, and grow. Every word matters — whether spoken or written — and technology now allows us to bridge the gap between the two.
-                  </span>
-                </p>
+                <textarea
+                  placeholder="Type in your text here ..."
+                  className="w-full bg-transparent text-white font-semibold sm:text-xl text-lg text-3xl:text-2xl outline-none resize-none"
+                  rows={5}
+                />
                 <div className="flex justify-between items-center">
                   <Sheet>
                     <SheetTrigger asChild>
-                      <Button className="max-w-36 py-1" variant="alpha">
-                        <img className="h-12 w-12" src={profile} alt="" />
-                        <p>Lila</p>
+                      <Button className="max-w-48 py-1" variant="alpha">
+                        <img className="h-12 w-12" src={profile} alt={selectedArtist?.name || "Select Voice"} />
+                        <p>{selectedArtist?.name || "Select Voice"}</p>
                         <ChevronRight />
                       </Button>
                     </SheetTrigger>
@@ -237,16 +236,14 @@ const CTA = ({
                     <SheetContent
                       side="right"
                       className="
-      bg-[#000000bf] 
-      backdrop-blur-xl 
-      border-l border-white/10 
-      w-[360px] 
-      rounded-[32px]
-      rounded-b-none
-      p-0 
-      text-white
-    "
-                    >
+        bg-[#000000bf] 
+        backdrop-blur-xl 
+        border-l border-white/10 
+        w-[360px] 
+        rounded-[32px]
+        rounded-b-none
+        p-0 
+        text-white">
                       {/* HEADER */}
                       <div className="p-5 pb-3">
                         <h2 className="text-lg font-semibold">Pick a Voice</h2>
@@ -255,45 +252,91 @@ const CTA = ({
                             type="text"
                             placeholder="Search Voices"
                             className="w-full h-11 rounded-[75px] bg-[#DEDEDE] placeholder-[#3C3C3C] px-4
-            text-base outline-none focus:ring-2 focus:ring-white/20 text-black"/>
+              text-base outline-none focus:ring-2 focus:ring-white/20 text-black"/>
                         </div>
                       </div>
                       {/* LIST */}
                       <div className="px-3 space-y-1 overflow-y-auto max-h-[85vh] pb-4">
-
-                        {[
-                          { name: "Lila", desc: "Easygoing & Playful", img: "/lila.png" },
-                          { name: "Anna", desc: "Easygoing & Playful", img: "/anna.png", selected: true },
-                          { name: "Sam", desc: "Easygoing & Playful", img: "/sam.png" },
-                          { name: "Sarah", desc: "Easygoing & Playful", img: "/sarah.png" },
-                        ].map((item, i) => (
-                          <div
-                            key={i}
-                            className={`
-            flex items-center justify-between 
-            px-3 py-5  cursor-pointer
-            transition border-b-2 border-white}`}>
-                            <div className="flex items-center gap-3">
-                              <img src={item.img} className="w-11 h-11 rounded-full" />
-                              <div>
-                                <p className="font-medium">{item.name}</p>
-                                <p className="text-xs text-white/60">{item.desc}</p>
+                        {voices?.length ? (
+                          voices.map((voice) => (
+                            <div
+                              key={voice.voice_id}
+                              className={`
+              flex items-center justify-between 
+              px-3 py-5 cursor-pointer
+              transition border-b-2 border-white`}
+                              onClick={() => handleSelectedArtist(voice)}
+                            >
+                              <div className="flex items-center gap-3">
+                                <img src={profile} className="w-11 h-11 rounded-full" alt={voice.name} />
+                                <div>
+                                  <p className="font-medium">{voice.name}</p>
+                                  <p className="text-xs text-white/60">
+                                    {voice.description && voice.description.length > 80
+                                      ? voice.description.slice(0, 80) + "..."
+                                      : voice.description || "No description available"}
+                                  </p>
+                                </div>
                               </div>
-                            </div>
 
-                            <div className="flex items-center gap-3">
-                              {/* PLAY BUTTON */}
-                              <button className="p-2 hover:bg-white/10 rounded-full">
-                                <Play size={18} />
-                              </button>
+                              <div className="flex items-center gap-3">
+                                {/* PLAY BUTTON */}
+                                <button
+                                  className="p-2 hover:bg-white/10 rounded-full"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    const audio = audioRefs.current[voice.voice_id];
+                                    if (!audio) return;
+                                    if (audio.paused) {
+                                      handlePlay(voice.voice_id);
+                                      audio.play();
+                                    } else {
+                                      audio.pause();
+                                      audio.currentTime = 0;
+                                    }
+                                  }}
+                                >
+                                  <Play size={18} />
+                                </button>
 
-                              <EllipsisVertical />
+                                <EllipsisVertical />
+                              </div>
+
+                              <audio
+                                ref={(el) => (audioRefs.current[voice.voice_id] = el)}
+                                src={voice.preview_url}
+                                className="hidden"
+                                onPlay={() => handlePlay(voice.voice_id)}
+                              />
                             </div>
-                          </div>
-                        ))}
+                          ))
+                        ) : (
+                          <p className="px-3 py-4 text-sm text-white/60">No voices found.</p>
+                        )}
                       </div>
                     </SheetContent>
                   </Sheet>
+                  {selectedArtist && (
+                    <div className="flex flex-col items-center gap-2">
+                      <div className="w-[200px] h-[6px] bg-white/20 rounded-full overflow-hidden">
+                        <div className="w-[40%] h-full bg-white rounded-full" />
+                      </div>
+                      <div className="flex items-center gap-4 mt-2">
+                        <button className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow">
+                          <UndoDot className="w-5 h-5" />
+                        </button>
+
+                        <button className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow">
+                          <Play className="w-5 h-5" />
+                        </button>
+
+                        <button className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow">
+                          <RedoDot className="w-5 h-5" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
                   <Button className='max-w-48' variant='alpha'>
                     Download Speech
                   </Button>
