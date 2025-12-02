@@ -24,7 +24,7 @@ const CTA = ({
   const [voiceLoading, setVoiceLoading] = useState(true);
 
   const [ttsText, setTtsText] = useState(
-    "Good afternoon, everyone. We live in a time where communication defines how we connect, learn, and grow. Every word matters — whether spoken or written — and technology now allows us to bridge the gap between the two."
+    ""
   );
   const [audioSrc, setAudioSrc] = useState("");
   const [heroProgress, setHeroProgress] = useState(0);
