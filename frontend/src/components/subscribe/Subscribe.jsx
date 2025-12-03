@@ -7,7 +7,7 @@ const Subscribe = () => {
             flex flex-col items-center justify-center 
             h-[280px] rounded-[32px] 
             bg-[url('/subs.png')] bg-cover bg-center bg-no-repeat 
-            max-w-7xl mx-auto p-4 my-8
+            max-w-[77rem] mx-auto  py-4 my-8
         ">
             <p className="text-white sm:text-2xl text-lg text-center mb-6">
                 Subscribe to our newsletter

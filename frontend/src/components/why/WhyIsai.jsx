@@ -7,7 +7,7 @@ import { Card, CardContent } from '../layout/card'
 
 const WhyIsai = () => {
     return (
-        <Card className='bg-[#040404] max-w-6xl p-10 mx-auto'>
+        <Card className='bg-[#040404] max-w-7xl py-10 mx-auto'>
             <CardContent>
                 <div className='space-y-10'>
                     <Heading

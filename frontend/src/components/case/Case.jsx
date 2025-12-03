@@ -29,7 +29,7 @@ const useCases = [
 
 const Case = () => {
     return (
-        <Card className="max-w-6xl  mx-auto bg-[#040404] py-10">
+        <Card className="max-w-7xl  mx-auto bg-[#040404] py-10">
             <CardContent className='p-0 px-6 space-y-10'>
                 <Heading size='large' className="text-white text-center " title={"Key Use Cases of Isai"} />
 
