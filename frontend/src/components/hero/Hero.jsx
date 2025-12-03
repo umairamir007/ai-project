@@ -27,7 +27,7 @@ export default function Hero() {
                 enableMouseInteraction={true}
             />
 
-            <div className="w-[90%] sm:w-[70%] absolute top-[180px] left-1/2 -translate-x-1/2 text-center">
+            <div className="w-[90%] sm:w-[70%] absolute top-[180px] 2xl:top-[320px] left-1/2 -translate-x-1/2 text-center">
                 <p className="text-white font-semibold sm:text-4xl text-xl sm:leading-[58px] leading-9">
                     Turn your ideas into polished podcasts and YouTube videos—no studio needed.
                 </p>
