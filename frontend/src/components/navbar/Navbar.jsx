@@ -1,105 +1,85 @@
-import { useState } from "react";
-import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
-import logo from "../../assets/logo.svg";
-import { Link } from "react-router-dom";
-import Modal from "../modal/Modal";
-import { Logout } from "..";
-import './navbar.css'
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { logo } from "../../images";
+import { Button } from "../layout/button";
+import { useAuthSession } from "../../hooks/useAuthSession";
+import { clearAuthSession } from "../../utils/authStorage";
+import { CircleX, Menu } from "lucide-react";
 
-const Navbar = ({ type }) => {
-  const [toggleMenu, setToggleMenu] = useState(false);
+const Navbar = () => {
+    const navigate = useNavigate();
+    const { isAuthenticated } = useAuthSession();
+    const [open, setOpen] = useState(false);
 
-  const defaultLinks = [
-    // { href: "#home", label: "Home" },
-    { href: "#wgpt3", label: "What is iSai?" },
-    { href: "#possibility", label: "Tech with a heart" },
-    { href: "#features", label: "Case Studies" },
-    { href: "#blog", label: "White Paper" },
-  ];
+    const handleAuthClick = () => {
+        if (!isAuthenticated) {
+            navigate("/sign-in");
+            return;
+        }
+        clearAuthSession();
+        navigate("/sign-in", { replace: true });
+    };
 
-  const talentLinks = [
-    // { href: "#home", label: "Home" },
-    // { href: "#Register", label: "Register Voice" },
-    // { href: "#NFT", label: "NFT" },
-    // { href: "#Royalties", label: "Royalties" },
-  ];
+    return (
+        <div className="w-full bg-black py-4">
+            <div className="max-w-7xl mx-auto flex items-center justify-between px-6">
 
-  const userLinks = [
-    // { href: "#home", label: "Home" },
-    // { href: "#GeneratePodcast", label: "Generate Podcast" },
-  ];
+                {/* LOGO */}
+                <div className="flex items-center gap-3">
+                    <img src={logo} alt="logo" className="h-16 w-16 object-contain" />
+                </div>
 
-  const renderLinks = (links) => (
-    <div className="gpt3__navbar-links_container">
-      {links.map((link) => (
-        <p key={link.href}>
-          {link.label === "Home" ? (
-            <Link to="/">{link.label}</Link>
-          ) : (
-            <a href={link.href}>{link.label}</a>
-          )}
-        </p>
-      ))}
-    </div>
-  );
+                {/* DESKTOP MENU */}
+                <div className="hidden md:flex items-center gap-10 text-white text-sm">
+                    <Link to="/" className="hover:text-gray-300 sm:text-xl text-lg 2xl:text-2xl">Content made Easy</Link>
+                    <Link to="/" className="hover:text-gray-300 sm:text-xl text-lg 2xl:text-2xl">Why Choose Us</Link>
+                    <Link to="/" className="hover:text-gray-300 sm:text-xl text-lg 2xl:text-2xl">Why love ISAI</Link>
+                    <Link to="/" className="hover:text-gray-300 sm:text-xl text-lg 2xl:text-2xl">Use Cases</Link>
+                    <Link to="/" className="hover:text-gray-300 sm:text-xl text-lg 2xl:text-2xl">Pricing</Link>
+                </div>
 
-  return (
-    <div className="w-full flex justify-around items-center  py-4 bg-black">
-      <div className="h-16 w-16">
-        <img
-          src={logo}
-          className="h-full w-full aspect-square overflow-hidden object-contain"
-          alt="Logo"
-        />
-      </div>
-      <div className="">
+                {/* DESKTOP BUTTON */}
+                <div className="hidden md:block">
+                    <Button variant="alpha" className="max-w-36 h-11" onClick={handleAuthClick}>
+                        {isAuthenticated ? "Logout" : "Sign In"}
+                    </Button>
+                </div>
 
-        {!type && renderLinks(defaultLinks)}
-        {type === "Talent" && <>{renderLinks([...talentLinks])}</>}
-        {type === "User" && <>{renderLinks([...userLinks])}</>}
-      </div>
-      <div className="">
-        {!type && <Modal />}
-        {(type === "Talent" || type === "User") && (
-          <>
-            {/* <div style={{ marginRight: "20px" }}>
-              <ConnectButton />
-            </div> */}
-            <div>
-              <Logout />
+                {/* MOBILE HAMBURGER */}
+                <button
+                    className="md:hidden text-white text-3xl"
+                    onClick={() => setOpen(!open)}
+                >
+                    {open ? <CircleX /> : <Menu />}
+                </button>
             </div>
-          </>
-        )}
-      </div>
 
+            {/* MOBILE MENU DROPDOWN */}
+            {open && (
+                <div className="md:hidden w-full bg-black px-6 pb-4 animate-slideDown">
+                    <div className="flex flex-col gap-4 text-white text-lg mt-4">
 
-      {/* <div className="gpt3__navbar-menu">
-        {toggleMenu ? (
-          <RiCloseLine
-            color="#fff"
-            size={27}
-            onClick={() => setToggleMenu(false)}
-          />
-        ) : (
-          <RiMenu3Line
-            color="#fff"
-            size={27}
-            onClick={() => setToggleMenu(true)}
-          />
-        )}
-        {toggleMenu && (
-          <div className="gpt3__navbar-menu_container scale-up-center">
-            {!type && renderLinks(defaultLinks)}
-            {type === "Talent" && renderLinks([...talentLinks])}
-            {type === "User" && renderLinks([...userLinks])}
-            <div className="gpt3__navbar-menu_container-links-sign">
-              <Modal />
-            </div>
-          </div>
-        )}
-      </div> */}
-    </div>
-  );
+                        <Link to="/" onClick={() => setOpen(false)}>Content made Easy</Link>
+                        <Link to="/" onClick={() => setOpen(false)}>Why Choose Us</Link>
+                        <Link to="/" onClick={() => setOpen(false)}>Why love ISAI</Link>
+                        <Link to="/" onClick={() => setOpen(false)}>Use Cases</Link>
+                        <Link to="/" onClick={() => setOpen(false)}>Pricing</Link>
+
+                        <Button
+                            variant="alpha"
+                            className="w-32 mt-2 h-11"
+                            onClick={() => {
+                                handleAuthClick();
+                                setOpen(false);
+                            }}
+                        >
+                            {isAuthenticated ? "Logout" : "Sign In"}
+                        </Button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default Navbar;

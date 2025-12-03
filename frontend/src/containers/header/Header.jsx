@@ -111,126 +111,124 @@ const Header = ({
       )}
 
       {isUserDashboard && showContent === null && (
-        <div className="py-20 flex flex-col gap-4 max-w-4xl  mx-auto" id="home">
+        <div
+          id="home"
+          className="
+    min-h-screen flex items-center
+    justify-center px-4"
+        >
+          <div className="flex flex-col gap-6 w-full max-w-5xl mx-auto ">
 
-          {/* <h1 className="gradient__text">
-              Embark on a journey to create something amazing
-            </h1>
-            <p>
-              please select from our talent pool or upload your own work to
-              generate your podcast
-            </p> */}
-          <div className="flex  gap-4 ">
+            {/* --- TOP TWO CARDS --- */}
+            <div className="flex flex-col md:flex-row gap-4 w-full">
 
-            {/* <div
-                className={`gpt3__card text-to-speech-card ${selectedCard === 2 ? "selected" : ""}`}
+              {/* TEXT TO SPEECH */}
+              <div
+                className="
+          relative
+          w-full
+          rounded-3xl
+          p-8
+          overflow-hidden
+          bg-[linear-gradient(135deg,rgba(5,20,15,1)_0%,rgba(0,0,0,1)_100%)]
+          shadow-[0_0_40px_rgba(0,0,0,0.45)]
+          border border-white/10
+          h-[260px] 2xl:h-[280px]
+        "
                 onClick={() => { setSelectedCard(2); setShowContent(2); }}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (setSelectedCard(2), setShowContent(2))}
+                onKeyDown={(e) =>
+                  (e.key === "Enter" || e.key === " ") &&
+                  (setSelectedCard(2), setShowContent(2))
+                }
               >
+                <div className="flex flex-col gap-3 z-10 relative">
+                  <h2 className="text-white text-2xl font-semibold">Text To Speech</h2>
+                  <p className="text-[#DEDEDE] text-base sm:text-lg leading-relaxed">
+                    From text to natural speech — effortlessly.
+                  </p>
+                </div>
 
-                <h2 className="gradient__text card-title">Text To Speech</h2>
-                <p className="card-desc">
-                  Submit Your Inspiring Script: Ignite the Path to Ultimate Achievement!
-                </p>
-              </div> */}
-            <div
-              className="
-    relative
-    w-full
-    rounded-3xl
-    p-8
-    overflow-hidden
-    bg-[linear-gradient(135deg,rgba(5,20,15,1)_0%,rgba(0,0,0,1)_100%)]
-    shadow-[0_0_40px_rgba(0,0,0,0.45)]
-    border border-white/10  h-[260px]"  onClick={() => { setSelectedCard(2); setShowContent(2); }}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (setSelectedCard(2), setShowContent(2))} >
-              {/* TEXT */}
-              <div className="flex flex-col gap-3 z-10 relative">
-                <h2 className="text-white text-2xl font-semibold">
-                  Text To Speech
-                </h2>
-
-                <p className="text-[#DEDEDE] text-base sm:text-lg leading-relaxed ">
-                  From text to natural speech — effortlessly.
-                </p>
+                <img
+                  src={text}
+                  alt="icon"
+                  className="
+            absolute bottom-[-60px] right-[-28px]
+            w-56 object-contain
+          "
+                />
               </div>
-              <img
-                src={text}
-                alt="icon"
+
+              {/* SPEECH TO TEXT */}
+              <div
                 className="
-      absolute
-   bottom-[-60px]
-      right-[-28px]
-      w-56
-      object-contain"
-              />
-            </div>
-
-
-            {/* Speech To Text */}
-            {/* <div
-                className={`gpt3__card speech-to-text-card ${selectedCard === 3 ? "selected" : ""}`}
+          relative
+          w-full
+          rounded-3xl
+          p-8
+          overflow-hidden
+          bg-[linear-gradient(135deg,rgba(5,20,15,1)_0%,rgba(0,0,0,1)_100%)]
+          shadow-[0_0_40px_rgba(0,0,0,0.45)]
+          border border-white/10
+          h-[260px] 2xl:h-[280px]
+        "
                 onClick={() => setShowContent(3)}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setShowContent(3)}
+                onKeyDown={(e) =>
+                  (e.key === "Enter" || e.key === " ") && setShowContent(3)
+                }
               >
-                <h2 className="gradient__text card-title">Speech To Text</h2>
-                <p className="card-desc">
-                  Submit Your Artwork and Witness its Magical Transformation!
-                </p>
-              </div> */}
+                <div className="flex flex-col gap-3 z-10 relative">
+                  <h2 className="text-white text-2xl font-semibold">Speech to Text</h2>
+                  <p className="text-[#DEDEDE] text-base sm:text-lg leading-relaxed">
+                    Turn speech into accurate, editable text.
+                  </p>
+                </div>
+
+                <img
+                  src={speech}
+                  alt="icon"
+                  className="
+            absolute bottom-[-50px] right-[-10px]
+            -rotate-12 w-48 object-contain
+          "
+                />
+              </div>
+
+            </div>
+
+            {/* --- LIBRARY CARD --- */}
             <div
               className="
-    relative
-    w-full
-    rounded-3xl
-    p-8
-    overflow-hidden
-    bg-[linear-gradient(135deg,rgba(5,20,15,1)_0%,rgba(0,0,0,1)_100%)]
-    shadow-[0_0_40px_rgba(0,0,0,0.45)]
-    border border-white/10 
-    h-[260px]" onClick={() => setShowContent(3)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setShowContent(3)}>
-              {/* TEXT */}
-              <div className="flex flex-col gap-3 z-10 relative">
-                <h2 className="text-white text-2xl font-semibold">
-                  Speech to Text
-                </h2>
+        h-auto md:h-56 2xl:h-60 w-full
+        border border-white/20
+        rounded-[32px]
+        bg-[linear-gradient(180deg,rgba(0,0,0,0.6)_0%,rgba(12,66,48,0.34)_100%)]
+        p-6
+      "
+            >
+              <div className="h-full flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                  <Heading size="normal" title={"My Library"} />
+                  <p className="mt-4 text-[#DEDEDE] text-sm sm:text-lg leading-relaxed">
+                    Your personal hub to securely store, organize, and manage every file
+                    you’ve created. Quickly access past work and keep projects structured.
+                  </p>
+                </div>
 
-                <p className="text-[#DEDEDE] text-base sm:text-lg leading-relaxed ">
-                  Turn speech into accurate, editable text.
-                </p>
+                <img
+                  className="h-28 w-28 md:h-36 md:w-36 object-contain"
+                  src={folder}
+                  alt="folder"
+                />
               </div>
-              <img
-                src={speech}
-                alt="icon"
-                className="
-      absolute bottom-[-50px] right-[-10px] -rotate-12 w-48 object-contain"/>
             </div>
 
           </div>
-          <div
-            class="h-56 w-full border border-white/20 rounded-[32px] bg-[linear-gradient(180deg,rgba(0,0,0,0.6)_0%,rgba(12,66,48,0.34)_100%)] p-6"
-          >
-            <div className="h-full flex items-center justify-between ">
-              <div>
-                <Heading size="normal" title={'My Library'} />
-                <p className="mt-4 text-[#DEDEDE] sm:text-lg  text-3xl:text-xl text-sm font-medium">
-                  Your personal hub to securely store, organize, and manage every file you’ve created. Quickly access past work, keep projects structured, and maintain all your content in one reliable place.
-                </p>
-              </div>
-              <img className="h-36 w-36 object-contain " src={folder} alt="" />
-            </div>
-          </div>
-
         </div>
+
       )}
 
       {showContent === 1 && (

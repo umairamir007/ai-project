@@ -227,60 +227,61 @@ const CTA = ({
       {/* Show container for TTS and STT without voiceSelector gate */}
       {isUserDashboard && showContent && (
         <div className="py-10">
-          <div className="h-[500px]  max-w-6xl mx-auto rounded-[32px]">
-            <div className="h-[20%] bg-white rounded-t-[32px] px-6 py-5 flex items-center gap-4">
+          {showContent === 2 && (
+            <div className="h-[500px]  max-w-6xl mx-auto rounded-[32px]">
+              <div className="h-[20%] bg-white rounded-t-[32px] px-6 py-5 flex items-center gap-4">
 
-              {/* Icon */}
-              <div className="h-6 w-6">
-                <button
-                  type="button"
-                  onClick={() => onBack?.()}
-                  aria-label="Go back"
-                  className="h-full w-full flex items-center justify-center text-gray-700 hover:text-gray-900"
-                >
-                  <CircleChevronLeft size={22} />
-                </button>
+                {/* Icon */}
+                <div className="h-6 w-6">
+                  <button
+                    type="button"
+                    onClick={() => onBack?.()}
+                    aria-label="Go back"
+                    className="h-full w-full flex items-center justify-center text-gray-700 hover:text-gray-900"
+                  >
+                    <CircleChevronLeft size={22} />
+                  </button>
+                </div>
+
+                {/* Text Section */}
+                <div className="flex flex-col">
+                  <h3 className="text-black font-semibold sm:text-xl text-lg 3xl:text-2xl">
+                    Text To Speech
+                  </h3>
+                  <p className="text-[#3C3C3C] sm:text-lg text-sm 3xl:text-xl">
+                    From text to natural speech — effortlessly.
+                  </p>
+                </div>
+
               </div>
 
-              {/* Text Section */}
-              <div className="flex flex-col">
-                <h3 className="text-black font-semibold sm:text-xl text-lg 3xl:text-2xl">
-                  Text To Speech
-                </h3>
-                <p className="text-[#3C3C3C] sm:text-lg text-sm 3xl:text-xl">
-                  From text to natural speech — effortlessly.
-                </p>
-              </div>
-
-            </div>
-
-            <div
-              className="h-[80%]
+              <div
+                className="h-[80%]
       bg-[linear-gradient(180deg,rgba(0,0,0,0)_0%,rgba(12,66,48,0.34)_100%)]
       border border-white/10
       rounded-b-[32px] p-8"
-            >
-              <div className="flex flex-col justify-between h-full">
-                <textarea
-                  placeholder="Type in your text here ..."
-                  className="w-full bg-transparent text-white font-semibold sm:text-xl text-lg text-3xl:text-2xl outline-none resize-none"
-                  rows={5}
-                  value={ttsText}
-                  onChange={(e) => setTtsText(e.target.value)}
-                />
-                <div className="flex justify-between items-center">
-                  <Sheet>
-                    <SheetTrigger asChild>
-                      <Button className="max-w-48 py-1" variant="alpha">
-                        <img className="h-12 w-12" src={profile} alt={selectedArtist?.name || "Select Voice"} />
-                        <p>{selectedArtist?.name || "Select Voice"}</p>
-                        <ChevronRight />
-                      </Button>
-                    </SheetTrigger>
+              >
+                <div className="flex flex-col justify-between h-full">
+                  <textarea
+                    placeholder="Type in your text here ..."
+                    className="w-full bg-transparent text-white font-semibold sm:text-xl text-lg text-3xl:text-2xl outline-none resize-none"
+                    rows={5}
+                    value={ttsText}
+                    onChange={(e) => setTtsText(e.target.value)}
+                  />
+                  <div className="flex justify-between items-center">
+                    <Sheet>
+                      <SheetTrigger asChild>
+                        <Button className="max-w-48 py-1" variant="alpha">
+                          <img className="h-12 w-12" src={profile} alt={selectedArtist?.name || "Select Voice"} />
+                          <p>{selectedArtist?.name || "Select Voice"}</p>
+                          <ChevronRight />
+                        </Button>
+                      </SheetTrigger>
 
-                    <SheetContent
-                      side="right"
-                      className="
+                      <SheetContent
+                        side="right"
+                        className="
         bg-[#000000bf] 
         backdrop-blur-xl 
         border-l border-white/10 
@@ -289,120 +290,129 @@ const CTA = ({
         rounded-b-none
         p-0 
         text-white">
-                      {/* HEADER */}
-                      <div className="p-5 pb-3">
-                        <h2 className="text-lg font-semibold">Pick a Voice</h2>
-                        <div className="mt-3">
-                          <input
-                            type="text"
-                            placeholder="Search Voices"
-                            className="w-full h-11 rounded-[75px] bg-[#DEDEDE] placeholder-[#3C3C3C] px-4
+                        {/* HEADER */}
+                        <div className="p-5 pb-3">
+                          <h2 className="text-lg font-semibold">Pick a Voice</h2>
+                          <div className="mt-3">
+                            <input
+                              type="text"
+                              placeholder="Search Voices"
+                              className="w-full h-11 rounded-[75px] bg-[#DEDEDE] placeholder-[#3C3C3C] px-4
               text-base outline-none focus:ring-2 focus:ring-white/20 text-black"/>
+                          </div>
                         </div>
-                      </div>
-                      {/* LIST */}
-                      <div className="px-3 space-y-1 overflow-y-auto max-h-[85vh] pb-4">
-                        {voices?.length ? (
-                          voices.map((voice) => (
-                            <div
-                              key={voice.voice_id}
-                              className={`
+                        {/* LIST */}
+                        <div className="px-3 space-y-1 overflow-y-auto max-h-[85vh] pb-4">
+                          {voices?.length ? (
+                            voices.map((voice) => (
+                              <div
+                                key={voice.voice_id}
+                                className={`
               flex items-center justify-between 
               px-3 py-5 cursor-pointer
               transition border-b-2 border-white`}
-                              onClick={() => handleSelectedArtist(voice)}
-                            >
-                              <div className="flex items-center gap-3">
-                                <img src={profile} className="w-11 h-11 rounded-full" alt={voice.name} />
-                                <div>
-                                  <p className="font-medium">{voice.name}</p>
-                                  <p className="text-xs text-white/60">
-                                    {voice.description && voice.description.length > 80
-                                      ? voice.description.slice(0, 80) + "..."
-                                      : voice.description || "No description available"}
-                                  </p>
+                                onClick={() => handleSelectedArtist(voice)}
+                              >
+                                <div className="flex items-center gap-3">
+                                  <img src={profile} className="w-11 h-11 rounded-full" alt={voice.name} />
+                                  <div>
+                                    <p className="font-medium">{voice.name}</p>
+                                    <p className="text-xs text-white/60">
+                                      {voice.description && voice.description.length > 80
+                                        ? voice.description.slice(0, 80) + "..."
+                                        : voice.description || "No description available"}
+                                    </p>
+                                  </div>
                                 </div>
+
+                                <div className="flex items-center gap-3">
+                                  {/* PLAY BUTTON */}
+                                  <button
+                                    className="p-2 hover:bg-white/10 rounded-full"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      const audio = audioRefs.current[voice.voice_id];
+                                      if (!audio) return;
+                                      if (audio.paused) {
+                                        handlePlay(voice.voice_id);
+                                        audio.play();
+                                      } else {
+                                        audio.pause();
+                                        audio.currentTime = 0;
+                                      }
+                                    }}
+                                  >
+                                    <Play size={18} />
+                                  </button>
+
+                                  <EllipsisVertical />
+                                </div>
+
+                                <audio
+                                  ref={(el) => (audioRefs.current[voice.voice_id] = el)}
+                                  src={voice.preview_url}
+                                  className="hidden"
+                                  onPlay={() => handlePlay(voice.voice_id)}
+                                />
                               </div>
-
-                              <div className="flex items-center gap-3">
-                                {/* PLAY BUTTON */}
-                                <button
-                                  className="p-2 hover:bg-white/10 rounded-full"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    const audio = audioRefs.current[voice.voice_id];
-                                    if (!audio) return;
-                                    if (audio.paused) {
-                                      handlePlay(voice.voice_id);
-                                      audio.play();
-                                    } else {
-                                      audio.pause();
-                                      audio.currentTime = 0;
-                                    }
-                                  }}
-                                >
-                                  <Play size={18} />
-                                </button>
-
-                                <EllipsisVertical />
-                              </div>
-
-                              <audio
-                                ref={(el) => (audioRefs.current[voice.voice_id] = el)}
-                                src={voice.preview_url}
-                                className="hidden"
-                                onPlay={() => handlePlay(voice.voice_id)}
-                              />
-                            </div>
-                          ))
-                        ) : (
-                          <p className="px-3 py-4 text-sm text-white/60">No voices found.</p>
-                        )}
-                      </div>
-                    </SheetContent>
-                  </Sheet>
-                  {selectedArtist && (
-                    <div className="flex flex-col items-center gap-2">
-                      <div className="w-[200px] h-[6px] bg-white/20 rounded-full overflow-hidden">
-                        <div
-                          className={`h-full bg-white rounded-full transition-all duration-300 ${isHeroGenerating ? "animate-pulse" : ""}`}
-                          style={{ width: `${Math.min(heroProgress || (isHeroGenerating ? 30 : 0), 100)}%` }}
-                        />
-                      </div>
-                      <div className="flex items-center gap-4 mt-2">
-                        <button className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow">
-                          <UndoDot className="w-5 h-5" />
-                        </button>
-
-                        <button
-                          className={`w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow transition ${!selectedArtist || !ttsText.trim() ? "opacity-50 cursor-not-allowed" : "hover:bg-white/90"
-                            }`}
-                          onClick={handleHeroGenerate}
-                          disabled={!selectedArtist || !ttsText.trim() || isHeroGenerating}
-                        >
-                          {isHeroGenerating ? (
-                            <Loader2 className="w-5 h-5 animate-spin" />
+                            ))
                           ) : (
-                            <Play className="w-5 h-5" />
+                            <p className="px-3 py-4 text-sm text-white/60">No voices found.</p>
                           )}
-                        </button>
+                        </div>
+                      </SheetContent>
+                    </Sheet>
+                    {selectedArtist && (
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="w-[200px] h-[6px] bg-white/20 rounded-full overflow-hidden">
+                          <div
+                            className={`h-full bg-white rounded-full transition-all duration-300 ${isHeroGenerating ? "animate-pulse" : ""}`}
+                            style={{ width: `${Math.min(heroProgress || (isHeroGenerating ? 30 : 0), 100)}%` }}
+                          />
+                        </div>
+                        <div className="flex items-center gap-4 mt-2">
+                          <button className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow">
+                            <UndoDot className="w-5 h-5" />
+                          </button>
 
-                        <button className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow">
-                          <RedoDot className="w-5 h-5" />
-                        </button>
+                          <button
+                            className={`w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow transition ${!selectedArtist || !ttsText.trim() ? "opacity-50 cursor-not-allowed" : "hover:bg-white/90"
+                              }`}
+                            onClick={handleHeroGenerate}
+                            disabled={!selectedArtist || !ttsText.trim() || isHeroGenerating}
+                          >
+                            {isHeroGenerating ? (
+                              <Loader2 className="w-5 h-5 animate-spin" />
+                            ) : (
+                              <Play className="w-5 h-5" />
+                            )}
+                          </button>
+
+                          <button className="w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow">
+                            <RedoDot className="w-5 h-5" />
+                          </button>
+                        </div>
+                        <audio ref={heroAudioRef} className="hidden" />
                       </div>
-                      <audio ref={heroAudioRef} className="hidden" />
-                    </div>
-                  )}
+                    )}
 
-                  <Button className='max-w-48' variant='alpha'>
-                    Download Speech
-                  </Button>
+                    <Button className='max-w-48' variant='alpha'>
+                      Download Speech
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
 
-          </div>
+            </div>
+          )}
+          {
+            showContent === 3 && (
+              <div>
+                hello
+              </div>
+            )
+          }
+
           {/* <div className="gpt3__cta-user section__margin">
             TTS: show voice grid immediately if no voice selected
             {showContent === 2 && !selectedArtist ? (
