@@ -1,4 +1,4 @@
-import axios from "axios";
+import httpClient from "../lib/httpClient";
 import { auth, db } from "../components/google/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -8,7 +8,6 @@ export async function addVoice({ cardText, uploadedFile }) {
     return;
   }
 
-  const url = `${import.meta.env.VITE_API_BASE}/elevenlabs/voices/add`;
   const form = new FormData();
   const user = auth.currentUser;
 
@@ -24,7 +23,7 @@ export async function addVoice({ cardText, uploadedFile }) {
   form.append("file", uploadedFile, uploadedFile.name); // <-- FIXED
 
   try {
-    const { data } = await axios.post(url, form); // No auth required for this route (your router doesn’t enforce it)
+    const { data } = await httpClient.post("/elevenlabs/voices/add", form); // No auth required for this route (your router doesn’t enforce it)
     const { voice_id } = data;
 
     // Upsert user doc so it exists

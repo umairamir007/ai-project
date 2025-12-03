@@ -1,5 +1,5 @@
 // src/api/storage.js
-import axios from "axios";
+import httpClient from "../lib/httpClient";
 import { auth } from "../components/google/firebase";
 
 /**
@@ -17,8 +17,8 @@ export async function uploadAudioToBackend(file, cardText = "Vocalize") {
   form.append("file", file, file.name || "audio.wav");
   form.append("cardText", cardText);
 
-  const { data } = await axios.post(
-    `${import.meta.env.VITE_API_BASE}/storage/upload`,
+  const { data } = await httpClient.post(
+    "/storage/upload",
     form,
     {
       headers: { Authorization: `Bearer ${idToken}` },

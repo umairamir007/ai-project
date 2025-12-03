@@ -1,8 +1,6 @@
-import axios from "axios";
+import httpClient from "../lib/httpClient";
 import { auth, db } from "../components/google/firebase";
 import { doc, setDoc } from "firebase/firestore";
-
-const API_BASE = import.meta.env.VITE_API_BASE || "";
 
 /**
  * Upload sample file to clone a voice model
@@ -19,9 +17,13 @@ export async function cloneVoice(file, name = "MyVoice") {
   form.append("file", file, file.name || "sample.wav");
   form.append("name", name);
 
-  const { data } = await axios.post(`${API_BASE}/fish/clone`, form, {
-    headers: { Authorization: `Bearer ${idToken}` },
-  });
+  const { data } = await httpClient.post(
+    "/fish/clone",
+    form,
+    {
+      headers: { Authorization: `Bearer ${idToken}` },
+    }
+  );
 
   // Save voiceModelId to Firestore for this user
   if (data.voiceModelId) {
@@ -33,8 +35,8 @@ export async function cloneVoice(file, name = "MyVoice") {
 }
 
 export async function generateFishTTS(text, voice = "default") {
-  const res = await axios.post(
-    `${import.meta.env.VITE_API_BASE}/fish/tts`,
+  const res = await httpClient.post(
+    "/fish/tts",
     { text, voice },
     { responseType: "blob" } // get audio blob
   );

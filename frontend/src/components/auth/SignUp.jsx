@@ -11,7 +11,7 @@ const SignUp = () => {
         <div
             className="
                 min-h-screen w-full 
-                bg-[url('/bg.png')] 
+                bg-[url('/login.png')] 
                 bg-cover bg-center bg-no-repeat
                 flex flex-col
             "

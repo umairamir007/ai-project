@@ -1,9 +1,7 @@
 // src/api/minimax.js
-import axios from "axios";
+import httpClient from "../lib/httpClient";
 import { auth, db } from "../components/google/firebase";
 import { doc, setDoc } from "firebase/firestore";
-
-const API_BASE = import.meta.env.VITE_API_BASE || "";
 
 /**
  * Uploads voice to backend -> MiniMax voice clone
@@ -18,9 +16,13 @@ export async function cloneMiniMaxVoice(file) {
   const form = new FormData();
   form.append("file", file, file.name || "sample.wav");
 
-  const { data } = await axios.post(`${API_BASE}/minimax/clone`, form, {
-    headers: { Authorization: `Bearer ${idToken}` },
-  });
+  const { data } = await httpClient.post(
+    "/minimax/clone",
+    form,
+    {
+      headers: { Authorization: `Bearer ${idToken}` },
+    }
+  );
 
   if (data.voiceId) {
     const userRef = doc(db, "users", user.uid);
@@ -31,8 +33,8 @@ export async function cloneMiniMaxVoice(file) {
 }
 
 export async function generateMiniMaxTTS(text, voice = "male-qn-qingse") {
-  const { data } = await axios.post(
-    `${import.meta.env.VITE_API_BASE}/minimax/tts`,
+  const { data } = await httpClient.post(
+    "/minimax/tts",
     { text, voice },
     { responseType: "arraybuffer" }
   );

@@ -1,5 +1,5 @@
 // src/api/textToSpeech.js
-import axios from "axios";
+import httpClient from "../lib/httpClient";
 
 export async function TextToSpeech(text, voice_id, model_id) {
   try {
@@ -9,8 +9,8 @@ export async function TextToSpeech(text, voice_id, model_id) {
       payload.model_id = model_id; // only include if explicitly passed
     }
 
-    const res = await axios.post(
-      `${import.meta.env.VITE_API_BASE}/elevenlabs/tts`,
+    const res = await httpClient.post(
+      "/elevenlabs/tts",
       payload,
       { responseType: "arraybuffer" }
     );
@@ -47,8 +47,8 @@ export const SpeechToText = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
 
-  const res = await axios.post(
-    `${import.meta.env.VITE_API_BASE}/elevenlabs/stt`,
+  const res = await httpClient.post(
+    "/elevenlabs/stt",
     formData,
     {
       headers: { "Content-Type": "multipart/form-data" },

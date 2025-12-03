@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import TalentDashboard from "./pages/talentdashboard/TalentDashboard";
 import UserDasboard from "./pages/userdashboard/UserDashboard";
 import { useEnsureAnonAuth } from "./hooks/useEnsureAnonAuth";
+import ProtectedRoute from "./components/routing/ProtectedRoute";
+import PublicRoute from "./components/routing/PublicRoute";
 import Top from "./components/top/Top";
 import StepsScroll from "./components/animation/StepsScroll";
 import TestScrollAnimation from "./test/TestScrollAnimation";
@@ -51,10 +53,14 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/talent-dashboard" element={<TalentDashboard />} />
-        <Route path="/user-dashboard" element={<UserDasboard />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/talent-dashboard" element={<TalentDashboard />} />
+          <Route path="/user-dashboard" element={<UserDasboard />} />
+        </Route>
+        <Route element={<PublicRoute />}>
+          <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
+        </Route>
       </Routes>
     </Router>
   );

@@ -3,9 +3,53 @@ import { Heading } from '../layout/heading'
 import { logo } from '../../images'
 import { Button } from '../layout/button'
 import { useNavigate } from 'react-router-dom'
+import httpClient from '../../lib/httpClient'
+import { setAuthSession } from '../../utils/authStorage'
 
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+
+// Zod Schema
+const loginSchema = z.object({
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(1, "Password is required"),
+});
 const SignIn = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting }
+    } = useForm({
+        resolver: zodResolver(loginSchema)
+    });
+
+    // Submit Handler
+    const onSubmit = async (formData) => {
+        try {
+            const { data } = await httpClient.post("/auth/login", formData);
+
+            if (!data?.accessToken?.token || !data?.refreshToken?.token) {
+                throw new Error("Invalid login response");
+            }
+
+            setAuthSession({
+                email: data.email,
+                accessToken: data.accessToken,
+                refreshToken: data.refreshToken,
+            });
+
+            navigate("/user-dashboard", { replace: true });
+        } catch (err) {
+            const message =
+                err?.response?.data?.message ||
+                err?.message ||
+                "Login failed. Please try again.";
+            alert(message);
+        }
+    };
 
     return (
         <div
@@ -27,10 +71,10 @@ const SignIn = () => {
                 <div className="flex flex-col items-center">
 
                     {/* LOGIN BOX */}
-                    <div
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
                         className="
-                            max-w-[380px]
-                            w-full
+                            w-[360px]
                             px-6 py-8
                             rounded-xl
                             border border-white/30
@@ -43,41 +87,52 @@ const SignIn = () => {
                             Log In
                         </h2>
 
+                        {/* EMAIL */}
                         <input
                             type="email"
                             placeholder="Your email"
+                            {...register("email")}
                             className="
-                                w-full mb-4
+                                w-full
                                 bg-transparent
                                 border border-white
                                 rounded-full px-4 py-2.5
                                 text-white placeholder-gray-300 text-sm
                             "
                         />
+                        <p className="text-red-400 text-xs min-h-[18px] mt-1 ">
+                            {errors.email ? errors.email.message : ""}
+                        </p>
 
+                        {/* PASSWORD */}
                         <input
                             type="password"
                             placeholder="Password"
+                            {...register("password")}
                             className="
-                                w-full mb-5
+                                w-full
                                 bg-transparent
                                 border border-white
                                 rounded-full px-4 py-2.5
                                 text-white placeholder-gray-300 text-sm
                             "
                         />
+                        <p className="text-red-400 text-xs min-h-[18px] mt-1 mb-2">
+                            {errors.password ? errors.password.message : ""}
+                        </p>
 
                         <Button
-                            className="h-11 shadow-[0px_0px_21.9px_5px_#000000]"
+                            className="h-11 shadow-[0px_0px_21.9px_5px_#000000] w-full"
                             variant="alpha"
+                            disabled={isSubmitting}
                         >
-                            Log In
+                            {isSubmitting ? "Processing..." : "Log In"}
                         </Button>
 
                         <p className="text-center text-[#FAFAFA] sm:text-lg text-sm font-bold cursor-pointer mt-4">
                             Forgot password?
                         </p>
-                    </div>
+                    </form>
 
                     {/* SIGN UP BELOW */}
                     <p className="text-white sm:text-base text-xs mt-6 font-bold text-center">
