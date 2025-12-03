@@ -30,31 +30,31 @@ const steps = [
 
 export default function ScrollSteps() {
     const ref = useRef(null);
-    const [active, setActive] = useState(0);
+    const [active, setActive] = useState(-1);
 
     const { scrollYProgress } = useScroll({
         target: ref,
-        offset: ["start 80%", "end 20%"],
+        offset: ["start center", "end center"],
     });
 
     const fill = useSpring(scrollYProgress, {
-        stiffness: 100,
-        damping: 20,
+        stiffness: 80,
+        damping: 25,
     });
 
     useEffect(() => {
         return scrollYProgress.on("change", (p) => {
-            setActive(Math.min(steps.length - 1, Math.floor(p * steps.length)));
+            const stepProgress = p * (steps.length + 1);
+            setActive(Math.min(steps.length - 1, Math.max(-1, Math.floor(stepProgress) - 1)));
         });
     }, [scrollYProgress]);
 
     return (
         <section
             ref={ref}
-            className="bg-[#040404] text-white relative space-y-12 p-0 my-0"
-            style={{ height: `${steps.length * 50}vh` }}
+            className="bg-[#040404] text-white relative py-20"
         >
-            <div className="sticky top-0">
+            <div>
                 <h1
                     className="
                         w-[70%] md:w-[80%] lg:w-[50%]
@@ -62,12 +62,13 @@ export default function ScrollSteps() {
                         text-center 
                         text-2xl sm:text-5xl 
                         leading-8 sm:leading-[58px]
+                        mb-28
                     "
                 >
                     High-Quality Content Made Easy
                 </h1>
 
-                <div className="flex items-center justify-center py-28">
+                <div className="flex items-center justify-center">
                     <div className="max-w-3xl w-full px-6 space-y-14">
 
                         {steps.map((step, index) => (
@@ -78,8 +79,8 @@ export default function ScrollSteps() {
                                 {/* LEFT TITLE */}
                                 <motion.div
                                     initial={{ opacity: 0, y: 40 }}
-                                    animate={index <= active ? { opacity: 1, y: 0 } : {}}
-                                    transition={{ duration: 0.4 }}
+                                    animate={index <= active ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                                    transition={{ duration: 0.6, ease: "easeOut" }}
                                     className="text-left"
                                 >
                                     <h3 className="sm:text-2xl text-base font-semibold leading-snug">
@@ -124,8 +125,8 @@ export default function ScrollSteps() {
                                 {/* RIGHT DESCRIPTION */}
                                 <motion.div
                                     initial={{ opacity: 0, y: 40 }}
-                                    animate={index <= active ? { opacity: 1, y: 0 } : {}}
-                                    transition={{ duration: 0.45 }}
+                                    animate={index <= active ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                                    transition={{ duration: 0.6, ease: "easeOut" }}
                                     className="text-left max-w-sm"
                                 >
                                     <p className="text-[#DEDEDE] sm:text-lg text-xs leading-relaxed">
