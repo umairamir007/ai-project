@@ -3,7 +3,7 @@ import { facebook, insta, logo, twitter } from '../../images'
 
 const Footer = () => {
     return (
-        <div className="bg-black p-8 flex flex-col sm:flex-row justify-between gap-10 max-w-7xl mx-auto">
+        <div className=" p-8 flex flex-col sm:flex-row justify-between gap-10 max-w-7xl mx-auto">
 
             {/* Logo Section */}
             <div className="flex flex-col items-center sm:items-start">

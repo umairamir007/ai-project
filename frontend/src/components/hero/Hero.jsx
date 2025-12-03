@@ -20,7 +20,7 @@ export default function Hero() {
         //     </WavyBackground>
         // </div>
 
-        <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+        <div style={{ width: '100%', height: "100vh", position: 'relative' }}>
             <Threads
                 amplitude={1}
                 distance={0}
