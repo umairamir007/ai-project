@@ -4,8 +4,52 @@ import { logo } from '../../images'
 import { Button } from '../layout/button'
 import { useNavigate } from 'react-router-dom'
 
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+import httpClient from '../../lib/httpClient'
+
+// Zod Schema
+const signupSchema = z.object({
+    firstName: z.string().min(1, "First name is required"),
+    lastName: z.string().min(1, "Last name is required"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+    confirmPassword: z.string().min(1, "Confirm password is required")
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"]
+});
+
 const SignUp = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting }
+    } = useForm({
+        resolver: zodResolver(signupSchema)
+    });
+    const onSubmit = async (formData) => {
+        try {
+            const { data } = await httpClient.post("/auth/register", formData);
+
+            if (!data?.email) {
+                throw new Error("Registration failed. No email returned.");
+            }
+
+            alert("Account created successfully! Please log in.");
+            navigate("/sign-in", { replace: true });
+
+        } catch (err) {
+            const message =
+                err?.response?.data?.message ||
+                err?.message ||
+                "Registration failed. Please try again.";
+            alert(message);
+        }
+    };
 
     return (
         <div
@@ -20,6 +64,7 @@ const SignUp = () => {
             <div className="h-16 flex justify-center items-center gap-3 mt-4">
                 <img className="h-full object-contain" src={logo} alt="Isai" />
                 <Heading size="medium" className="text-white" title="Isai" />
+
             </div>
 
             {/* Center Content */}
@@ -27,7 +72,8 @@ const SignUp = () => {
                 <div className="flex flex-col items-center">
 
                     {/* SIGN UP BOX */}
-                    <div
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
                         className="
                             max-w-[380px]
                             w-full
@@ -44,68 +90,109 @@ const SignUp = () => {
                         </h2>
 
                         {/* First + Last Name */}
-                        <div className="flex w-full gap-3 mb-4">
-                            <input
-                                type="text"
-                                placeholder="First Name"
-                                className="
-                                    w-full bg-transparent border border-white 
-                                    rounded-full px-4 py-2.5 
-                                    text-white placeholder-gray-300 text-sm
-                                "
-                            />
-                            <input
-                                type="text"
-                                placeholder="Last Name"
-                                className="
-                                    w-full bg-transparent border border-white 
-                                    rounded-full px-4 py-2.5 
-                                    text-white placeholder-gray-300 text-sm
-                                "
-                            />
+                        <div className="flex w-full gap-3">
+
+                            <div className="relative w-full mb-4">
+                                <input
+                                    type="text"
+                                    placeholder="First Name"
+                                    {...register("firstName")}
+                                    className="
+                w-full bg-transparent border border-white 
+                rounded-full px-4 py-2.5 
+                text-white placeholder-gray-300 text-sm
+            "
+                                />
+                                {errors.firstName && (
+                                    <p className="absolute -bottom-4 left-2 text-red-400 text-xs">
+                                        {errors.firstName.message}
+                                    </p>
+                                )}
+                            </div>
+
+                            <div className="relative w-full mb-4">
+                                <input
+                                    type="text"
+                                    placeholder="Last Name"
+                                    {...register("lastName")}
+                                    className="
+                w-full bg-transparent border border-white 
+                rounded-full px-4 py-2.5 
+                text-white placeholder-gray-300 text-sm
+            "
+                                />
+                                {errors.lastName && (
+                                    <p className="absolute -bottom-4 left-2 text-red-400 text-xs">
+                                        {errors.lastName.message}
+                                    </p>
+                                )}
+                            </div>
+
                         </div>
 
-                        <input
-                            type="email"
-                            placeholder="Email"
-                            className="
-                                w-full mb-4 
-                                bg-transparent 
-                                border border-white
-                                rounded-full px-4 py-2.5 
-                                text-white placeholder-gray-300 text-sm
-                            "
-                        />
 
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            className="
-                                w-full mb-4 
-                                bg-transparent border border-white 
-                                rounded-full px-4 py-2.5 
-                                text-white placeholder-gray-300 text-sm
-                            "
-                        />
+                        <div className="relative w-full mb-4">
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                {...register("email")}
+                                className="
+            w-full bg-transparent border border-white 
+            rounded-full px-4 py-2.5 
+            text-white placeholder-gray-300 text-sm
+        "
+                            />
+                            {errors.email && (
+                                <p className="absolute -bottom-4 left-2 text-red-400 text-xs">
+                                    {errors.email.message}
+                                </p>
+                            )}
+                        </div>
 
-                        <input
-                            type="password"
-                            placeholder="Confirm Password"
-                            className="
-                                w-full mb-6 
-                                bg-transparent border border-white 
-                                rounded-full px-4 py-2.5 
-                                text-white placeholder-gray-300 text-sm
-                            "
-                        />
+                        <div className="relative w-full mb-4">
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                {...register("password")}
+                                className="
+            w-full bg-transparent border border-white 
+            rounded-full px-4 py-2.5 
+            text-white placeholder-gray-300 text-sm
+        "
+                            />
+                            {errors.password && (
+                                <p className="absolute -bottom-4 left-2 text-red-400 text-xs">
+                                    {errors.password.message}
+                                </p>
+                            )}
+                        </div>
+                        <div className="relative w-full mb-6">
+                            <input
+                                type="password"
+                                placeholder="Confirm Password"
+                                {...register("confirmPassword")}
+                                className="
+            w-full bg-transparent border border-white 
+            rounded-full px-4 py-2.5 
+            text-white placeholder-gray-300 text-sm
+        "
+                            />
+                            {errors.confirmPassword && (
+                                <p className="absolute -bottom-4 left-2 text-red-400 text-xs ">
+                                    {errors.confirmPassword.message}
+                                </p>
+                            )}
+                        </div>
+
 
                         <Button
-                            className="h-11 shadow-[0px_0px_21.9px_5px_#000000]"
+                            className="h-11 shadow-[0px_0px_21.9px_5px_#000000] w-full"
                             variant="alpha"
+                            disabled={isSubmitting}
                         >
-                            Sign Up
+                            {isSubmitting ? "Processing..." : "Sign Up"}
                         </Button>
-                    </div>
+                    </form>
 
                     {/* Already have account */}
                     <p className="text-white sm:text-base text-xs mt-6 font-bold text-center">
