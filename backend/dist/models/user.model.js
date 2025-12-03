@@ -48,20 +48,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const userSchema = new mongoose_1.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    email: { type: String, required: true },
     password: { type: String, required: true },
-    isVerified: { type: Boolean, default: false },
-    role: { type: String, enum: ["User", "Admin"], default: "User" },
-    signupDate: { type: Date, required: true },
-    totalBalance: { type: Number, required: true },
-    totalTransactions: { type: Number, required: true },
-    solanaWallet: {
-        address: { type: String },
-        encryptedPrivateKey: { type: String }, // Securely store the private key
-    },
+    confirmPassword: { type: String, required: true }
 }, { timestamps: true });
-// Hash password before saving
 userSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!this.isModified("password"))
@@ -71,11 +63,10 @@ userSchema.pre("save", function (next) {
         next();
     });
 });
-// ✅ Fix: Ensure correct `this` binding
 userSchema.methods.comparePassword = function (enteredPassword) {
     return __awaiter(this, void 0, void 0, function* () {
         return yield bcryptjs_1.default.compare(enteredPassword, this.password);
     });
 };
-const UserIsai = mongoose_1.default.model("Users", userSchema);
-exports.default = UserIsai;
+const User = mongoose_1.default.model("User", userSchema);
+exports.default = User;

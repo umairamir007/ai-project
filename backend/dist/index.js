@@ -15,10 +15,13 @@ const storage_1 = __importDefault(require("./routes/storage"));
 const admin_1 = __importDefault(require("./routes/admin"));
 const fishRoutes_1 = __importDefault(require("./routes/fishRoutes"));
 const minimax_1 = __importDefault(require("./routes/minimax"));
+const user_routes_1 = __importDefault(require("./routes/user.routes"));
+const db_1 = __importDefault(require("./config/db"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 // Middleware
 app.use(express_1.default.json());
+(0, db_1.default)();
 const corsOptions = {
     origin: [constants_1.FRONTEND_URL, "http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
@@ -31,6 +34,7 @@ app.use((0, helmet_1.default)({
 }));
 app.use((0, morgan_1.default)("dev"));
 // Routes
+app.use("/api/v1/auth", user_routes_1.default);
 app.use("/api/v1/elevenlabs", elevenRoutes_1.default);
 app.use("/api/v1/storage", storage_1.default);
 app.use("/api/v1/admin", admin_1.default);
