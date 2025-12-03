@@ -10,12 +10,16 @@ import storageRoutes from "./routes/storage";
 import adminImport from "./routes/admin";
 import fishRoutes from "./routes/fishRoutes";
 import minimaxRoutes from "./routes/minimax";
+import authRoutes from "./routes/user.routes"
+import connectDB from "./config/db";
 
 dotenv.config();
 const app = express();
 
 // Middleware
 app.use(express.json());
+
+connectDB()
 
 const corsOptions: cors.CorsOptions = {
   origin: [FRONTEND_URL, "http://localhost:3000"],
@@ -33,6 +37,7 @@ app.use(
 app.use(morgan("dev"));
 
 // Routes
+app.use("/api/v1/auth", authRoutes)
 app.use("/api/v1/elevenlabs", elevenRoutes);
 app.use("/api/v1/storage", storageRoutes);
 app.use("/api/v1/admin", adminImport);

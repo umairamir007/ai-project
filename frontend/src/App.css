@@ -51,7 +51,7 @@
 
 .magic-btn:hover {
   color: #fff;
-  transition-delay: 1s; /* delay only when turning white */
+  transition-delay: 0.3s; /* delay only when turning white */
 }
 
 .magic-btn:hover::before,

@@ -47,7 +47,8 @@
     "node-cron": "^4.0.5",
     "nodemailer": "^6.10.0",
     "stream": "^0.0.3",
-    "winston": "^3.17.0"
+    "winston": "^3.17.0",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@types/axios": "^0.9.36",
