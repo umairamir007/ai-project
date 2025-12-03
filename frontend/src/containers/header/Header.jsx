@@ -231,7 +231,7 @@ const Header = ({
 
       )}
 
-      {showContent === 1 && (
+      {/* {showContent === 1 && (
         <div className="gpt3__header section__padding" id="home">
           <div className="gpt3__header-content">
             <button
@@ -260,67 +260,7 @@ const Header = ({
 
       {showContent === 2 && (
         <div className="gpt3__header section__padding" id="home">
-          <div className="gpt3__header-content">
-            {/* <button
-              onClick={handleBackButtonClick}
-              style={{
-                position: "fixed",
-                top: 16,
-                left: 16,
-                zIndex: 1000,
 
-                backgroundImage:
-                  "radial-gradient(100% 100% at 100% 0, #5adaff 0, #5468ff 100%)",
-                alignItems: "center",
-                WebkitAppearance: "none",
-                appearance: "none",
-                border: 0,
-                borderRadius: 6,
-                boxSizing: "border-box",
-                color: "#fff",
-                cursor: "pointer",
-                display: "inline-flex",
-                height: 48,
-                justifyContent: "center",
-                lineHeight: 1,
-                listStyle: "none",
-                overflow: "hidden",
-                paddingLeft: 16,
-                paddingRight: 16,
-                textAlign: "left",
-                textDecoration: "none",
-                transition: "box-shadow 0.15s, transform 0.15s",
-                userSelect: "none",
-                WebkitUserSelect: "none",
-                touchAction: "manipulation",
-                whiteSpace: "nowrap",
-                willChange: "box-shadow, transform",
-                fontSize: 16,
-                marginLeft: 0, // replaces the old marginleft="0px"
-              }}
-            >
-              <i className="fa fa-arrow-left"></i>
-            </button> */}
-            <div className="um_gpt_container">
-              <div>
-                {/* KEEP the TTS heading visible */}
-                {/* <h1 className="gradient__text">Text Synthesis</h1>
-                <p>
-                  Unleash the power of our cutting edge technology to create
-                  various scripts
-                </p> */}
-              </div>
-              {/* COMMENT OUT the Add Text button (no extra step) */}
-              {/*
-              <button
-                className="gpt__card-AddButton plus-button"
-                onClick={toggleVoiceLab}
-              >
-                <i className="fa fa-plus"></i> Add Text
-              </button>
-              */}
-            </div>
-          </div>
         </div>
       )}
 
@@ -330,7 +270,6 @@ const Header = ({
             <button
               onClick={handleBackButtonClick}
               style={{
-                // positioning
                 position: "fixed",
                 top: 16,
                 left: 16,
@@ -370,7 +309,7 @@ const Header = ({
             </button>
             <div className="um_gpt_container">
               <div>
-                {/* KEEP STT heading + paragraph + button as before */}
+                KEEP STT heading + paragraph + button as before
                 <h1 className="gradient__text">Speech To Text</h1>
                 <p>
                   Upload an audio file and let AI transcribe it into text
@@ -378,16 +317,16 @@ const Header = ({
                 </p>
               </div>
 
-              {/* <button
+              <button
                 className="plus-button gpt__card-AddButton "
                 onClick={toggleVoiceLab}
               >
                 <i className="fa fa-plus"></i> Add Audio
-              </button> */}
+              </button>
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };
