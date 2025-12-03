@@ -29,14 +29,14 @@ const useCases = [
 
 const Case = () => {
     return (
-        <Card className="max-w-6xl  mx-auto bg-[#040404] p-0">
-            <CardContent className='p-0 px-6'>
+        <Card className="max-w-6xl  mx-auto bg-[#040404] py-10">
+            <CardContent className='p-0 px-6 space-y-10'>
                 <Heading size='large' className="text-white text-center " title={"Key Use Cases of Isai"} />
 
                 {/* Responsive Grid */}
                 <div className="grid 
             grid-cols-1 sm:grid-cols-4 
-            sm:grid-rows-4 gap-6 h-full  py-28">
+            sm:grid-rows-4 gap-6 h-full">
 
                     {useCases.map((item, index) => (
                         <div

@@ -36,14 +36,14 @@ const cards = [
 
 const LoveIsai = () => {
     return (
-        <Card className="bg-theme max-w-7xl mx-auto py-0 px-4  gap-0  ">
+        <Card className="bg-theme max-w-7xl mx-auto  px-4 py-10  gap-0  space-y-10">
             <Heading
                 size="large"
                 className="text-white text-center "
                 title={"Why Choose Our Platform"}
             />
 
-            <div className="grid sm:grid-cols-3 grid-cols-1 gap-5 py-28 bg-[url('/lines.png')] bg-cover bg-center">
+            <div className="grid sm:grid-cols-3 grid-cols-1 gap-5  bg-[url('/lines.png')] bg-cover bg-center">
                 {cards.map((card) => (
                     <HoverSlideCard
                         key={card.id}

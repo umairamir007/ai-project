@@ -7,9 +7,9 @@ import { Card, CardContent } from '../layout/card'
 
 const WhyIsai = () => {
     return (
-        <Card className='bg-[#040404] max-w-6xl p-0 mx-auto'>
+        <Card className='bg-[#040404] max-w-6xl p-10 mx-auto'>
             <CardContent>
-                <div>
+                <div className='space-y-10'>
                     <Heading
                         className="text-white text-center "
                         size="large"
@@ -22,7 +22,7 @@ const WhyIsai = () => {
       mx-auto
       grid gap-6
       grid-cols-1
-      lg:grid-cols-8 lg:grid-rows-7 py-28
+      lg:grid-cols-8 lg:grid-rows-7
     "
                     >
                         <div

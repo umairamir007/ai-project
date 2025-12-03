@@ -39,10 +39,10 @@ const plans = [
 
 const Pricing = () => {
     return (
-        <div className="max-w-7xl mx-auto p-0 px-2">
+        <div className="max-w-7xl mx-auto  px-2 py-10 space-y-10">
             <Heading size="large" title={"Simple, Transparent Pricing"} />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 py-28">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
 
                 {plans.map((plan, idx) => (
                     <Card
