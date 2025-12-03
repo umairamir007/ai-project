@@ -15,6 +15,8 @@ import text from './assets/text.png'
 import speech from './assets/speech.png'
 import folder from './assets/folder.png'
 import profile from './assets/profile.png'
+import record from './assets/record.png'
+import upload from './assets/upload.png'
 
 export {
     script,
@@ -33,6 +35,8 @@ export {
     text,
     speech,
     folder,
-    profile
+    profile,
+    record,
+    upload
 
 }

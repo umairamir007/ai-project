@@ -6,7 +6,7 @@ import { fetchVoices } from "../../api/elevenlabs";
 import { TextToSpeech, SpeechToText } from "../../api/textToSpeech";
 import { Loader2, Copy, Check, CircleChevronLeft, ChevronRight, Play, EllipsisVertical, RotateCcw, RotateCw, RedoDot, UndoDot } from "lucide-react";
 import { Button } from "../layout/button";
-import { profile } from "../../images";
+import { profile, record, upload } from "../../images";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "../layout/sheet";
 
 const CTA = ({
@@ -440,7 +440,44 @@ const CTA = ({
             </div>
           )}
 
-          {showContent === 3 && <div>hello</div>}
+          {showContent === 3 &&
+            <div className="flex w-full max-w-5xl gap-6 ">
+              <div class="h-80 w-full rounded-[32px] border-2 border-white/20 
+    bg-[linear-gradient(180deg,rgba(0,0,0,0.6)_0%,rgba(12,66,48,0.34)_100%)]
+    flex flex-col items-center justify-center text-center gap-4 p-6">
+                <div class="h-40 flex items-center justify-center">
+                  <img
+                    src={record}
+                    alt="Record Voice"
+                    class="h-full w-auto object-contain"
+                  />
+                </div>
+                <h3 class="text-white sm:text-xl text-lg 2xl:text-2xl font-bold">
+                  Record Voice
+                </h3>
+                <p class="text-[#DEDEDE] sm:text-lg text-base 2xl:text-xl font-medium">
+                  Good afternoon, everyone.
+                </p>
+              </div>
+              <div class="h-80 w-full rounded-[32px] 
+    bg-[linear-gradient(180deg,rgba(0,0,0,0.6)_0%,rgba(12,66,48,0.34)_100%)]
+    flex flex-col items-center justify-center text-center gap-4 p-6 border-2 border-white/20">
+                <div class="h-40 flex items-center justify-center ">
+                  <img
+                    src={upload}
+                    alt="Record Voice"
+                    class="h-full w-auto object-contain"
+                  />
+                </div>
+                <h3 class="text-white sm:text-xl text-lg 2xl:text-2xl font-bold">
+                  Upload Audio
+                </h3>
+                <p class="text-[#DEDEDE] sm:text-lg text-base 2xl:text-xl font-medium">
+                  Good afternoon, everyone.
+                </p>
+              </div>
+
+            </div>}
         </div>
       )}
 

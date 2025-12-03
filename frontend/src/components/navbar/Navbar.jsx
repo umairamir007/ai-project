@@ -36,6 +36,11 @@ const Navbar = () => {
                     <Link to="/" className="hover:text-gray-300 sm:text-xl text-lg 2xl:text-2xl">Why love ISAI</Link>
                     <Link to="/" className="hover:text-gray-300 sm:text-xl text-lg 2xl:text-2xl">Use Cases</Link>
                     <Link to="/" className="hover:text-gray-300 sm:text-xl text-lg 2xl:text-2xl">Pricing</Link>
+                    {
+                        isAuthenticated ? (
+                            <Link to="/user-dashboard" className="hover:text-gray-300 sm:text-xl text-lg 2xl:text-2xl">Dashboard</Link>
+                        ) : null
+                    }
                 </div>
 
                 {/* DESKTOP BUTTON */}
