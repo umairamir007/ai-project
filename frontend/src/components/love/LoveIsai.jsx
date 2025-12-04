@@ -46,7 +46,7 @@ const LoveIsai = () => {
                     title={"Why Choose Our Platform"}
                 />
 
-                <div className="grid sm:grid-cols-3 grid-cols-1 gap-5 ">
+                <div className="grid sm:grid-cols-3 grid-cols-1 gap-8 ">
                     {cards.map((card) => (
                         <HoverSlideCard
                             key={card.id}
