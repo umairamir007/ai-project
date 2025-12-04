@@ -54,7 +54,7 @@ export default function ScrollSteps() {
         <section
             ref={ref}
             className="bg-[#040404] text-white relative py-10 ">
-            <div >
+            <div className="space-y-10" >
                 <Heading
                     size="large"
                     className="
@@ -67,7 +67,7 @@ export default function ScrollSteps() {
                 />
 
                 <div className="flex items-center justify-center">
-                    <div className="max-w-3xl w-full px-6 space-y-14">
+                    <div className="max-w-3xl w-full px-6 space-y-20">
 
                         {steps.map((step, index) => (
                             <div
@@ -105,7 +105,7 @@ export default function ScrollSteps() {
                                                 : { opacity: 0.2, y: 4 }
                                         }
                                         transition={{ duration: 0.4 }}
-                                        className="mt-4 flex items-center gap-2 text-sm text-white"
+                                        className="justify-center h-full flex items-center gap-2 border-2 border-red-600 text-white"
                                     >
                                         <span className="flex h-6 w-6 items-center justify-center rounded-full">
                                             <FontAwesomeIcon
@@ -116,7 +116,7 @@ export default function ScrollSteps() {
                                                 }}
                                             />
                                         </span>
-                                        <span>Step {index + 1}</span>
+                                        <span className="text-base 2xl:text-lg">Step {index + 1}</span>
                                     </motion.div>
                                 </div>
 

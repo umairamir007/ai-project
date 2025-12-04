@@ -1,19 +1,21 @@
 import React from 'react'
 import { Button } from '../layout/button'
+import PageContainer from '../layout/page-container'
 
 const Subscribe = () => {
     return (
-        <div className="
+        <PageContainer>
+   <div className="
             flex flex-col items-center justify-center 
-            h-[280px] rounded-[32px] 
+            2xl:h-[320px] h-[300px] rounded-[32px] 
             bg-[url('/subs.png')] bg-cover bg-center bg-no-repeat 
-            max-w-[77rem] mx-auto  py-4 my-8
+              py-4 my-8
         ">
-            <p className="text-white sm:text-2xl text-lg text-center mb-6">
+            <p className="text-white sm:text-2xl  text-lg text-center mb-8 font-bold">
                 Subscribe to our newsletter
             </p>
 
-            <div className="flex items-center gap-3 w-[600px] max-w-full justify-center">
+            <div className="flex items-center gap-3 w-[700px] max-w-full sm:px-0 px-8 justify-center">
 
                 {/* INPUT FIELD */}
                 <input
@@ -32,21 +34,19 @@ const Subscribe = () => {
     before:pointer-events-none
   "
                 />
-
-
-
-
                 {/* BUTTON */}
                 <Button
                     className="
-                        h-[52px] px-8 rounded-full text-black font-semibold
-                        bg-white hover:bg-white/90 transition shadow-[0px_0px_21.9px_5px_rgba(0,0,0,1)]
+                         px-12 rounded-full text-black 
+                        bg-white hover:bg-white/90 transition shadow-[0px_0px_21.9px_5px_rgba(0,0,0,1)] font-black
                     "
                 >
                     Subscribe
                 </Button>
             </div>
         </div>
+        </PageContainer>
+     
     )
 }
 

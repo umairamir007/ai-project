@@ -4,11 +4,13 @@ import { Heading } from '../layout/heading'
 import { collaboration, instant, platform, script } from '../../images'
 import { Para } from '../layout/para'
 import { Card, CardContent } from '../layout/card'
+import PageContainer from '../layout/page-container'
 
 const WhyIsai = () => {
     return (
-        <Card className='bg-[#040404] max-w-7xl py-10 mx-auto'>
-            <CardContent>
+        <PageContainer>
+   <Card className='p-0 bg-[#040404]'>
+            <CardContent className='p-0'>
                 <div className='space-y-10'>
                     <Heading
                         className="text-white text-center "
@@ -20,7 +22,7 @@ const WhyIsai = () => {
                     <div
                         className="
       mx-auto
-      grid gap-6
+      grid 2xl:gap-10 gap-6
       grid-cols-1
       lg:grid-cols-8 lg:grid-rows-7
     "
@@ -123,6 +125,8 @@ const WhyIsai = () => {
                 </div>
             </CardContent>
         </Card>
+        </PageContainer>
+     
 
 
     )

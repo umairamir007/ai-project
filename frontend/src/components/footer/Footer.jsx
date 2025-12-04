@@ -1,9 +1,11 @@
 import React from 'react'
 import { facebook, insta, logo, twitter } from '../../images'
+import PageContainer from '../layout/page-container'
 
 const Footer = () => {
     return (
-        <div className=" p-8 flex flex-col sm:flex-row justify-between gap-10 max-w-7xl mx-auto">
+      <PageContainer>
+          <div className="  flex flex-col sm:flex-row justify-between gap-10 ">
 
             {/* Logo Section */}
             <div className="flex flex-col items-center sm:items-start">
@@ -41,6 +43,7 @@ const Footer = () => {
 
             </div>
         </div>
+      </PageContainer>
     )
 }
 

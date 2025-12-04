@@ -3,6 +3,7 @@ import { Heading } from "../layout/heading";
 import { CircleCheck } from "lucide-react";
 import { Button } from "../layout/button";
 import { Card, CardContent, CardFooter } from "../layout/card";
+import PageContainer from "../layout/page-container";
 
 const plans = [
     {
@@ -39,10 +40,11 @@ const plans = [
 
 const Pricing = () => {
     return (
-        <div className="max-w-7xl mx-auto  px-8  py-10 space-y-10">
+        <PageContainer>
+     <div className="   space-y-10">
             <Heading size="large" title={"Simple, Transparent Pricing"} />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:gap-10 gap-6 ">
 
                 {plans.map((plan, idx) => (
                     <Card
@@ -94,6 +96,8 @@ const Pricing = () => {
 
             </div>
         </div>
+        </PageContainer>
+   
     );
 };
 
