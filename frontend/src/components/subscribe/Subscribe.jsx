@@ -15,7 +15,7 @@ const Subscribe = () => {
                 Subscribe to our newsletter
             </p>
 
-            <div className="flex items-center gap-3 w-[700px] max-w-full sm:px-0 px-8 justify-center">
+            <div className="flex sm:flex-row flex-col  items-center sm:gap-3 gap-6  w-[700px] max-w-full sm:px-0 px-8 justify-center">
 
                 {/* INPUT FIELD */}
                 <input

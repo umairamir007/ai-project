@@ -37,8 +37,9 @@ const cards = [
 
 const LoveIsai = () => {
     return (
-        <PageContainer>
-            <Card className="bg-theme p-0 gap-0  space-y-10  bg-[url('/lines.png')] bg-cover bg-center">
+        <div className=" bg-[url('/lines.png')] bg-cover bg-center ">
+      <PageContainer>
+            <Card className="bg-theme p-0 gap-0  space-y-10 ">
                 <Heading
                     size="large"
                     className="text-white text-center "
@@ -58,6 +59,8 @@ const LoveIsai = () => {
                 </div>
             </Card>
         </PageContainer>
+        </div>
+  
 
     )
 }

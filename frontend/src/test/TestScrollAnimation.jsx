@@ -67,12 +67,12 @@ export default function ScrollSteps() {
                 />
 
                 <div className="flex items-center justify-center">
-                    <div className="max-w-3xl w-full px-6 space-y-20">
+                    <div className="max-w-3xl w-full px-6 space-y-0">
 
                         {steps.map((step, index) => (
                             <div
                                 key={step.title}
-                                className="grid grid-cols-[minmax(0,1.4fr)_auto_minmax(0,1.4fr)] sm:gap-10 gap-4 items-start"
+                                className="grid grid-cols-[minmax(0,1.4fr)_auto_minmax(0,1.4fr)] sm:gap-10 gap-4 items-start  "
                             >
                                 {/* LEFT TITLE */}
                                 <motion.div
@@ -105,7 +105,7 @@ export default function ScrollSteps() {
                                                 : { opacity: 0.2, y: 4 }
                                         }
                                         transition={{ duration: 0.4 }}
-                                        className="justify-center h-full flex items-center gap-2 mt-14 text-white "
+                                        className="justify-center h-full flex items-center gap-2  text-white  sm:my-14 my-10"
                                     >
                                         <span className="flex h-6 w-6 items-center justify-center rounded-full">
                                             <FontAwesomeIcon

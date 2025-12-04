@@ -55,7 +55,7 @@ const Pricing = () => {
     border border-white/20 text-white 
     backdrop-blur-lg bg-transparent
     flex flex-col justify-between h-full">
-                        <CardContent className="flex flex-col gap-6 flex-1">
+                        <CardContent className="flex flex-col gap-6 flex-1 p-0">
                             {/* HEADER */}
                             <div className="bg-[radial-gradient(80.69%_99.7%_at_50%_0.04%,_#0C4230_0%,_#000000_100%)] 
           h-[190px] w-full rounded-[32px] 
