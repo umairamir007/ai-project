@@ -2,6 +2,7 @@ import React from 'react'
 import { Heading } from '../layout/heading'
 import { Card } from '../layout/card'
 import HoverSlideCard from '../animation/HoverSlideCard'
+import PageContainer from '../layout/page-container'
 
 const cards = [
     {
@@ -36,25 +37,28 @@ const cards = [
 
 const LoveIsai = () => {
     return (
-        <Card className="bg-theme max-w-7xl mx-auto  px-4 py-10  gap-0  space-y-10">
-            <Heading
-                size="large"
-                className="text-white text-center "
-                title={"Why Choose Our Platform"}
-            />
+        <PageContainer>
+            <Card className="bg-theme p-0 gap-0  space-y-10  bg-[url('/lines.png')] bg-cover bg-center">
+                <Heading
+                    size="large"
+                    className="text-white text-center "
+                    title={"Why Choose Our Platform"}
+                />
 
-            <div className="grid sm:grid-cols-3 grid-cols-1 gap-5  bg-[url('/lines.png')] bg-cover bg-center">
-                {cards.map((card) => (
-                    <HoverSlideCard
-                        key={card.id}
-                        heading={card.title}
-                        users={card.number}
-                        description={card.description}
-                        className={card.className}
-                    />
-                ))}
-            </div>
-        </Card>
+                <div className="grid sm:grid-cols-3 grid-cols-1 gap-5 ">
+                    {cards.map((card) => (
+                        <HoverSlideCard
+                            key={card.id}
+                            heading={card.title}
+                            users={card.number}
+                            description={card.description}
+                            className={card.className}
+                        />
+                    ))}
+                </div>
+            </Card>
+        </PageContainer>
+
     )
 }
 
