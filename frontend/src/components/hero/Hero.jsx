@@ -3,19 +3,19 @@ import { WavyBackground } from "../animation/WavyBackground";
 
 export default function Hero() {
   return (
-  <div className="relative w-full overflow-hidden h-screen rounded-xl">
+  <div className="relative w-full overflow-hidden sm:h-screen h-full rounded-xl sm:pt-0 pt-40 sm:pb-0 pb-20">
 
     {/* CONTENT */}
-    <div className="sm:w-[60%] w-[90%] mx-auto text-center mt-16 z-20 relative top-[300px]">
-        <p className="text-white font-semibold sm:text-5xl text-xl sm:leading-[68px]">
+    <div className="max-w-7xl w-[90%] mx-auto text-center mt-16 z-20 relative sm:pt-60 md:pt-60 xl:pt-56 2xl:pt-80">
+        <p className="text-white font-semibold sm:text-3xl md:text-5xl text-2xl sm:leading-[50px] md:leading-[58px] 2xl:leading-[68px]">
             Turn your ideas into polished podcasts and YouTube videos—no studio needed.
         </p>
 
-        <p className="sm:text-2xl text-base text-[#DEDEDE] font-medium sm:mt-6 max-w-2xl text-center mx-auto my-10 sm:leading-9">
+        <p className="sm:text-2xl text-base text-[#DEDEDE] font-medium sm:mt-6 max-w-2xl text-center mx-auto sm:my-10 my-8 sm:leading-9">
             iSai uses AI voice cloning and ElevenLabs tech to create lifelike audio — fast, high-quality, and studio-free.
         </p>
 
-        <button className="bg-white text-black py-4 px-14 text-lg font-black magic-btn rounded-full my-4 2xl:text-xl">
+        <button className="bg-white text-black sm:py-4 py-3 sm:px-14 px-8 text-lg font-black magic-btn rounded-full my-4 2xl:text-xl">
             Get Started
         </button>
     </div>
@@ -24,7 +24,7 @@ export default function Hero() {
     <iframe
         src="https://my.spline.design/claritystream-PLXVd1pUc5MN8dwP26y8g6Aw/"
         frameBorder="0"
-        className="absolute top-0 left-0 w-full h-screen z-0 pointer-events-none"
+        className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none"
     ></iframe>
 
     {/* BLACK COVER — hides the “Built with Spline” badge */}
