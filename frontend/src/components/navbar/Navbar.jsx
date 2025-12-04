@@ -5,6 +5,7 @@ import { Button } from "../layout/button";
 import { useAuthSession } from "../../hooks/useAuthSession";
 import { clearAuthSession } from "../../utils/authStorage";
 import { CircleX, Menu } from "lucide-react";
+import PageContainer from "../layout/page-container";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -21,7 +22,8 @@ const Navbar = () => {
     };
 
     return (
-        <div className="w-full bg-black py-4">
+      <PageContainer>
+          <div className=" py-4">
             <div className="w-full mx-auto flex items-center justify-between px-6">
 
                 {/* LOGO */}
@@ -84,6 +86,7 @@ const Navbar = () => {
                 </div>
             )}
         </div>
+      </PageContainer>
     );
 };
 

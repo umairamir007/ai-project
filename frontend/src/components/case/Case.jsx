@@ -1,28 +1,27 @@
 import React from 'react'
 import { Card, CardContent } from '../layout/card'
 import { Heading } from '../layout/heading'
-import { mic, player, speaker, trainer } from '../../images'
 import { Para } from '../layout/para'
 import PageContainer from '../layout/page-container'
 
 const useCases = [
     {
-        img: mic,
+        img: "https://ik.imagekit.io/nvxedozet/player.png",
         title: "Podcasters",
         desc: "Create consistent, high-quality episodes at scale",
     },
     {
-        img: player,
+        img: "https://ik.imagekit.io/nvxedozet/player.png",
         title: "Youtuber Creators",
         desc: "Convert blogs or scripts into full-fledged video",
     },
     {
-        img: speaker,
+        img: "https://ik.imagekit.io/nvxedozet/speaker.png",
         title: "Brands & Marketers",
         desc: "Share projects and work in real-time with your team",
     },
     {
-        img: trainer,
+        img: "https://ik.imagekit.io/nvxedozet/trainer.png",
         title: "Educators & Trainers",
         desc: "Deliver courses or audio lessons with natural voices.",
     }

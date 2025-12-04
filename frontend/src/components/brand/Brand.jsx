@@ -5,7 +5,6 @@ import PageContainer from "../layout/page-container";
 const brands = [google, slack, atlassian, dropbox, shopify];
 
 const Brand = () => (
-  <PageContainer>
     <div className="flex flex-wrap justify-center items-center gap-8   sm:gap-12 xs:gap-6   py-10 ">
       {brands.map((logo, index) => (
         <div
@@ -20,7 +19,6 @@ const Brand = () => (
         </div>
       ))}
     </div>
-  </PageContainer>
 
 );
 

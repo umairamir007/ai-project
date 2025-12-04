@@ -8,7 +8,7 @@ const Subscribe = () => {
    <div className="
             flex flex-col items-center justify-center 
             2xl:h-[320px] h-[300px] rounded-[32px] 
-            bg-[url('/subs.png')] bg-cover bg-center bg-no-repeat 
+            bg-[url('https://ik.imagekit.io/nvxedozet/subs.png')] bg-cover bg-center bg-no-repeat 
               py-4 my-8
         ">
             <p className="text-white sm:text-2xl  text-lg text-center mb-8 font-bold">

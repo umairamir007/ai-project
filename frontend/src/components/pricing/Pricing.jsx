@@ -65,7 +65,7 @@ const Pricing = () => {
                                 </h1>
 
                                 <p className="py-6 mt-4">
-                                    <span className="text-white text-5xl font-bold">${plan.price}</span>
+                                    <span className="text-white text-6xl  font-bold">${plan.price}</span>
                                     <span className="text-[#BDBDBD] text-5xl font-normal">/</span>
                                     <span className="text-[#BDBDBD] font-normal">month</span>
                                 </p>
@@ -79,7 +79,7 @@ const Pricing = () => {
                                         className="flex gap-4 border-b border-[#DEDEDE]/50 py-4 items-center"
                                     >
                                         <CircleCheck />
-                                        <p className="font-medium text-base">{feat}</p>
+                                        <p className="font-medium sm:text-lg text-sm 2xl:text-xl">{feat}</p>
                                     </div>
                                 ))}
                             </div>
