@@ -105,7 +105,7 @@ export default function ScrollSteps() {
                                                 : { opacity: 0.2, y: 4 }
                                         }
                                         transition={{ duration: 0.4 }}
-                                        className="justify-center h-full flex items-center gap-2 border-2 border-red-600 text-white"
+                                        className="justify-center h-full flex items-center gap-2 mt-14 text-white "
                                     >
                                         <span className="flex h-6 w-6 items-center justify-center rounded-full">
                                             <FontAwesomeIcon
