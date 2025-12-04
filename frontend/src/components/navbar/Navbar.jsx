@@ -22,8 +22,7 @@ const Navbar = () => {
     };
 
     return (
-      <PageContainer>
-          <div className=" py-4">
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 py-4 z-10 w-[90%]">
             <div className="w-full mx-auto flex items-center justify-between px-6">
 
                 {/* LOGO */}
@@ -74,7 +73,7 @@ const Navbar = () => {
 
                         <Button
                             variant="alpha"
-                            className="w-32 mt-2 h-11"
+                            className=" w-[100px] mt-2 h-11"
                             onClick={() => {
                                 handleAuthClick();
                                 setOpen(false);
@@ -86,7 +85,6 @@ const Navbar = () => {
                 </div>
             )}
         </div>
-      </PageContainer>
     );
 };
 

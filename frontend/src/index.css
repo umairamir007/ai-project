@@ -131,3 +131,8 @@ body {
 [data-state="closed"].overlay-fade-out {
   animation: fade-out .25s ease forwards;
 }
+
+
+body a .spline-watermark {
+  display: none !important;
+}
