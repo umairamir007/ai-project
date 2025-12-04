@@ -3,6 +3,7 @@ import { Heading } from '../layout/heading'
 import { Card } from '../layout/card'
 import HoverSlideCard from '../animation/HoverSlideCard'
 import PageContainer from '../layout/page-container'
+import FadeContent from '../animation/fade'
 
 const cards = [
     {
@@ -40,11 +41,13 @@ const LoveIsai = () => {
         <div className=" bg-[url('/lines.png')] bg-cover bg-center ">
       <PageContainer>
             <Card className="bg-theme p-0 gap-0  space-y-10 ">
-                <Heading
+              <FadeContent >
+  <Heading
                     size="large"
                     className="text-white text-center "
                     title={"Why Choose Our Platform"}
                 />
+</FadeContent>
 
                 <div className="grid sm:grid-cols-3 grid-cols-1 gap-8 ">
                     {cards.map((card) => (

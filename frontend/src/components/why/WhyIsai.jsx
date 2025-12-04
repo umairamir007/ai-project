@@ -5,18 +5,22 @@ import { collaboration, instant, platform, script } from '../../images'
 import { Para } from '../layout/para'
 import { Card, CardContent } from '../layout/card'
 import PageContainer from '../layout/page-container'
+import FadeContent from '../animation/fade'
 
 const WhyIsai = () => {
     return (
-        <PageContainer>
+ 
+                <PageContainer>
    <Card className='p-0 bg-[#040404]'>
             <CardContent className='p-0'>
                 <div className='space-y-10'>
-                    <Heading
+                  <FadeContent blur={true} duration={1000} easing="ease-out" initialOpacity={0}>
+  <Heading
                         className="text-white text-center "
                         size="large"
                         title={"Why You'll Love Isai"}
                     />
+</FadeContent>
 
                     {/* GRID WRAPPER */}
                     <div
@@ -126,8 +130,6 @@ const WhyIsai = () => {
             </CardContent>
         </Card>
         </PageContainer>
-     
-
 
     )
 }

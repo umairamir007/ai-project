@@ -5,6 +5,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { Heading } from "../components/layout/heading";
+import FadeContent from "../components/animation/fade";
 
 const steps = [
     {
@@ -55,7 +56,8 @@ export default function ScrollSteps() {
             ref={ref}
             className="bg-[#040404] text-white relative py-10 ">
             <div className="space-y-10" >
-                <Heading
+                <FadeContent >
+<Heading
                     size="large"
                     className="
                         w-[70%] md:w-[80%] lg:w-[50%]
@@ -65,6 +67,7 @@ export default function ScrollSteps() {
                     "
                     title={'High-Quality Content Made Easy'}
                 />
+</FadeContent>
 
                 <div className="flex items-center justify-center">
                     <div className="max-w-3xl w-full px-6 space-y-0">

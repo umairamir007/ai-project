@@ -4,6 +4,7 @@ import { CircleCheck } from "lucide-react";
 import { Button } from "../layout/button";
 import { Card, CardContent, CardFooter } from "../layout/card";
 import PageContainer from "../layout/page-container";
+import FadeContent from "../animation/fade";
 
 const plans = [
     {
@@ -42,7 +43,9 @@ const Pricing = () => {
     return (
         <PageContainer>
      <div className="   space-y-10">
-            <Heading size="large" title={"Simple, Transparent Pricing"} />
+           <FadeContent blur={true} duration={1000} easing="ease-out" initialOpacity={0}>
+ <Heading size="large" title={"Simple, Transparent Pricing"} />
+</FadeContent>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:gap-10 gap-6 ">
 

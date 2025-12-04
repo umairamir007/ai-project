@@ -3,6 +3,7 @@ import { Card, CardContent } from '../layout/card'
 import { Heading } from '../layout/heading'
 import { Para } from '../layout/para'
 import PageContainer from '../layout/page-container'
+import FadeContent from '../animation/fade'
 
 const useCases = [
     {
@@ -32,7 +33,9 @@ const Case = () => {
         <PageContainer>
   <Card className="p-0 bg-[#040404] ">
             <CardContent className='p-0 space-y-10'>
-                <Heading size='large' className="text-white text-center " title={"Key Use Cases of Isai"} />
+            <FadeContent >
+    <Heading size='large' className="text-white text-center " title={"Key Use Cases of Isai"} />
+</FadeContent>
 
                 {/* Responsive Grid */}
                 <div className="grid 

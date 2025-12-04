@@ -25,6 +25,7 @@
     "font-awesome": "^4.7.0",
     "form-data": "^4.0.0",
     "framer-motion": "^12.23.24",
+    "gsap": "^3.13.0",
     "lucide": "^0.555.0",
     "lucide-react": "^0.542.0",
     "mammoth": "^1.10.0",
