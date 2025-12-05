@@ -18,7 +18,7 @@ import Subscribe from "./components/subscribe/Subscribe";
 import Footer from "./components/footer/Footer";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
-import RecordVoice from "./components/REcordVoice";
+import RecordVoice from "./components/RecordVoice";
 
 const LandingPage = () => {
   return (
