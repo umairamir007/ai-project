@@ -43,7 +43,7 @@ const WhyIsai = () => {
                             <Heading className="text-white" size="why_heading" title={"Custom Voice Agents & Cloning"} />
 
                             <div className="flex justify-center items-center py-6">
-                                <img src={typeWriter} alt="Voice Cloning" className="w-[180px] sm:w-[220px] h-auto object-contain" />
+                                <img src={typeWriter} alt="Voice Cloning" className="w-[280px] sm:w-[480px] h-auto object-contain" />
                             </div>
 
                             <Para size={"why"} para={"Schedule or export content to Spotify, YouTube, Apple Podcasts, or social channels"} />

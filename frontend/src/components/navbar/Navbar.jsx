@@ -49,7 +49,7 @@ const Navbar = () => {
         <div className="hidden lg:block">
           <Button
             variant="alpha"
-            className="px-12 h-13 text-black text-xl"
+            className="px-12 h-13  text-xl magic-btn"
             onClick={handleAuthClick}
           >
             {isAuthenticated ? "Logout" : "Sign In"}

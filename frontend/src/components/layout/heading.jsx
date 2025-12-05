@@ -10,7 +10,7 @@ export const Heading = ({
 }) => {
     const styling = {
         default: 'text-base sm:text-xl 3xl:text-2xl',
-        large: 'text-xl md:text-3xl lg:text-5xl 2xl:text-5xl text-center text-white font-bold sm:py-16 py-8 3xl:py-20 sm:!leading-[60px]',
+        large: 'text-xl md:text-3xl lg:text-5xl 2xl:text-5xl text-center text-white font-bold sm:py-16 py-2 3xl:py-20 sm:!leading-[60px]',
         medium: 'text-[40px] sm:text-5xl 3xl:text-[55px] font-bold',
         sm: 'text-base sm:text-lg',
         why_heading: 'sm:text-2xl text-lg 3xl:text-3xl',
