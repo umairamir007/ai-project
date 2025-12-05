@@ -5,7 +5,7 @@ import Navbar from "./navbar/Navbar";
 import { useVoiceRecorder } from "../hooks/useVoiceRecorder";
 
 const RecordVoice = () => {
-  const [textCardShow, setTextCardShow] = useState(false);
+  const [textCardShow, setTextCardShow] = useState(true); // Show recording view first
   
   const {
     isRecording,
@@ -58,7 +58,7 @@ const RecordVoice = () => {
 
   const handleBack = () => {
     reset();
-    setTextCardShow(false);
+    setTextCardShow(true); // Go back to recording view
   };
 
   // Delay pattern (mirrored left → center → right)
@@ -81,11 +81,13 @@ const RecordVoice = () => {
   ];
 
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex  items-center justify-center h-full">
+
       <Navbar />
 
       {textCardShow ? (
-        <div className="bg-[#FAFAFA] rounded-[32px] p-8">
+       <div className="flex justify-center items-center pt-36 h-full">
+         <div className="bg-[#FAFAFA] rounded-[32px] p-8 ">
           <div className="flex items-center pb-8">
             <button
               onClick={handleBack}
@@ -123,7 +125,7 @@ const RecordVoice = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-black text-sm font-medium">
+                  <div className="text-black sm:text-sm 4xl:text-lg text-base font-medium">
                     {isConverting ? "Converting..." : "Ready to record"}
                   </div>
                 )}
@@ -135,7 +137,7 @@ const RecordVoice = () => {
             {isRecording ? (
               <Button
                 variant="alpha"
-                className="shadow-none bg-red-600 text-white hover:bg-red-700"
+                className="shadow-none bg-[#0C4230] text-white hover:bg-[#0C4230]/90"
                 onClick={handleStopRecording}
               >
                 Stop Recording
@@ -157,12 +159,13 @@ const RecordVoice = () => {
             </div>
           )}
         </div>
+       </div>
       ) : (
         <div
           className="max-w-6xl 2xl:max-w-7xl w-full 
           mx-auto rounded-[32px] 
           h-auto lg:h-[500px] 
-          flex flex-col"
+          flex flex-col pt-44" 
         >
           <div className="h-auto lg:h-[20%] bg-white rounded-t-[32px] px-6 py-5 flex items-center gap-4">
             <div className="h-6 w-6">
