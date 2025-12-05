@@ -59,7 +59,7 @@ function SheetContent({
         data-slot="sheet-content"
         className={cn(
           // Base styles
-          "bg-[#000000BF] fixed z-50 flex flex-col gap-4 shadow-lg rounded-t-[32px]  backdrop-blur-lg border-t border-l border-white/40",
+          "bg-[#000000BF] fixed z-50 flex flex-col gap-4 shadow-lg rounded-t-[32px]  backdrop-blur-lg border-t border-l border-white/40 ",
           side === "right" &&
           // Position + custom keyframe helpers from index.css
           "inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm slide-in-from-right slide-out-to-right",

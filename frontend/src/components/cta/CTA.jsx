@@ -4,7 +4,7 @@ import "./cta.css";
 import { TextUpload, AudioRecorder } from "../../components/index";
 import { fetchVoices } from "../../api/elevenlabs";
 import { TextToSpeech, SpeechToText } from "../../api/textToSpeech";
-import { Loader2, Copy, Check, CircleChevronLeft, ChevronRight, Play, EllipsisVertical, RotateCcw, RotateCw, RedoDot, UndoDot } from "lucide-react";
+import { Loader2, Copy, Check, CircleChevronLeft, ChevronRight, Play, Pause, EllipsisVertical, RotateCcw, RotateCw, RedoDot, UndoDot } from "lucide-react";
 import { Button } from "../layout/button";
 import { profile, record, upload } from "../../images";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "../layout/sheet";
@@ -30,6 +30,9 @@ const CTA = ({
   const [audioSrc, setAudioSrc] = useState("");
   const [heroProgress, setHeroProgress] = useState(0);
   const [isHeroGenerating, setIsHeroGenerating] = useState(false);
+  const [generatedText, setGeneratedText] = useState("");
+  const [generatedVoiceId, setGeneratedVoiceId] = useState("");
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const [sttLoading, setSttLoading] = useState(false);
   const [sttError, setSttError] = useState(null);
@@ -110,11 +113,34 @@ const CTA = ({
 
   const handleHeroGenerate = async () => {
     if (!selectedArtist || !ttsText.trim() || isHeroGenerating) return;
+    
+    const audio = heroAudioRef.current;
+    const currentText = ttsText.trim();
+    const currentVoiceId = selectedArtist.voice_id;
+    
+    // Check if audio already exists for current text and voice
+    const audioExists = audioSrc && 
+                        generatedText === currentText && 
+                        generatedVoiceId === currentVoiceId;
+    
+    if (audioExists && audio) {
+      // Audio already generated - just play/pause
+      if (audio.paused) {
+        await audio.play();
+      } else {
+        audio.pause();
+      }
+      return;
+    }
+    
+    // Need to generate new audio
     setIsHeroGenerating(true);
     setHeroProgress(0);
     try {
-      const url = await TextToSpeech(ttsText, selectedArtist.voice_id);
+      const url = await TextToSpeech(currentText, currentVoiceId);
       setAudioSrc(url);
+      setGeneratedText(currentText);
+      setGeneratedVoiceId(currentVoiceId);
       if (heroAudioRef.current) {
         heroAudioRef.current.src = url;
         await heroAudioRef.current.play();
@@ -134,16 +160,42 @@ const CTA = ({
       if (!audio.duration) return;
       setHeroProgress((audio.currentTime / audio.duration) * 100);
     };
-    const reset = () => setHeroProgress(0);
+    const reset = () => {
+      setHeroProgress(0);
+      setIsPlaying(false);
+    };
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
 
     audio.addEventListener("timeupdate", update);
     audio.addEventListener("ended", reset);
+    audio.addEventListener("play", handlePlay);
+    audio.addEventListener("pause", handlePause);
 
     return () => {
       audio.removeEventListener("timeupdate", update);
       audio.removeEventListener("ended", reset);
+      audio.removeEventListener("play", handlePlay);
+      audio.removeEventListener("pause", handlePause);
     };
   }, [audioSrc]);
+
+  // Reset playing state when text or voice changes
+  useEffect(() => {
+    if (showContent === 2) {
+      const currentText = ttsText.trim();
+      const currentVoiceId = selectedArtist?.voice_id;
+      
+      // If text or voice changed, reset playing state
+      if (currentText !== generatedText || currentVoiceId !== generatedVoiceId) {
+        setIsPlaying(false);
+        if (heroAudioRef.current) {
+          heroAudioRef.current.pause();
+          heroAudioRef.current.currentTime = 0;
+        }
+      }
+    }
+  }, [ttsText, selectedArtist?.voice_id, showContent, generatedText, generatedVoiceId]);
 
   const handleSTT = async (incoming) => {
     if (sttLoading) return; // guard
@@ -208,6 +260,30 @@ const CTA = ({
       setTimeout(() => setCopied(false), 1200);
     } catch (e) {
       console.error("Copy failed:", e);
+    }
+  };
+
+  // Download audio handler
+  const handleDownload = async () => {
+    if (!audioSrc) {
+      alert("No audio available to download. Please generate speech first.");
+      return;
+    }
+
+    try {
+      const response = await fetch(audioSrc);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `speech-${Date.now()}.mp3`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (err) {
+      console.error("Download failed:", err);
+      alert("Failed to download audio");
     }
   };
 
@@ -299,7 +375,7 @@ const CTA = ({
                     bg-[#000000bf] 
                     backdrop-blur-xl 
                     border-l border-white/10 
-                    w-[360px] 
+                    4xl:max-w-lg
                     rounded-[32px]
                     rounded-b-none
                     p-0 
@@ -323,7 +399,8 @@ const CTA = ({
                         </div>
 
                         {/* VOICE LIST */}
-                        <div className="px-3 space-y-1 overflow-y-auto max-h-[85vh] pb-4">
+                   <div className="px-3 space-y-1 overflow-y-auto max-h-[85vh] pb-4 custom-scrollbar">
+
                           {voices?.length ? (
                             voices.map((voice) => (
                               <div
@@ -418,6 +495,8 @@ const CTA = ({
                           >
                             {isHeroGenerating ? (
                               <Loader2 className="w-5 h-5 animate-spin" />
+                            ) : isPlaying ? (
+                              <Pause className="w-5 h-5" />
                             ) : (
                               <Play className="w-5 h-5" />
                             )}
@@ -433,7 +512,12 @@ const CTA = ({
                     )}
 
                     {/* DOWNLOAD BUTTON */}
-                    <Button className="max-w-48 w-full sm:w-auto" variant="alpha">
+                    <Button 
+                      className={`max-w-48 w-full sm:w-auto magic-btn ${!audioSrc ? "opacity-50 cursor-not-allowed" : ""}`}
+                      variant="alpha"
+                      onClick={handleDownload}
+                      disabled={!audioSrc}
+                    >
                       Download Speech
                     </Button>
 
