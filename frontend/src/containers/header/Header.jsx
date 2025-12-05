@@ -133,7 +133,7 @@ const Header = ({
     min-h-screen flex items-center
     justify-center px-4 "
         >
-          <div className="flex flex-col gap-6 w-full max-w-5xl mx-auto  pt-24  2xl:pt-0">
+          <div className="flex flex-col gap-6 w-full max-w-5xl mx-auto  pt-36 3xl:pt-36  4xl:pt-0">
 
             {/* --- TOP TWO CARDS --- */}
             <div className="flex flex-col md:flex-row gap-4 w-full ">
