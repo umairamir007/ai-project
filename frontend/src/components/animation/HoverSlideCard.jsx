@@ -19,7 +19,7 @@ export default function HoverSlideCard({ heading, users, description, className 
                     </h3>
 
                     {/* Mobile: full green card fills remaining space left/right/bottom */}
-                    <div className="flex-1 bg-gradient-to-br from-[#0C4230] to-emerald-950 sm:hidden rounded-[32px] rounded-t-2xl px-6 py-4 flex items-center">
+                    <div className="flex-1 bg-gradient-to-br from-[#0C4230] to-emerald-950 sm:hidden rounded-[32px] rounded-t-[32px] px-6 py-4 flex items-center">
                         <p className="text-base text-white font-medium">
                             {description}
                         </p>
