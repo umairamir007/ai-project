@@ -4,7 +4,7 @@ export default function HoverSlideCard({ heading, users, description, className 
             {/* Back Card  */}
             <div className="absolute inset-x-0 bottom-0 h-0 bg-gradient-to-br from-[#0C4230] to-emerald-950 overflow-hidden transition-all duration-500 ease-out group-hover:h-[180px] mb-20 rounded-[32px] hidden sm:block">
               <div className="p-6 text-white">
-                <p className="sm:text-lg text-sm 3xl:text-3xl font-medium">
+                <p className="sm:text-lg text-sm 3xl:text-LG font-medium">
                   {description}
                 </p>
               </div>
