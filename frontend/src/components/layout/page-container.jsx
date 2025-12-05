@@ -16,7 +16,7 @@ export default function PageContainer({
           </div>
         </ScrollArea>
       ) : (
-        <div className="bg-[#040404] h-full sm:py-10 py-8 px-4 max-w-[1440px]  mx-auto">{children}</div>
+        <div className="bg-[#040404] h-full sm:py-10 py-8 px-4 max-w-7xl  mx-auto">{children}</div>
       )}
     </>
   );
