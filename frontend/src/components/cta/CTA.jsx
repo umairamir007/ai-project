@@ -448,7 +448,9 @@ const CTA = ({
             <div className="flex w-full max-w-5xl gap-6 ">
               <div class="h-80 w-full rounded-[32px] border-2 border-white/20 
     bg-[linear-gradient(180deg,rgba(0,0,0,0.6)_0%,rgba(12,66,48,0.34)_100%)]
-    flex flex-col items-center justify-center text-center gap-4 p-6  cursor-pointer">
+    flex flex-col items-center justify-center text-center gap-4 p-6  cursor-pointer"
+    onClick={()=>navigate('/speech-to-text')}
+    >
                 <div class="h-40 flex items-center justify-center">
                   <img
                     src={record}
