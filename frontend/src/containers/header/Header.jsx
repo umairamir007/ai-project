@@ -2,7 +2,8 @@ import "font-awesome/css/font-awesome.min.css";
 import people from "../../assets/people.png";
 import ai from "../../assets/ai.png";
 import "./header.css";
-import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { folder, speech, text } from "../../images";
 import { Heading } from "../../components/layout/heading";
 
@@ -16,9 +17,23 @@ const Header = ({
   onCloseContent,
 }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const isTalentDashboard = location.pathname === "/talent-dashboard";
   const isLanding = location.pathname === "/";
   const isUserDashboard = location.pathname === "/user-dashboard";
+
+  useEffect(() => {
+    const type = new URLSearchParams(location.search).get("type");
+    if (type === "text-to-speech") {
+      setSelectedCard(2);
+      setShowContent(2);
+    } else if (type === "speech-to-text") {
+      setSelectedCard(3);
+      setShowContent(3);
+    } else {
+      setShowContent(null);
+    }
+  }, [location.search, setSelectedCard, setShowContent]);
 
   const handleCardClick = (cardNumber) => {
     setSelectedCard(cardNumber);
@@ -29,6 +44,7 @@ const Header = ({
   };
 
   const handleBackButtonClick = () => {
+    navigate({ search: "" }, { replace: true });
     setShowContent(null);
     setVoiceLab(false);
     if (onCloseContent) onCloseContent();
@@ -117,7 +133,7 @@ const Header = ({
     min-h-screen flex items-center
     justify-center px-4 "
         >
-          <div className="flex flex-col gap-6 w-full max-w-5xl mx-auto pt-24 2xl:pt-0">
+          <div className="flex flex-col gap-6 w-full max-w-5xl mx-auto  pt-24  2xl:pt-0">
 
             {/* --- TOP TWO CARDS --- */}
             <div className="flex flex-col md:flex-row gap-4 w-full ">
@@ -135,12 +151,16 @@ const Header = ({
           border border-white/10
           h-[260px] 2xl:h-[280px]
         "
-                onClick={() => { setSelectedCard(2); setShowContent(2); }}
+                onClick={() => {
+                  setSelectedCard(2);
+                  setShowContent(2);
+                  navigate({ search: "?type=text-to-speech" });
+                }}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) =>
                   (e.key === "Enter" || e.key === " ") &&
-                  (setSelectedCard(2), setShowContent(2))
+                  (setSelectedCard(2), setShowContent(2), navigate({ search: "?type=text-to-speech" }))
                 }
               >
                 <div className="flex flex-col gap-3 z-10 relative">
@@ -173,11 +193,15 @@ const Header = ({
           border border-white/10
           h-[260px] 2xl:h-[280px]
         "
-                onClick={() => setShowContent(3)}
+                onClick={() => {
+                  setShowContent(3);
+                  navigate({ search: "?type=speech-to-text" });
+                }}
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) =>
-                  (e.key === "Enter" || e.key === " ") && setShowContent(3)
+                  (e.key === "Enter" || e.key === " ") &&
+                  (setShowContent(3), navigate({ search: "?type=speech-to-text" }))
                 }
               >
                 <div className="flex flex-col gap-3 z-10 relative">
@@ -230,6 +254,8 @@ const Header = ({
         </div>
 
       )}
+
+      add query on link when click link text-spech , same spech to text 
 
       {/* {showContent === 1 && (
         <div className="gpt3__header section__padding" id="home">

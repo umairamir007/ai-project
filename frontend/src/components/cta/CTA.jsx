@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import "./cta.css";
 import { TextUpload, AudioRecorder } from "../../components/index";
@@ -17,6 +17,7 @@ const CTA = ({
   onBack,
 }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const isUserDashboard = location.pathname === "/user-dashboard";
   const isLanding = location.pathname === "/";
 
@@ -232,7 +233,10 @@ const CTA = ({
                 <div className="h-6 w-6">
                   <button
                     type="button"
-                    onClick={() => onBack?.()}
+                    onClick={() => {
+                      navigate({ search: "" }, { replace: true });
+                      onBack?.();
+                    }}
                     aria-label="Go back"
                     className="h-full w-full flex items-center justify-center text-gray-700 hover:text-gray-900"
                   >
@@ -444,7 +448,7 @@ const CTA = ({
             <div className="flex w-full max-w-5xl gap-6 ">
               <div class="h-80 w-full rounded-[32px] border-2 border-white/20 
     bg-[linear-gradient(180deg,rgba(0,0,0,0.6)_0%,rgba(12,66,48,0.34)_100%)]
-    flex flex-col items-center justify-center text-center gap-4 p-6">
+    flex flex-col items-center justify-center text-center gap-4 p-6  cursor-pointer">
                 <div class="h-40 flex items-center justify-center">
                   <img
                     src={record}
@@ -461,7 +465,7 @@ const CTA = ({
               </div>
               <div class="h-80 w-full rounded-[32px] 
     bg-[linear-gradient(180deg,rgba(0,0,0,0.6)_0%,rgba(12,66,48,0.34)_100%)]
-    flex flex-col items-center justify-center text-center gap-4 p-6 border-2 border-white/20">
+    flex flex-col items-center justify-center text-center gap-4 p-6 border-2 border-white/20 cursor-pointer">
                 <div class="h-40 flex items-center justify-center ">
                   <img
                     src={upload}
