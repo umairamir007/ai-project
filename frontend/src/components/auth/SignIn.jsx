@@ -74,7 +74,7 @@ const SignIn = () => {
                     <form
                         onSubmit={handleSubmit(onSubmit)}
                         className="
-                            w-[360px]
+                            sm:w-[360px] w-[300px]  2xl:w-[480px] 
                             px-6 py-8
                             rounded-xl
                             border border-white/30
@@ -96,8 +96,8 @@ const SignIn = () => {
                                 w-full
                                 bg-transparent
                                 border border-white
-                                rounded-full px-4 py-2.5
-                                text-white placeholder-gray-300 text-sm
+                                rounded-full px-4 2xl:py-4 py-2.5
+                                text-white placeholder-gray-300 sm:text-sm text-base 2xl:text-lg
                             "
                         />
                         <p className="text-red-400 text-xs min-h-[18px] mt-1 ">
@@ -113,8 +113,8 @@ const SignIn = () => {
                                 w-full
                                 bg-transparent
                                 border border-white
-                                rounded-full px-4 py-2.5
-                                text-white placeholder-gray-300 text-sm
+                                rounded-full px-4 2xl:py-4 py-2.5
+                                text-white placeholder-gray-300 sm:text-sm text-base 2xl:text-lg
                             "
                         />
                         <p className="text-red-400 text-xs min-h-[18px] mt-1 mb-2">
@@ -122,7 +122,7 @@ const SignIn = () => {
                         </p>
 
                         <Button
-                            className="h-11 shadow-[0px_0px_21.9px_5px_#000000] w-full"
+                            className="h-11 2xl:h-14 shadow-[0px_0px_21.9px_5px_#000000] w-full"
                             variant="alpha"
                             disabled={isSubmitting}
                         >

@@ -75,8 +75,7 @@ const SignUp = () => {
                     <form
                         onSubmit={handleSubmit(onSubmit)}
                         className="
-                            max-w-[380px]
-                            w-full
+                             sm:w-[360px] w-[300px]  2xl:w-[480px] 
                             px-6 py-8
                             rounded-xl
                             border border-white/30
@@ -99,8 +98,8 @@ const SignUp = () => {
                                     {...register("firstName")}
                                     className="
                 w-full bg-transparent border border-white 
-                rounded-full px-4 py-2.5 
-                text-white placeholder-gray-300 text-sm
+                rounded-full px-4 2xl:py-4 py-2.5
+                text-white placeholder-gray-300 sm:text-sm text-base 2xl:text-lg
             "
                                 />
                                 {errors.firstName && (
@@ -117,8 +116,8 @@ const SignUp = () => {
                                     {...register("lastName")}
                                     className="
                 w-full bg-transparent border border-white 
-                rounded-full px-4 py-2.5 
-                text-white placeholder-gray-300 text-sm
+                rounded-full px-4 2xl:py-4 py-2.5 
+                text-white placeholder-gray-300 sm:text-sm text-base 2xl:text-lg
             "
                                 />
                                 {errors.lastName && (
@@ -138,8 +137,8 @@ const SignUp = () => {
                                 {...register("email")}
                                 className="
             w-full bg-transparent border border-white 
-            rounded-full px-4 py-2.5 
-            text-white placeholder-gray-300 text-sm
+            rounded-full px-4 2xl:py-4 py-2.5 
+            text-white placeholder-gray-300 sm:text-sm text-base 2xl:text-lg
         "
                             />
                             {errors.email && (
@@ -156,8 +155,8 @@ const SignUp = () => {
                                 {...register("password")}
                                 className="
             w-full bg-transparent border border-white 
-            rounded-full px-4 py-2.5 
-            text-white placeholder-gray-300 text-sm
+            rounded-full px-4 2xl:py-4 py-2.5
+            text-white placeholder-gray-300 sm:text-sm text-base 2xl:text-lg
         "
                             />
                             {errors.password && (
@@ -173,8 +172,8 @@ const SignUp = () => {
                                 {...register("confirmPassword")}
                                 className="
             w-full bg-transparent border border-white 
-            rounded-full px-4 py-2.5 
-            text-white placeholder-gray-300 text-sm
+            rounded-full px-4 2xl:py-4 py-2.5
+            text-white placeholder-gray-300 sm:text-sm text-base 2xl:text-lg
         "
                             />
                             {errors.confirmPassword && (

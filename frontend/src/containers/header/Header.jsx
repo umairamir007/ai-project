@@ -115,12 +115,12 @@ const Header = ({
           id="home"
           className="
     min-h-screen flex items-center
-    justify-center px-4"
+    justify-center px-4 "
         >
-          <div className="flex flex-col gap-6 w-full max-w-5xl mx-auto ">
+          <div className="flex flex-col gap-6 w-full max-w-5xl mx-auto pt-24 2xl:pt-0">
 
             {/* --- TOP TWO CARDS --- */}
-            <div className="flex flex-col md:flex-row gap-4 w-full">
+            <div className="flex flex-col md:flex-row gap-4 w-full ">
 
               {/* TEXT TO SPEECH */}
               <div
