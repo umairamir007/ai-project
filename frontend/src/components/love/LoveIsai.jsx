@@ -40,7 +40,7 @@ const LoveIsai = () => {
     return (
         <div className=" bg-[url('/lines.png')] bg-cover bg-center ">
       <PageContainer>
-            <Card className="bg-theme p-0 gap-0  space-y-10 ">
+            <Card className="bg-[url('/lines.png')] bg-cover bg-center  p-0 gap-0  space-y-10 ">
               <FadeContent >
   <Heading
                     size="large"

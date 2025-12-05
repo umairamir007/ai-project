@@ -6,6 +6,8 @@ import { Para } from '../layout/para'
 import { Card, CardContent } from '../layout/card'
 import PageContainer from '../layout/page-container'
 import FadeContent from '../animation/fade'
+import SpotlightCard from '../animation/Spotlight'
+
 
 const WhyIsai = () => {
     return (
@@ -21,8 +23,9 @@ const WhyIsai = () => {
                         title={"Why You'll Love Isai"}
                     />
 </FadeContent>
-
-                    {/* GRID WRAPPER */}
+  
+<SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(0, 229, 255, 0.2)">
+   {/* GRID WRAPPER */}
                     <div
                         className="
       mx-auto
@@ -126,6 +129,8 @@ const WhyIsai = () => {
                             </div>
                         </div>
                     </div>
+</SpotlightCard>
+                 
                 </div>
             </CardContent>
         </Card>
