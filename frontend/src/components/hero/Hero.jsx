@@ -6,7 +6,7 @@ export default function Hero() {
   <div className="relative w-full overflow-hidden sm:h-screen h-full rounded-xl sm:pt-0 pt-40 sm:pb-0 pb-20">
 
     {/* CONTENT */}
-    <div className="max-w-7xl w-[90%] mx-auto text-center mt-16 z-20 relative sm:pt-60 md:pt-60 xl:pt-56 3xl:pt-40 4xl:pt-80">
+    <div className="max-w-7xl w-[90%] mx-auto text-center mt-16 z-20 relative sm:pt-60 md:pt-60 xl:pt-56 3xl:pt-52 4xl:pt-80">
         <p className="text-white font-semibold sm:text-3xl md:text-5xl text-2xl sm:leading-[50px] md:leading-[58px] 2xl:leading-[68px]">
             Turn your ideas into polished podcasts and YouTube videos—no studio needed.
         </p>

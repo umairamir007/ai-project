@@ -37,7 +37,7 @@ const Subscribe = () => {
                 {/* BUTTON */}
                 <Button
                     className="
-                         px-12 rounded-full text-black 
+                         px-12 rounded-full text-black magic-btn
                         bg-white hover:bg-white/90 transition shadow-[0px_0px_21.9px_5px_rgba(0,0,0,1)] font-black
                     "
                 >

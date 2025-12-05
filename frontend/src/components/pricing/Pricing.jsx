@@ -42,17 +42,18 @@ const plans = [
 ];
 
 const Pricing = () => {
- const showRef = useRef(null);
-const isInView = useInView(showRef, { amount: 0.5 }); 
+const showRef = useRef(null);
+const isInView = useInView(showRef, { amount: 0.5 });
 const mainControls = useAnimation();
+const hasAnimated = useRef(false);
 
 useEffect(() => {
-  if (isInView) {
+  if (isInView && !hasAnimated.current) {
     mainControls.start("animate");
-  } else {
-    mainControls.start("initial");
+    hasAnimated.current = true;
   }
 }, [isInView]);
+
 
 
   return (

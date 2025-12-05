@@ -57,7 +57,7 @@ const Case = () => {
                                 threshold={0.2}
                                 delay={index * 0.2}
                                 className="sm:col-span-2 sm:row-span-2"
-                                once={false}
+                                once={true}
                             >
                                 <div
                                     className="

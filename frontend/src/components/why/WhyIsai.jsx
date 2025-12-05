@@ -23,8 +23,7 @@ const WhyIsai = () => {
                         title={"Why You'll Love Isai"}
                     />
 </FadeContent>
-  
-<SpotlightCard className="custom-spotlight-card" spotlightColor="rgba(0, 229, 255, 0.2)">
+
    {/* GRID WRAPPER */}
                     <div
                         className="
@@ -129,7 +128,6 @@ const WhyIsai = () => {
                             </div>
                         </div>
                     </div>
-</SpotlightCard>
                  
                 </div>
             </CardContent>
