@@ -1,51 +1,65 @@
-
-import React from 'react'
-import Navbar from './navbar/Navbar'
-import { ChevronLeft } from 'lucide-react'
+import React from "react";
+import { CircleChevronLeft } from "lucide-react";
+import { Button } from "./layout/button";
+import Navbar from "./navbar/Navbar";
 
 const RecordVoice = () => {
+  // Delay pattern (mirrored left → center → right)
+  const delays = [
+    0.5, 0.4, 0.3, 0.2, 0.1, 0,0, // left
+    0, 0,                       // center
+    0, 0.1, 0.2, 0.3, 0.4, 0.5, // right
+  ];
+
   return (
-    <div>
-    <Navbar />
-    <div className="flex items-center justify-center min-h-screen bg-black p-4">
-      <div className="h-[540px] w-full max-w-sm bg-gray-100 rounded-[32px] p-8 flex flex-col items-center justify-between shadow-2xl">
-        {/* Back button */}
-        <div className="w-full">
-          <button className="w-10 h-10 rounded-full border-2 border-gray-800 flex items-center justify-center hover:bg-gray-200 transition-colors">
-            <ChevronLeft className="w-6 h-6 text-gray-800" />
-          </button>
+    <div className="flex h-screen items-center justify-center">
+      <Navbar />
+
+      <div className="bg-[#FAFAFA] rounded-[32px] p-8">
+        <div className="flex items-center pb-8">
+          <CircleChevronLeft size={30} />
         </div>
 
-        {/* Waveform circle */}
-        <div className="flex-1 flex items-center justify-center">
-          <div className="relative">
-            {/* Outer ring */}
-            <div className="w-72 h-72 rounded-full bg-gradient-to-br from-gray-300 to-gray-400 shadow-xl flex items-center justify-center">
-              {/* Inner white circle */}
-              <div className="w-64 h-64 rounded-full bg-white shadow-inner flex items-center justify-center">
-                {/* Waveform */}
-                <div className="flex items-center gap-[3px]">
-                  {[4, 12, 8, 16, 6, 14, 10, 18, 8, 16, 6, 12, 8, 14, 10, 16, 8, 12, 6, 14].map((height, i) => (
-                    <div
-                      key={i}
-                      className="w-[3px] bg-black rounded-full transition-all duration-150"
-                      style={{ height: `${height * 2}px` }}
-                    />
-                  ))}
-                </div>
+        {/* Outer ring */}
+        <div className="w-[330px] h-[330px] rounded-full bg-[#DEDEDE] relative shadow-[0px_0px_36.4px_0px_#FFFFFF33]">
+          {/* Middle ring */}
+          <div className="w-[300px] h-[300px] rounded-full bg-[#FAFAFA] absolute inset-0 m-auto">
+            
+            {/* Inner ring */}
+            <div className="bg-[#FAFAFA] h-[250px] w-[250px] rounded-full absolute inset-0 m-auto shadow-[0px_0px_7.4px_3px_#00000040] flex items-center justify-center">
+
+              <style>{`
+                @keyframes waveFromCenter {
+                  0%, 100% { height: 20px; }
+                  50% { height: 60px; }
+                }
+              `}</style>
+
+              {/* WAVEFORM (optimized) */}
+              <div className="flex gap-1 items-center">
+                {delays.map((delay, i) => (
+                  <div
+                    key={i}
+                    className="h-[20px] w-[4px] bg-black rounded-full"
+                    style={{
+                      animation: `waveFromCenter 0.8s ease-in-out infinite ${delay}s`,
+                    }}
+                  ></div>
+                ))}
               </div>
+
             </div>
           </div>
         </div>
 
-        {/* Start Recording button */}
-        <button className="w-full bg-black text-white py-4 rounded-full text-lg font-semibold hover:bg-gray-900 transition-colors shadow-lg">
-          Start Recording
-        </button>
+        <div className="mt-8">
+          <Button variant="alpha" className="shadow-none bg-black text-white">
+            Start Recording
+          </Button>
+        </div>
       </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default RecordVoice
+export default RecordVoice;

@@ -19,8 +19,21 @@ module.exports = {
         sans: ['Satoshi', 'Manrope', 'sans-serif'],
         satoshi: ['Satoshi', 'sans-serif'],
       },
+
+      keyframes: {
+        wave: {
+          '0%': { height: '12px' },
+          '25%': { height: '28px' },
+          '50%': { height: '18px' },
+          '75%': { height: '32px' },
+          '100%': { height: '12px' },
+        },
+      },
+
+      animation: {
+        wave: 'wave 0.8s ease-in-out infinite',
+      },
     },
   },
   plugins: [],
 }
-
