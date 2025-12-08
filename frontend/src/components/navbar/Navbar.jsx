@@ -22,7 +22,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="absolute top-0 2xl:top-4 left-1/2 -translate-x-1/2 py-4 z-10 sm:w-[90%] w-[95%]">
+    <div className="absolute  4xl:top-2 left-1/2 -translate-x-1/2 py-4 z-10 sm:w-[90%] w-[95%]">
       <div className="w-full mx-auto flex items-center justify-between px-6">
 
         {/* LOGO */}

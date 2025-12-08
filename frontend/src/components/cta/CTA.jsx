@@ -302,7 +302,7 @@ const CTA = ({
 
               {/* HEADER */}
               <div className="h-auto lg:h-[20%] bg-white rounded-t-[32px] px-6 py-5 flex items-center gap-4">
-                <div className="h-6 w-6">
+                <div className="h-10 w-10 ">
                   <button
                     type="button"
                     onClick={() => {
@@ -310,9 +310,9 @@ const CTA = ({
                       onBack?.();
                     }}
                     aria-label="Go back"
-                    className="h-full w-full flex items-center justify-center text-gray-700 hover:text-gray-900"
+                    className="h-full w-full  flex items-center justify-center text-gray-700 hover:text-gray-900"
                   >
-                    <CircleChevronLeft size={22} />
+                    <CircleChevronLeft className="h-8 w-8"  />
                   </button>
                 </div>
 
