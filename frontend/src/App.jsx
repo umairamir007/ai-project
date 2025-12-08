@@ -22,6 +22,7 @@ import SignUp from "./components/auth/SignUp";
 import RecordVoice from "./components/RecordVoice";
 import UploadAudio from "./components/UploadAudio";
 import MyLibrary from "./components/MyLibrary";
+import ForgotPassword from "./components/auth/ForgotPassword";
 
 const LandingPage = () => {
   return (
@@ -68,6 +69,7 @@ const App = () => {
           <Route element={<PublicRoute />}>
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
           </Route>
         </Routes>
       </Router>

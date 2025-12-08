@@ -147,7 +147,8 @@ const SignIn = () => {
               )}
             </Button>
 
-            <p className="text-center text-[#FAFAFA] sm:text-lg text-sm font-bold cursor-pointer mt-4">
+            <p className="text-center text-[#FAFAFA] sm:text-lg text-sm font-bold cursor-pointer mt-4"
+            onClick={()=>navigate("/forgot-password")}>
               Forgot password?
             </p>
           </form>
