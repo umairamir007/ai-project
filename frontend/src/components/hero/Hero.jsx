@@ -22,10 +22,11 @@ export default function Hero() {
 
     {/* SPLINE BACKGROUND */}
     <iframe
-        src="https://my.spline.design/claritystream-PLXVd1pUc5MN8dwP26y8g6Aw/"
+        src="https://my.spline.design/claritystream-ZsYGd1UWKXqbVn7QHQtxOPCq/"
         frameBorder="0"
         className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none"
     ></iframe>
+    {/* <iframe src='https://my.spline.design/claritystream-PLXVd1pUc5MN8dwP26y8g6Aw/' frameborder='0' width='100%' height='100%'></iframe> */}
 
     {/* BLACK COVER — hides the “Built with Spline” badge */}
     <div className="absolute bottom-0 right-0 w-40 h-16 bg-black z-30 pointer-events-none"></div>
