@@ -137,6 +137,32 @@ export const useVoiceRecorder = () => {
   };
 
   /**
+   * Convert an existing audio file (e.g. upload) to text
+   * without going through the recording flow.
+   */
+  const convertFileToText = async (file) => {
+    if (!file || isConverting) return;
+
+    setIsConverting(true);
+    setError(null);
+    setTranscribedText("");
+
+    try {
+      setAudioBlob(file);
+      const result = await SpeechToText(file);
+      const text = result?.text || "";
+      setTranscribedText(text);
+      return text;
+    } catch (err) {
+      console.error("Error converting uploaded audio:", err);
+      setError(err.message || "Failed to convert audio to text");
+      throw err;
+    } finally {
+      setIsConverting(false);
+    }
+  };
+
+  /**
    * Reset all recording state
    */
   const reset = () => {
@@ -156,6 +182,7 @@ export const useVoiceRecorder = () => {
     startRecording,
     stopRecording,
     convertToText,
+    convertFileToText,
     reset,
   };
 };

@@ -547,8 +547,9 @@ const CTA = ({
               </div>
               <div class="h-80 w-full rounded-[32px] 
     bg-[linear-gradient(180deg,rgba(0,0,0,0.6)_0%,rgba(12,66,48,0.34)_100%)]
-    flex flex-col items-center justify-center text-center gap-4 p-6 border-2 border-white/20 cursor-pointer">
-                <div class="h-40 flex items-center justify-center ">
+    flex flex-col items-center justify-center text-center gap-4 p-6 border-2 border-white/20 cursor-pointer"
+    onClick={()=>navigate('/upload-audio')}>
+                <div class="h-40 flex items-center justify-center">
                   <img
                     src={upload}
                     alt="Record Voice"

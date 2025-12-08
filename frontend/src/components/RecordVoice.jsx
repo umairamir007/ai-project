@@ -5,7 +5,7 @@ import Navbar from "./navbar/Navbar";
 import { useVoiceRecorder } from "../hooks/useVoiceRecorder";
 
 const RecordVoice = () => {
-  const [textCardShow, setTextCardShow] = useState(true); // Show recording view first
+  const [textCardShow, setTextCardShow] = useState(true); 
   const [audioLevels, setAudioLevels] = useState(Array(15).fill(0));
   const animationFrameRef = React.useRef(null);
   const analyserRef = React.useRef(null);
@@ -146,7 +146,7 @@ const RecordVoice = () => {
   };
 
   return (
-    <div className="h-screen w-full bg-black">
+    <div className="h-screen w-full bg-theme">
       {/* NAVBAR OUTSIDE FLEX CENTER */}
       <Navbar />
 

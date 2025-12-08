@@ -19,6 +19,7 @@ import Footer from "./components/footer/Footer";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import RecordVoice from "./components/RecordVoice";
+import UploadAudio from "./components/UploadAudio";
 
 const LandingPage = () => {
   return (
@@ -58,6 +59,7 @@ const App = () => {
           <Route path="/talent-dashboard" element={<TalentDashboard />} />
           <Route path="/user-dashboard" element={<UserDasboard />} />
           <Route path="/speech-to-text" element={<RecordVoice /> } />
+          <Route path="/upload-audio" element={<UploadAudio />} />
         </Route>
         <Route element={<PublicRoute />}>
           <Route path="/sign-in" element={<SignIn />} />
