@@ -291,27 +291,28 @@ const RecordVoice = () => {
                     disabled={isConverting}
                   />
 
-                  <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6">
-                    {transcribedText ? (
-                      <Button
-                        className="max-w-48 w-full sm:w-auto"
-                        variant="alpha"
-                        onClick={handleCopyText}
-                        disabled={isConverting}
-                      >
-                        {copied ? "Copied!" : "Copy Text"}
-                      </Button>
-                    ) : (
-                      <Button
-                        className="max-w-48 w-full sm:w-auto "
-                        variant="alpha"
-                        onClick={handleStartRecording}
-                        disabled={isRecording || isConverting}
-                      >
-                        {isRecording ? "Recording..." : "Start Recording"}
-                      </Button>
-                    )}
-                  </div>
+                  <div className="flex flex-col sm:flex-row sm:justify-end justify-between items-center gap-4 mt-6">
+
+  {transcribedText ? (
+    <Button 
+      variant="alpha" 
+      className="max-w-48 w-full sm:w-auto"
+    >
+      Save Project
+    </Button>
+  ) : (
+    <Button
+      className="max-w-48 w-full sm:w-auto"
+      variant="alpha"
+      onClick={handleStartRecording}
+      disabled={isRecording || isConverting}
+    >
+      {isRecording ? "Recording..." : "Start Recording"}
+    </Button>
+  )}
+
+</div>
+
                 </div>
               </div>
             </div>

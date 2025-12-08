@@ -629,7 +629,7 @@ const CTA = ({
                   Record Voice
                 </h3>
                 <p class="text-[#DEDEDE] sm:text-lg text-base 2xl:text-xl font-medium">
-                  Good afternoon, everyone.
+                  Record your voice for instant transcription.
                 </p>
               </div>
               <div
@@ -649,7 +649,7 @@ const CTA = ({
                   Upload Audio
                 </h3>
                 <p class="text-[#DEDEDE] sm:text-lg text-base 2xl:text-xl font-medium">
-                  Good afternoon, everyone.
+                  Upload audio files for transcription.
                 </p>
               </div>
             </div>
