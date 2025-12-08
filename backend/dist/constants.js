@@ -24,7 +24,8 @@ exports.ONE_WEEK_DURATION = 604800; //7 days
 exports.PROTOCOL_FEES = 0.0002; //0.2%
 exports.validExchanges = ["raydium", "jupiter"];
 exports.ADMIN_EMAIL = "umairamir@decryptedlabs.io"; // admin email
-exports.FRONTEND_URL = "https://ai-lama.vercel.app";
+// export const FRONTEND_URL = "https://ai-lama.vercel.app"
+exports.FRONTEND_URL = "http://localhost:3000";
 exports.client = new elevenlabs_1.ElevenLabsClient({
     apiKey: process.env.ELEVENLABS_API_KEY,
 });

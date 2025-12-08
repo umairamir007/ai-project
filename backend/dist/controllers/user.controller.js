@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.refreshAccessToken = exports.loginUser = exports.registerUser = void 0;
+exports.resetPassword = exports.forgotPassword = exports.refreshAccessToken = exports.loginUser = exports.registerUser = void 0;
 const validatePayload_1 = __importDefault(require("../utils/validatePayload"));
 const AppError_1 = require("../utils/AppError");
 const user_service_1 = require("../services/ElevenLabs/auth/user.service");
@@ -54,3 +54,29 @@ const refreshAccessToken = (req, res, next) => __awaiter(void 0, void 0, void 0,
     }
 });
 exports.refreshAccessToken = refreshAccessToken;
+// FORGOT PASSWORD CONTROLLER
+const forgotPassword = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        (0, validatePayload_1.default)(auth_validation_1.forgotPasswordSchema, req.body);
+        const { email } = req.body;
+        const response = yield (0, user_service_1.forgotPasswordService)(email);
+        res.status(200).json(response);
+    }
+    catch (err) {
+        next(new AppError_1.AppError(err.message, err.status || 500));
+    }
+});
+exports.forgotPassword = forgotPassword;
+// RESET PASSWORD CONTROLLER
+const resetPassword = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        (0, validatePayload_1.default)(auth_validation_1.resetPasswordSchema, req.body);
+        const { resetToken, newPassword } = req.body;
+        const response = yield (0, user_service_1.resetPasswordService)(resetToken, newPassword);
+        res.status(200).json(response);
+    }
+    catch (err) {
+        next(new AppError_1.AppError(err.message, err.status || 500));
+    }
+});
+exports.resetPassword = resetPassword;

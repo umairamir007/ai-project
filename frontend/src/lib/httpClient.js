@@ -7,7 +7,13 @@ import {
 } from "./tokenManager";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
-const AUTH_PATHS = ["/auth/login", "/auth/register", "/auth/refresh-token"];
+const AUTH_PATHS = [
+  "/auth/login",
+  "/auth/register",
+  "/auth/refresh-token",
+  "/auth/forgot-password",
+  "/auth/reset-password",
+];
 
 const isAuthPath = (url = "") =>
   AUTH_PATHS.some((path) => url.includes(path));

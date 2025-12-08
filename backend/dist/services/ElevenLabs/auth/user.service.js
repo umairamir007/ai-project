@@ -12,12 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.refreshAccessTokenService = exports.loginUserService = exports.registerUserService = void 0;
+exports.resetPasswordService = exports.forgotPasswordService = exports.refreshAccessTokenService = exports.loginUserService = exports.registerUserService = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const AppError_1 = require("../../../utils/AppError");
 const JWTTokenHelper_1 = require("../../../utils/JWTTokenHelper");
 const user_model_1 = __importDefault(require("../../../models/user.model"));
 const constants_1 = require("../../../constants");
+const mailer_1 = require("../../../utils/mailer");
 const registerUserService = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { firstName, lastName, email, password, confirmPassword } = payload;
     // Check confirm password
@@ -92,3 +93,42 @@ const refreshAccessTokenService = (refreshToken) => __awaiter(void 0, void 0, vo
     };
 });
 exports.refreshAccessTokenService = refreshAccessTokenService;
+// FORGOT PASSWORD SERVICE
+const forgotPasswordService = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield user_model_1.default.findOne({ email });
+    if (user) {
+        const resetToken = jsonwebtoken_1.default.sign({ id: user._id, email: user.email }, constants_1.RESET_PASSWORD_SECRET, { expiresIn: "1h" });
+        const resetLink = `${constants_1.FRONTEND_URL}/reset-password?token=${resetToken}`;
+        yield (0, mailer_1.sendMail)({
+            to: email,
+            subject: "Reset your Isai password",
+            html: `<p>We received a request to reset your password.</p>
+                   <p><a href="${resetLink}">Click here to reset it</a>. This link is valid for 1 hour.</p>
+                   <p>If you did not request this, you can safely ignore this email.</p>`,
+        });
+    }
+    return {
+        message: "Reset link sent to your email if it exists.",
+    };
+});
+exports.forgotPasswordService = forgotPasswordService;
+// RESET PASSWORD SERVICE
+const resetPasswordService = (resetToken, newPassword) => __awaiter(void 0, void 0, void 0, function* () {
+    let decoded;
+    try {
+        decoded = jsonwebtoken_1.default.verify(resetToken, constants_1.RESET_PASSWORD_SECRET);
+    }
+    catch (err) {
+        throw new AppError_1.UnauthorizedError("Invalid or expired reset token.");
+    }
+    const user = yield user_model_1.default.findById(decoded.id);
+    if (!user) {
+        throw new AppError_1.NotFoundError("User not found.");
+    }
+    user.password = newPassword;
+    yield user.save();
+    return {
+        message: "Password updated successfully. You can now sign in with your new password.",
+    };
+});
+exports.resetPasswordService = resetPasswordService;

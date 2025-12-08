@@ -24,7 +24,8 @@ export const PROTOCOL_FEES = 0.0002; //0.2%
 export const validExchanges = ["raydium", "jupiter"];
 export const ADMIN_EMAIL = "umairamir@decryptedlabs.io"; // admin email
 
-export const FRONTEND_URL = "https://ai-lama.vercel.app"
+// export const FRONTEND_URL = "https://ai-lama.vercel.app"
+export const FRONTEND_URL = "http://localhost:3000"
 
 export const client = new ElevenLabsClient({
   apiKey: process.env.ELEVENLABS_API_KEY!,

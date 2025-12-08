@@ -23,6 +23,7 @@ import RecordVoice from "./components/RecordVoice";
 import UploadAudio from "./components/UploadAudio";
 import MyLibrary from "./components/MyLibrary";
 import ForgotPassword from "./components/auth/ForgotPassword";
+import ResetPassword from "./components/auth/ResetPassword";
 
 const LandingPage = () => {
   return (
@@ -70,6 +71,7 @@ const App = () => {
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
           </Route>
         </Routes>
       </Router>
