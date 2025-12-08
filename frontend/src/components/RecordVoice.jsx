@@ -169,23 +169,22 @@ const RecordVoice = () => {
       </div>
     ) : (
       /* SPEECH-TO-TEXT UI */
+      <div className="w-full h-screen  flex flex-col justify-center">
       <div
         className="
           max-w-6xl 2xl:max-w-7xl w-full mx-auto 
           rounded-[32px] 
-          h-auto lg:h-[500px] 
-          flex flex-col pt-44
-        "
+          flex flex-col h-[500px] mt-16 4xl:mt-0"
       >
-        <div className="h-auto lg:h-[20%] bg-white rounded-t-[32px] px-6 py-5 flex items-center gap-4">
-          <div className="h-6 w-6">
+        <div className="h-auto  bg-white rounded-t-[32px] px-6 py-5 flex items-center gap-4">
+          <div className="h-8 w-8">
             <button
               type="button"
               onClick={handleBack}
               aria-label="Go back"
               className="h-full w-full flex items-center justify-center text-gray-700 hover:text-gray-900"
             >
-              <CircleChevronLeft size={22} />
+              <CircleChevronLeft className="h-8 w-8" />
             </button>
           </div>
 
@@ -251,6 +250,8 @@ const RecordVoice = () => {
           </div>
         </div>
       </div>
+      </div>
+
     )}
 
   </div>
