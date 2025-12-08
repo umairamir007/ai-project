@@ -4,10 +4,30 @@ import "./cta.css";
 import { TextUpload, AudioRecorder } from "../../components/index";
 import { fetchVoices } from "../../api/elevenlabs";
 import { TextToSpeech, SpeechToText } from "../../api/textToSpeech";
-import { Loader2, Copy, Check, CircleChevronLeft, ChevronRight, Play, Pause, EllipsisVertical, RotateCcw, RotateCw, RedoDot, UndoDot } from "lucide-react";
+import {
+  Loader2,
+  Copy,
+  Check,
+  CircleChevronLeft,
+  ChevronRight,
+  Play,
+  Pause,
+  EllipsisVertical,
+  RotateCcw,
+  RotateCw,
+  RedoDot,
+  UndoDot,
+} from "lucide-react";
 import { Button } from "../layout/button";
 import { profile, record, upload } from "../../images";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "../layout/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "../layout/sheet";
 
 const CTA = ({
   voiceSelector,
@@ -24,9 +44,7 @@ const CTA = ({
   const [voices, setVoices] = useState([]);
   const [voiceLoading, setVoiceLoading] = useState(true);
 
-  const [ttsText, setTtsText] = useState(
-    ""
-  );
+  const [ttsText, setTtsText] = useState("");
   const [audioSrc, setAudioSrc] = useState("");
   const [heroProgress, setHeroProgress] = useState(0);
   const [isHeroGenerating, setIsHeroGenerating] = useState(false);
@@ -37,7 +55,7 @@ const CTA = ({
   const [sttLoading, setSttLoading] = useState(false);
   const [sttError, setSttError] = useState(null);
 
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState(false);
 
   const audioRefs = useRef({});
   const heroAudioRef = useRef(null);
@@ -46,8 +64,13 @@ const CTA = ({
   const [isDragging, setIsDragging] = useState(false);
   const [droppedFile, setDroppedFile] = useState(null);
   const fileInputRef = useRef(null);
+  const [playingVoiceId, setPlayingVoiceId] = useState(null);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  const onDragOver = (e) => { e.preventDefault(); setIsDragging(true); };
+  const onDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
   const onDragLeave = () => setIsDragging(false);
   const onDrop = (e) => {
     e.preventDefault();
@@ -85,16 +108,28 @@ const CTA = ({
       }
     })();
 
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, [showContent]);
 
   const handlePlay = (voice_id) => {
+    // Stop any other audio that is playing
     Object.entries(audioRefs.current).forEach(([id, audio]) => {
       if (id !== voice_id && audio && !audio.paused) {
         audio.pause();
         audio.currentTime = 0;
       }
     });
+
+    const audio = audioRefs.current[voice_id];
+    if (!audio) return;
+
+    // When audio finishes → reset icon
+    audio.onended = () => setPlayingVoiceId(null);
+
+    audio.play();
+    setPlayingVoiceId(voice_id);
   };
 
   const handleTTS = async () => {
@@ -113,16 +148,17 @@ const CTA = ({
 
   const handleHeroGenerate = async () => {
     if (!selectedArtist || !ttsText.trim() || isHeroGenerating) return;
-    
+
     const audio = heroAudioRef.current;
     const currentText = ttsText.trim();
     const currentVoiceId = selectedArtist.voice_id;
-    
+
     // Check if audio already exists for current text and voice
-    const audioExists = audioSrc && 
-                        generatedText === currentText && 
-                        generatedVoiceId === currentVoiceId;
-    
+    const audioExists =
+      audioSrc &&
+      generatedText === currentText &&
+      generatedVoiceId === currentVoiceId;
+
     if (audioExists && audio) {
       // Audio already generated - just play/pause
       if (audio.paused) {
@@ -132,7 +168,7 @@ const CTA = ({
       }
       return;
     }
-    
+
     // Need to generate new audio
     setIsHeroGenerating(true);
     setHeroProgress(0);
@@ -185,9 +221,12 @@ const CTA = ({
     if (showContent === 2) {
       const currentText = ttsText.trim();
       const currentVoiceId = selectedArtist?.voice_id;
-      
+
       // If text or voice changed, reset playing state
-      if (currentText !== generatedText || currentVoiceId !== generatedVoiceId) {
+      if (
+        currentText !== generatedText ||
+        currentVoiceId !== generatedVoiceId
+      ) {
         setIsPlaying(false);
         if (heroAudioRef.current) {
           heroAudioRef.current.pause();
@@ -195,7 +234,13 @@ const CTA = ({
         }
       }
     }
-  }, [ttsText, selectedArtist?.voice_id, showContent, generatedText, generatedVoiceId]);
+  }, [
+    ttsText,
+    selectedArtist?.voice_id,
+    showContent,
+    generatedText,
+    generatedVoiceId,
+  ]);
 
   const handleSTT = async (incoming) => {
     if (sttLoading) return; // guard
@@ -205,7 +250,12 @@ const CTA = ({
       let f = incoming;
       if (Array.isArray(incoming)) {
         f = incoming[0];
-      } else if (incoming && typeof incoming === "object" && "length" in incoming && incoming.length > 0) {
+      } else if (
+        incoming &&
+        typeof incoming === "object" &&
+        "length" in incoming &&
+        incoming.length > 0
+      ) {
         f = incoming[0];
       }
 
@@ -289,17 +339,16 @@ const CTA = ({
 
   return (
     <>
-
       {/* Show container for TTS and STT without voiceSelector gate */}
       {isUserDashboard && showContent && (
         <div className="w-full min-h-screen flex justify-center items-center px-4 ">
-
           {showContent === 2 && (
-            <div className="max-w-6xl 2xl:max-w-7xl w-full 
+            <div
+              className="max-w-6xl 2xl:max-w-7xl w-full 
           mx-auto rounded-[32px] 
           h-auto lg:h-[500px] 
-          flex flex-col">
-
+          flex flex-col"
+            >
               {/* HEADER */}
               <div className="h-auto lg:h-[20%] bg-white rounded-t-[32px] px-6 py-5 flex items-center gap-4">
                 <div className="h-10 w-10 ">
@@ -312,7 +361,7 @@ const CTA = ({
                     aria-label="Go back"
                     className="h-full w-full  flex items-center justify-center text-gray-700 hover:text-gray-900"
                   >
-                    <CircleChevronLeft className="h-8 w-8"  />
+                    <CircleChevronLeft className="h-8 w-8" />
                   </button>
                 </div>
 
@@ -338,7 +387,6 @@ const CTA = ({
           "
               >
                 <div className="flex flex-col justify-between h-full">
-
                   <textarea
                     placeholder="Type in your text here ..."
                     className="
@@ -353,13 +401,20 @@ const CTA = ({
                   />
 
                   <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6">
-
                     {/* SELECT VOICE BUTTON */}
-                    <Sheet>
+                    <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
                       <SheetTrigger asChild>
-                        <Button className="max-w-48 py-1 w-full sm:w-auto" variant="alpha">
-                          <img className="h-12 w-12" src={profile} alt={selectedArtist?.name || 'Select Voice'} />
-                          <p>{selectedArtist?.name || 'Select Voice'}</p>
+                        <Button
+                          className="max-w-48 py-1 w-full sm:w-auto"
+                          variant="alpha"
+                          onClick={() => setIsSheetOpen(true)}
+                        >
+                          <img
+                            className="h-12 w-12"
+                            src={profile}
+                            alt={selectedArtist?.name || "Select Voice"}
+                          />
+                          <p>{selectedArtist?.name || "Select Voice"}</p>
                           <ChevronRight />
                         </Button>
                       </SheetTrigger>
@@ -380,7 +435,9 @@ const CTA = ({
                       >
                         {/* HEADER */}
                         <div className="p-5 pb-3">
-                          <h2 className="text-lg font-semibold">Pick a Voice</h2>
+                          <h2 className="text-lg font-semibold">
+                            Pick a Voice
+                          </h2>
                           <div className="mt-3">
                             <input
                               type="text"
@@ -395,8 +452,7 @@ const CTA = ({
                         </div>
 
                         {/* VOICE LIST */}
-                   <div className="px-3 space-y-1 overflow-y-auto max-h-[85vh] pb-4 custom-scrollbar">
-
+                        <div className="px-3 space-y-1 overflow-y-auto max-h-[85vh] pb-4 custom-scrollbar">
                           {voices?.length ? (
                             voices.map((voice) => (
                               <div
@@ -404,18 +460,27 @@ const CTA = ({
                                 className="
                             flex items-center justify-between 
                             px-3 py-5 cursor-pointer
-                            transition border-b-2 border-white
+                            transition border-b-2 border-white hover:bg-white/10
                           "
-                                onClick={() => handleSelectedArtist(voice)}
+                                onClick={() => {
+                                  handleSelectedArtist(voice);
+                                  setIsSheetOpen(false); // Close sheet after selecting a voice
+                                }}
                               >
                                 <div className="flex items-center gap-3">
-                                  <img src={profile} className="w-11 h-11 rounded-full" alt={voice.name} />
+                                  <img
+                                    src={profile}
+                                    className="w-11 h-11 rounded-full"
+                                    alt={voice.name}
+                                  />
                                   <div>
                                     <p className="font-medium">{voice.name}</p>
                                     <p className="text-xs text-white/60">
-                                      {voice.description && voice.description.length > 80
+                                      {voice.description &&
+                                      voice.description.length > 80
                                         ? voice.description.slice(0, 80) + "..."
-                                        : voice.description || "No description available"}
+                                        : voice.description ||
+                                          "No description available"}
                                     </p>
                                   </div>
                                 </div>
@@ -426,25 +491,35 @@ const CTA = ({
                                     className="p-2 hover:bg-white/10 rounded-full"
                                     onClick={(e) => {
                                       e.stopPropagation();
-                                      const audio = audioRefs.current[voice.voice_id];
+                                      const audio =
+                                        audioRefs.current[voice.voice_id];
                                       if (!audio) return;
-                                      if (audio.paused) {
+
+                                      if (playingVoiceId !== voice.voice_id) {
+                                        // Start playing
                                         handlePlay(voice.voice_id);
-                                        audio.play();
                                       } else {
+                                        // Pause + reset
                                         audio.pause();
                                         audio.currentTime = 0;
+                                        setPlayingVoiceId(null);
                                       }
                                     }}
                                   >
-                                    <Play size={18} />
+                                    {playingVoiceId === voice.voice_id ? (
+                                      <Pause size={18} />
+                                    ) : (
+                                      <Play size={18} />
+                                    )}
                                   </button>
 
-                                  <EllipsisVertical />
+                                  {/* <EllipsisVertical /> */}
                                 </div>
 
                                 <audio
-                                  ref={(el) => (audioRefs.current[voice.voice_id] = el)}
+                                  ref={(el) =>
+                                    (audioRefs.current[voice.voice_id] = el)
+                                  }
                                   src={voice.preview_url}
                                   className="hidden"
                                   onPlay={() => handlePlay(voice.voice_id)}
@@ -452,7 +527,9 @@ const CTA = ({
                               </div>
                             ))
                           ) : (
-                            <p className="px-3 py-4 text-sm text-white/60">No voices found.</p>
+                            <p className="px-3 py-4 text-sm text-white/60">
+                              No voices found.
+                            </p>
                           )}
                         </div>
                       </SheetContent>
@@ -468,7 +545,10 @@ const CTA = ({
                         ${isHeroGenerating ? "animate-pulse" : ""}
                       `}
                             style={{
-                              width: `${Math.min(heroProgress || (isHeroGenerating ? 30 : 0), 100)}%`
+                              width: `${Math.min(
+                                heroProgress || (isHeroGenerating ? 30 : 0),
+                                100
+                              )}%`,
                             }}
                           />
                         </div>
@@ -482,12 +562,18 @@ const CTA = ({
                             className={`
                         w-10 h-10 rounded-full bg-white text-black flex items-center justify-center shadow 
                         transition 
-                        ${!selectedArtist || !ttsText.trim()
-                                ? "opacity-50 cursor-not-allowed"
-                                : "hover:bg-white/90"}
+                        ${
+                          !selectedArtist || !ttsText.trim()
+                            ? "opacity-50 cursor-not-allowed"
+                            : "hover:bg-white/90"
+                        }
                       `}
                             onClick={handleHeroGenerate}
-                            disabled={!selectedArtist || !ttsText.trim() || isHeroGenerating}
+                            disabled={
+                              !selectedArtist ||
+                              !ttsText.trim() ||
+                              isHeroGenerating
+                            }
                           >
                             {isHeroGenerating ? (
                               <Loader2 className="w-5 h-5 animate-spin" />
@@ -508,29 +594,30 @@ const CTA = ({
                     )}
 
                     {/* DOWNLOAD BUTTON */}
-                    <Button 
-                      className={`max-w-48 w-full sm:w-auto magic-btn ${!audioSrc ? "opacity-50 cursor-not-allowed" : ""}`}
+                    <Button
+                      className={`max-w-48 w-full sm:w-auto magic-btn ${
+                        !audioSrc ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                       variant="alpha"
                       onClick={handleDownload}
                       disabled={!audioSrc}
                     >
                       Download Speech
                     </Button>
-
                   </div>
                 </div>
               </div>
-
             </div>
           )}
 
-          {showContent === 3 &&
+          {showContent === 3 && (
             <div className="flex w-full max-w-5xl gap-6 ">
-              <div class="h-80 w-full rounded-[32px] border-2 border-white/20 
+              <div
+                class="h-80 w-full rounded-[32px] border-2 border-white/20 
     bg-[linear-gradient(180deg,rgba(0,0,0,0.6)_0%,rgba(12,66,48,0.34)_100%)]
     flex flex-col items-center justify-center text-center gap-4 p-6  cursor-pointer"
-    onClick={()=>navigate('/speech-to-text')}
-    >
+                onClick={() => navigate("/speech-to-text")}
+              >
                 <div class="h-40 flex items-center justify-center">
                   <img
                     src={record}
@@ -545,10 +632,12 @@ const CTA = ({
                   Good afternoon, everyone.
                 </p>
               </div>
-              <div class="h-80 w-full rounded-[32px] 
+              <div
+                class="h-80 w-full rounded-[32px] 
     bg-[linear-gradient(180deg,rgba(0,0,0,0.6)_0%,rgba(12,66,48,0.34)_100%)]
     flex flex-col items-center justify-center text-center gap-4 p-6 border-2 border-white/20 cursor-pointer"
-    onClick={()=>navigate('/upload-audio')}>
+                onClick={() => navigate("/upload-audio")}
+              >
                 <div class="h-40 flex items-center justify-center">
                   <img
                     src={upload}
@@ -563,11 +652,10 @@ const CTA = ({
                   Good afternoon, everyone.
                 </p>
               </div>
-
-            </div>}
+            </div>
+          )}
         </div>
       )}
-
     </>
   );
 };
