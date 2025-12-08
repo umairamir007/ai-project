@@ -5,11 +5,12 @@ import Navbar from "./navbar/Navbar";
 import { useVoiceRecorder } from "../hooks/useVoiceRecorder";
 
 const RecordVoice = () => {
-  const [textCardShow, setTextCardShow] = useState(true); 
+  const [textCardShow, setTextCardShow] = useState(true);
   const [audioLevels, setAudioLevels] = useState(Array(15).fill(0));
   const animationFrameRef = React.useRef(null);
   const analyserRef = React.useRef(null);
-  
+  const [copied, setCopied] = useState(false);
+
   const {
     isRecording,
     isConverting,
@@ -27,56 +28,61 @@ const RecordVoice = () => {
     const setupAudioAnalyser = async () => {
       if (isRecording) {
         try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+          const audioContext = new (window.AudioContext ||
+            window.webkitAudioContext)();
           const source = audioContext.createMediaStreamSource(stream);
           const analyser = audioContext.createAnalyser();
-          
+
           analyser.fftSize = 64;
           source.connect(analyser);
           analyserRef.current = analyser;
-          
+
           const bufferLength = analyser.frequencyBinCount;
           const dataArray = new Uint8Array(bufferLength);
-          
+
           const updateLevels = () => {
             if (!isRecording) {
               setAudioLevels(Array(15).fill(0));
               return;
             }
-            
+
             analyser.getByteFrequencyData(dataArray);
-            
+
             // Map frequency data to 15 bars (mirror pattern from center)
-            const newLevels = Array(15).fill(0).map((_, i) => {
-              let index;
-              if (i < 7) {
-                // Left side (0-6)
-                index = 6 - i;
-              } else if (i === 7) {
-                // Center
-                index = 0;
-              } else {
-                // Right side (8-14)
-                index = i - 7;
-              }
-              
-              const dataIndex = Math.floor((index / 7) * (bufferLength / 2));
-              const value = dataArray[dataIndex] || 0;
-              return Math.min(value / 255, 1); // Normalize to 0-1
-            });
-            
+            const newLevels = Array(15)
+              .fill(0)
+              .map((_, i) => {
+                let index;
+                if (i < 7) {
+                  // Left side (0-6)
+                  index = 6 - i;
+                } else if (i === 7) {
+                  // Center
+                  index = 0;
+                } else {
+                  // Right side (8-14)
+                  index = i - 7;
+                }
+
+                const dataIndex = Math.floor((index / 7) * (bufferLength / 2));
+                const value = dataArray[dataIndex] || 0;
+                return Math.min(value / 255, 1); // Normalize to 0-1
+              });
+
             setAudioLevels(newLevels);
             animationFrameRef.current = requestAnimationFrame(updateLevels);
           };
-          
+
           updateLevels();
-          
+
           return () => {
             if (animationFrameRef.current) {
               cancelAnimationFrame(animationFrameRef.current);
             }
-            stream.getTracks().forEach(track => track.stop());
+            stream.getTracks().forEach((track) => track.stop());
             audioContext.close();
           };
         } catch (err) {
@@ -86,9 +92,9 @@ const RecordVoice = () => {
         setAudioLevels(Array(15).fill(0));
       }
     };
-    
+
     setupAudioAnalyser();
-    
+
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
@@ -127,6 +133,11 @@ const RecordVoice = () => {
       try {
         await navigator.clipboard.writeText(transcribedText);
         // You could add a toast notification here
+        setCopied(true);
+
+        setTimeout(() => {
+          setCopied(false);
+        }, 1500);
       } catch (err) {
         console.error("Failed to copy text:", err);
       }
@@ -152,11 +163,9 @@ const RecordVoice = () => {
 
       {/* MAIN CONTENT */}
       <div className="flex items-center justify-center ">
-
         {textCardShow ? (
           /* RECORDING UI */
           <div className="flex justify-center items-center  h-screen ">
-
             <div className="bg-[#FAFAFA] rounded-[32px] p-4 4xl:p-8 mt-10">
               <div className="flex items-center pb-4 4xl:pb-8">
                 <button
@@ -174,7 +183,6 @@ const RecordVoice = () => {
                 <div className="4xl:w-[300px] 4xl:h-[300px] w-[250px] h-[250px] rounded-full bg-[#FAFAFA] absolute inset-0 m-auto">
                   {/* Inner ring */}
                   <div className="bg-[#FAFAFA] 4xl:h-[250px] 4xl:w-[250px] h-[200px] w-[200px] rounded-full absolute inset-0 m-auto shadow-[0px_0px_7.4px_3px_#00000040] flex items-center justify-center">
-
                     {isRecording ? (
                       <div className="flex gap-1 items-center justify-center h-[60px]">
                         {audioLevels.map((level, i) => (
@@ -223,7 +231,6 @@ const RecordVoice = () => {
                 </div>
               )}
             </div>
-
           </div>
         ) : (
           /* SPEECH-TO-TEXT UI */
@@ -287,12 +294,12 @@ const RecordVoice = () => {
                   <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6">
                     {transcribedText ? (
                       <Button
-                        className="max-w-48 w-full sm:w-auto "
+                        className="max-w-48 w-full sm:w-auto"
                         variant="alpha"
                         onClick={handleCopyText}
                         disabled={isConverting}
                       >
-                        Copy text
+                        {copied ? "Copied!" : "Copy Text"}
                       </Button>
                     ) : (
                       <Button
@@ -309,9 +316,7 @@ const RecordVoice = () => {
               </div>
             </div>
           </div>
-
         )}
-
       </div>
     </div>
   );

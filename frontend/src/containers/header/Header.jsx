@@ -52,7 +52,7 @@ const Header = ({
 
   return (
     <>
-      {isLanding && (
+      {/* {isLanding && (
         <div className="gpt3__header section__padding um_container" id="home">
           <div className="gpt3__header-content um_content-container">
             <h1 className="text-re">
@@ -65,10 +65,10 @@ const Header = ({
               can facilitae business transformation while preserving the vital
               human element and ensuring fair compensation for all contributors
             </p>
-            {/* <div className="gpt3__header-content__input">
+            <div className="gpt3__header-content__input">
               <input type="email" placeholder="Your Email Address" />
               <button type="button">Get Started</button>
-            </div> */}
+            </div>
             <div className="gpt3__header-content__people">
               <img src={people} />
               <p>1,600 people requested access a visit in last 24 hours</p>
@@ -78,9 +78,9 @@ const Header = ({
             <img src={ai} />
           </div>
         </div>
-      )}
+      )} */}
 
-      {isTalentDashboard && (
+      {/* {isTalentDashboard && (
         <div className="gpt3__header section__padding" id="home">
           <div className="gpt3__header-content">
             {" "}
@@ -124,16 +124,16 @@ const Header = ({
             </div>
           </div>
         </div>
-      )}
+      )} */}
 
       {isUserDashboard && showContent === null && (
         <div
           id="home"
           className="
     min-h-screen flex items-center
-    justify-center px-4 "
+    justify-center px-4 h-screen"
         >
-          <div className="flex flex-col gap-6 w-full max-w-5xl mx-auto  pt-36 3xl:pt-36  4xl:pt-0">
+          <div className="flex flex-col gap-6 w-full max-w-5xl mx-auto  mt-28 4xl:mt-0">
 
             {/* --- TOP TWO CARDS --- */}
             <div className="flex flex-col md:flex-row gap-4 w-full ">
@@ -229,9 +229,8 @@ const Header = ({
         h-auto md:h-56 2xl:h-60 w-full
         border border-white/20
         rounded-[32px]
-        bg-[linear-gradient(180deg,rgba(0,0,0,0.6)_0%,rgba(12,66,48,0.34)_100%)]
-        p-6
-      "
+        bg-[linear-gradient(180deg,rgba(0,0,0,0.6)_0%,rgba(12,66,48,0.34)_100%)] p-6 cursor-pointer"
+            onClick={()=>{ navigate("/my-library")}}
             >
               <div className="h-full flex flex-col md:flex-row items-center justify-between gap-4">
                 <div>
@@ -254,8 +253,6 @@ const Header = ({
         </div>
 
       )}
-
-      add query on link when click link text-spech , same spech to text 
 
       {/* {showContent === 1 && (
         <div className="gpt3__header section__padding" id="home">

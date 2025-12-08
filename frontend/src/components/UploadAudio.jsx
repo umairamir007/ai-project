@@ -8,14 +8,10 @@ const UploadAudio = () => {
   const [textCardShow, setTextCardShow] = useState(true);
   const [dragActive, setDragActive] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState("");
+  const [copied, setCopied] = useState(false);
 
-  const {
-    transcribedText,
-    isConverting,
-    error,
-    convertFileToText,
-    reset,
-  } = useVoiceRecorder();
+  const { transcribedText, isConverting, error, convertFileToText, reset } =
+    useVoiceRecorder();
 
   const handleFile = async (file) => {
     if (!file) return;
@@ -60,6 +56,11 @@ const UploadAudio = () => {
       try {
         await navigator.clipboard.writeText(transcribedText);
         // You could add a toast notification here
+        setCopied(true);
+
+        setTimeout(() => {
+          setCopied(false);
+        }, 1500);
       } catch (err) {
         console.error("Failed to copy text:", err);
       }
@@ -102,12 +103,18 @@ const UploadAudio = () => {
                   disabled={isConverting}
                 />
                 <div className="h-16 w-16 bg-[#0c4230] rounded-full flex items-center justify-center shadow-lg">
-                  <CloudUpload className="text-white" size={32} strokeWidth={2} />
+                  <CloudUpload
+                    className="text-white"
+                    size={32}
+                    strokeWidth={2}
+                  />
                 </div>
 
                 <div className="text-center space-y-2">
                   <p className="text-white sm:text-2xl text-xl 4xl:text-3xl font-bold">
-                    {isConverting ? "Converting..." : "Click to upload, or drag and drop"}
+                    {isConverting
+                      ? "Converting..."
+                      : "Click to upload, or drag and drop"}
                   </p>
                   <p className="text-gray-300 sm:text-lg text-base 4xl:text-xl font-medium pt-4">
                     Audio files up to 50MB each
@@ -118,9 +125,7 @@ const UploadAudio = () => {
                     </p>
                   )}
                   {error && (
-                    <p className="text-red-400 text-sm sm:text-base">
-                      {error}
-                    </p>
+                    <p className="text-red-400 text-sm sm:text-base">{error}</p>
                   )}
                 </div>
               </label>
@@ -187,12 +192,12 @@ const UploadAudio = () => {
                   <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-6">
                     {transcribedText ? (
                       <Button
-                        className="max-w-48 w-full sm:w-auto "
+                        className="max-w-48 w-full sm:w-auto"
                         variant="alpha"
                         onClick={handleCopyText}
                         disabled={isConverting}
                       >
-                        Copy text
+                        {copied ? "Copied!" : "Copy Text"}
                       </Button>
                     ) : (
                       <Button

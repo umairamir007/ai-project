@@ -1,6 +1,7 @@
 import "./App.css";
 import { CTA, Brand, Navbar } from "./components";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import TalentDashboard from "./pages/talentdashboard/TalentDashboard";
 import UserDasboard from "./pages/userdashboard/UserDashboard";
 import { useEnsureAnonAuth } from "./hooks/useEnsureAnonAuth";
@@ -20,6 +21,7 @@ import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import RecordVoice from "./components/RecordVoice";
 import UploadAudio from "./components/UploadAudio";
+import MyLibrary from "./components/MyLibrary";
 
 const LandingPage = () => {
   return (
@@ -52,21 +54,25 @@ const App = () => {
   useEnsureAnonAuth();
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route element={<ProtectedRoute />}>
-          <Route path="/talent-dashboard" element={<TalentDashboard />} />
-          <Route path="/user-dashboard" element={<UserDasboard />} />
-          <Route path="/speech-to-text" element={<RecordVoice /> } />
-          <Route path="/upload-audio" element={<UploadAudio />} />
-        </Route>
-        <Route element={<PublicRoute />}>
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-        </Route>
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/talent-dashboard" element={<TalentDashboard />} />
+            <Route path="/user-dashboard" element={<UserDasboard />} />
+            <Route path="/speech-to-text" element={<RecordVoice /> } />
+            <Route path="/upload-audio" element={<UploadAudio />} />
+            <Route path="/my-library" element={<MyLibrary />} />
+          </Route>
+          <Route element={<PublicRoute />}>
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
+          </Route>
+        </Routes>
+      </Router>
+      <Toaster position="top-center" />
+    </>
   );
 };
 
