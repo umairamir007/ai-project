@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import express from "express";
-import { FRONTEND_URL, PORT } from "./constants";
+import { FRONTEND_URLS, PORT } from "./constants";
 import errorHandler from "./middlewares/errorHandler";
 import elevenRoutes from "./routes/elevenRoutes";
 import storageRoutes from "./routes/storage";
@@ -22,7 +22,11 @@ app.use(express.json());
 connectDB()
 
 const corsOptions: cors.CorsOptions = {
-  origin: [FRONTEND_URL, "http://localhost:3000"],
+  origin: [
+    ...FRONTEND_URLS,
+    "http://localhost:3000",
+    "http://localhost:5173",
+  ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };

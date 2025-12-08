@@ -98,7 +98,8 @@ const forgotPasswordService = (email) => __awaiter(void 0, void 0, void 0, funct
     const user = yield user_model_1.default.findOne({ email });
     if (user) {
         const resetToken = jsonwebtoken_1.default.sign({ id: user._id, email: user.email }, constants_1.RESET_PASSWORD_SECRET, { expiresIn: "1h" });
-        const resetLink = `${constants_1.FRONTEND_URL}/reset-password?token=${resetToken}`;
+        // const resetLink = `${FRONTEND_URL}/reset-password?token=${resetToken}`;
+        const resetLink = `https://ai-lama.vercel.app/reset-password?token=${resetToken}`;
         yield (0, mailer_1.sendMail)({
             to: email,
             subject: "Reset your Isai password",

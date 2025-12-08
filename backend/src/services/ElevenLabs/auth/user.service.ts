@@ -109,7 +109,8 @@ export const forgotPasswordService = async (email: string) => {
             { expiresIn: "1h" }
         );
 
-        const resetLink = `${FRONTEND_URL}/reset-password?token=${resetToken}`;
+        // const resetLink = `${FRONTEND_URL}/reset-password?token=${resetToken}`;
+        const resetLink = `https://ai-lama.vercel.app/reset-password?token=${resetToken}`;
 
         await sendMail({
             to: email,

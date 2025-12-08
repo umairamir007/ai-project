@@ -23,7 +23,11 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 (0, db_1.default)();
 const corsOptions = {
-    origin: [constants_1.FRONTEND_URL, "http://localhost:3000"],
+    origin: [
+        ...constants_1.FRONTEND_URLS,
+        "http://localhost:3000",
+        "http://localhost:5173",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
 };

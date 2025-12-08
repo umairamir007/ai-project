@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.client = exports.FRONTEND_URL = exports.ADMIN_EMAIL = exports.validExchanges = exports.PROTOCOL_FEES = exports.ONE_WEEK_DURATION = exports.REFRESH_TOKEN_DURATION = exports.ACCESS_TOKEN_DURATION = exports.ENCRYPTION_SECRET = exports.EMAIL_VERIFICATION_SECRET = exports.RESET_PASSWORD_SECRET = exports.REFRESH_TOKEN_SECRET = exports.ACCESS_TOKEN_SECRET = exports.MONGO_URI = exports.NODE_ENV = exports.EMAIL_HOST = exports.APP_PASSWORD = exports.FROM_EMIAL_ADDRESS = exports.PORT = exports.IS_TEST_MODE = void 0;
+exports.client = exports.FRONTEND_URL = exports.FRONTEND_URLS = exports.ADMIN_EMAIL = exports.validExchanges = exports.PROTOCOL_FEES = exports.ONE_WEEK_DURATION = exports.REFRESH_TOKEN_DURATION = exports.ACCESS_TOKEN_DURATION = exports.ENCRYPTION_SECRET = exports.EMAIL_VERIFICATION_SECRET = exports.RESET_PASSWORD_SECRET = exports.REFRESH_TOKEN_SECRET = exports.ACCESS_TOKEN_SECRET = exports.MONGO_URI = exports.NODE_ENV = exports.EMAIL_HOST = exports.APP_PASSWORD = exports.FROM_EMIAL_ADDRESS = exports.PORT = exports.IS_TEST_MODE = void 0;
 const elevenlabs_1 = require("elevenlabs");
 require("dotenv").config();
 exports.IS_TEST_MODE = false;
@@ -24,8 +24,17 @@ exports.ONE_WEEK_DURATION = 604800; //7 days
 exports.PROTOCOL_FEES = 0.0002; //0.2%
 exports.validExchanges = ["raydium", "jupiter"];
 exports.ADMIN_EMAIL = "umairamir@decryptedlabs.io"; // admin email
-// export const FRONTEND_URL = "https://ai-lama.vercel.app"
-exports.FRONTEND_URL = "http://localhost:3000";
+/**
+ * Comma-separated list of frontend origins allowed to hit the API.
+ * Falls back to common local dev ports plus the production domain.
+ */
+const FRONTEND_URL_ENV = process.env.FRONTEND_URL ||
+    "https://ai-lama.vercel.app,http://localhost:3000,http://localhost:5173";
+exports.FRONTEND_URLS = FRONTEND_URL_ENV.split(",")
+    .map((url) => url.trim())
+    .filter(Boolean);
+// Primary frontend URL for building links (first entry in the list)
+exports.FRONTEND_URL = exports.FRONTEND_URLS[0];
 exports.client = new elevenlabs_1.ElevenLabsClient({
     apiKey: process.env.ELEVENLABS_API_KEY,
 });

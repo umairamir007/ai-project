@@ -24,8 +24,20 @@ export const PROTOCOL_FEES = 0.0002; //0.2%
 export const validExchanges = ["raydium", "jupiter"];
 export const ADMIN_EMAIL = "umairamir@decryptedlabs.io"; // admin email
 
-// export const FRONTEND_URL = "https://ai-lama.vercel.app"
-export const FRONTEND_URL = "http://localhost:3000"
+/**
+ * Comma-separated list of frontend origins allowed to hit the API.
+ * Falls back to common local dev ports plus the production domain.
+ */
+const FRONTEND_URL_ENV =
+  process.env.FRONTEND_URL ||
+  "https://ai-lama.vercel.app,http://localhost:3000,http://localhost:5173";
+
+export const FRONTEND_URLS = FRONTEND_URL_ENV.split(",")
+  .map((url) => url.trim())
+  .filter(Boolean);
+
+// Primary frontend URL for building links (first entry in the list)
+export const FRONTEND_URL = FRONTEND_URLS[0];
 
 export const client = new ElevenLabsClient({
   apiKey: process.env.ELEVENLABS_API_KEY!,
