@@ -52,7 +52,7 @@ const userSchema = new mongoose_1.Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    confirmPassword: { type: String, required: true }
+    // confirmPassword: { type: String, required: true }
 }, { timestamps: true });
 userSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {

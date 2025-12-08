@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Heading } from "../layout/heading";
 import { logo } from "../../images";
 import { Button } from "../layout/button";
@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { NotifyError } from "../lib/common";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 
 // Zod Schema
 const loginSchema = z.object({
@@ -18,6 +18,7 @@ const loginSchema = z.object({
   password: z.string().min(1, "Password is required"),
 });
 const SignIn = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -106,18 +107,30 @@ const SignIn = () => {
             </p>
 
             {/* PASSWORD */}
-            <input
-              type="password"
-              placeholder="Password"
-              {...register("password")}
-              className="
-                                w-full
-                                bg-transparent
-                                border border-white
-                                rounded-full px-4 2xl:py-4 py-2.5
-                                text-white placeholder-gray-300 sm:text-sm text-base 2xl:text-lg
-                            "
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                {...register("password")}
+                className="
+      w-full
+      bg-transparent
+      border border-white
+      rounded-full px-4 pr-12 2xl:py-4 py-2.5
+      text-white placeholder-gray-300 sm:text-sm text-base 2xl:text-lg
+    "
+              />
+
+              {/* Eye Icon */}
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-4 flex items-center text-white/70 hover:text-white"
+              >
+                {showPassword ? <EyeOff size={28} /> : <Eye size={28} />}
+              </button>
+            </div>
+
             <p className="text-red-400 text-xs min-h-[18px] mt-1 mb-2">
               {errors.password ? errors.password.message : ""}
             </p>

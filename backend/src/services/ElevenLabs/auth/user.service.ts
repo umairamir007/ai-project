@@ -12,9 +12,9 @@ export const registerUserService = async (payload: any) => {
     const { firstName, lastName, email, password, confirmPassword } = payload;
 
     // Check confirm password
-    if (password !== confirmPassword) {
-        throw new ValidationError("Passwords do not match.");
-    }
+    // if (password !== confirmPassword) {
+    //     throw new ValidationError("Passwords do not match.");
+    // }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -26,7 +26,7 @@ export const registerUserService = async (payload: any) => {
         lastName,
         email,
         password,
-        confirmPassword,
+        // confirmPassword,
     });
 
     return {

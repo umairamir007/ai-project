@@ -10,7 +10,7 @@ exports.registerUserSchema = joi_1.default.object({
     lastName: joi_1.default.string().required(),
     email: joi_1.default.string().email().required(),
     password: joi_1.default.string().required(),
-    confirmPassword: joi_1.default.string().required(),
+    // confirmPassword: Joi.string().required(),
 });
 exports.loginUserSchema = joi_1.default.object({
     email: joi_1.default.string().email().required(),

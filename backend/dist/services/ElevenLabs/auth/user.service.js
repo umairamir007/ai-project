@@ -21,9 +21,9 @@ const constants_1 = require("../../../constants");
 const registerUserService = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { firstName, lastName, email, password, confirmPassword } = payload;
     // Check confirm password
-    if (password !== confirmPassword) {
-        throw new AppError_1.ValidationError("Passwords do not match.");
-    }
+    // if (password !== confirmPassword) {
+    //     throw new ValidationError("Passwords do not match.");
+    // }
     const existingUser = yield user_model_1.default.findOne({ email });
     if (existingUser) {
         throw new AppError_1.ValidationError("User already exists. Please login.");
@@ -33,7 +33,7 @@ const registerUserService = (payload) => __awaiter(void 0, void 0, void 0, funct
         lastName,
         email,
         password,
-        confirmPassword,
+        // confirmPassword,
     });
     return {
         message: "User registered successfully.",
