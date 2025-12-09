@@ -14,6 +14,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.947.0",
     "@elevenlabs/elevenlabs-js": "^2.13.0",
     "@jup-ag/api": "^6.0.40",
     "@project-serum/anchor": "^0.26.0",

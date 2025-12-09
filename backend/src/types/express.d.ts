@@ -1,12 +1,27 @@
 // backend/src/types/http.ts (or wherever your existing interface lives)
 import { Request } from "express";
 
-// ✅ Your existing shape + Firebase + Multer
-export interface AuthenticatedRequest extends Request {
-  user?: { id: string; role: "User" | "Admin" };               // you already had this
-  uid?: string;                                                // set by requireFirebaseAuth
-  file?: Express.Multer.File;                                  // set by multer.single('file')
-  files?:
-  | Express.Multer.File[]
-  | { [fieldname: string]: Express.Multer.File[] };          // for .array()/ .fields()
+declare global {
+  namespace Express {
+    interface AuthUser {
+      id: string;
+      role: "User" | "Admin";
+    }
+
+    interface Request {
+      user?: AuthUser; // set by protect middleware
+      uid?: string; // set by requireFirebaseAuth middleware
+      file?: Express.Multer.File;
+      files?:
+        | Express.Multer.File[]
+        | { [fieldname: string]: Express.Multer.File[] };
+    }
+  }
 }
+
+// Explicit request type for handlers that require authentication.
+export interface AuthenticatedRequest extends Request {
+  user: Express.AuthUser;
+}
+
+export {};

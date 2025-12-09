@@ -11,6 +11,7 @@ import adminImport from "./routes/admin";
 import fishRoutes from "./routes/fishRoutes";
 import minimaxRoutes from "./routes/minimax";
 import authRoutes from "./routes/user.routes"
+import projectRoutes from "./routes/project.routes";
 import connectDB from "./config/db";
 
 dotenv.config();
@@ -47,6 +48,7 @@ app.use("/api/v1/storage", storageRoutes);
 app.use("/api/v1/admin", adminImport);
 app.use("/api/v1/fish", fishRoutes);
 app.use("/api/v1/minimax", minimaxRoutes);
+app.use("/api/v1", projectRoutes);
 
 // Global Error Handler
 app.use(errorHandler);
