@@ -23,6 +23,8 @@ const RecordVoice = () => {
     reset,
   } = useVoiceRecorder();
 
+  const [openModal, setOpenModal] = useState(false);
+
   // Audio visualization effect
   useEffect(() => {
     const setupAudioAnalyser = async () => {
@@ -292,33 +294,87 @@ const RecordVoice = () => {
                   />
 
                   <div className="flex flex-col sm:flex-row sm:justify-end justify-between items-center gap-4 mt-6">
-
-  {transcribedText ? (
-    <Button 
-      variant="alpha" 
-      className="max-w-48 w-full sm:w-auto"
-    >
-      Save Project
-    </Button>
-  ) : (
-    <Button
-      className="max-w-48 w-full sm:w-auto"
-      variant="alpha"
-      onClick={handleStartRecording}
-      disabled={isRecording || isConverting}
-    >
-      {isRecording ? "Recording..." : "Start Recording"}
-    </Button>
-  )}
-
-</div>
-
+                    {transcribedText ? (
+                      <Button
+                        variant="alpha"
+                        className="max-w-48 w-full sm:w-auto"
+                        onClick={() => setOpenModal(true)}
+                      >
+                        Save Project
+                      </Button>
+                    ) : (
+                      <Button
+                        className="max-w-48 w-full sm:w-auto"
+                        variant="alpha"
+                        onClick={handleStartRecording}
+                        disabled={isRecording || isConverting}
+                      >
+                        {isRecording ? "Recording..." : "Start Recording"}
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         )}
       </div>
+      {openModal && (
+        <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white w-[90%] max-w-md rounded-3xl shadow-none p-6  text-center space-y-6">
+            {/* Title */}
+            <h2 className="text-2xl font-semibold text-black">
+              Do you want to save this project?
+            </h2>
+
+            {/* Input */}
+            <input
+              type="text"
+              placeholder="Project Name"
+              className="
+          w-full px-5 py-3 
+          border border-[#3C3C3C] 
+          rounded-full 
+          text-gray-700 placeholder-gray-400
+          focus:outline-none focus:ring-2 focus:ring-black/20
+        "
+            />
+
+            {/* Buttons */}
+            <div className="flex items-center justify-center gap-4 ">
+              {/* Don't Save Button */}
+              <Button
+                onClick={() => setOpenModal(false)}
+                variant="alpha"
+                className="
+            px-6 py-3 
+            rounded-full 
+            bg-[#0C3B28] 
+            text-white font-medium
+            text-sm sm:text-base
+            shadow-none">
+                Dont Save it
+              </Button>
+
+              {/* Save Button */}
+              <Button
+                onClick={() => {
+                  console.log("Saving project...");
+                  setOpenModal(false);
+                }}
+                variant="alpha"
+                className="
+            px-6 py-3 
+            rounded-full 
+            bg-[#4A4A4A] 
+            text-white font-medium
+            text-sm sm:text-base shadow-none">
+                Save
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
