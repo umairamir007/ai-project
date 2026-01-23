@@ -11,26 +11,43 @@ export const protect = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    // Get token from cookies or Authorization header
+    let token = req.cookies?.accessToken || req.cookies?.token || req.cookies?.authToken;
+    
+    // If no token in cookies, check Authorization header
+    if (!token) {
+      const authHeader = req.headers.authorization;
+      if (authHeader && authHeader.startsWith("Bearer ")) {
+        token = authHeader.split(" ")[1];
+      }
+    }
+
+    if (!token) {
       throw new UnauthorizedError("Authorization token missing or invalid.");
     }
 
-    const accessToken = authHeader.split(" ")[1];
-
-    const decoded: any = jwt.verify(
-      accessToken,
-      ACCESS_TOKEN_SECRET,
-      (err, decoded) => {
-        if (err || !decoded) {
-          throw new UnauthorizedError("Invalid or expired token.");
-        }
-        return decoded;
+    let decoded: any;
+    try {
+      if (!ACCESS_TOKEN_SECRET) {
+        throw new AppError("Server configuration error: ACCESS_TOKEN_SECRET not set", 500);
       }
-    );
+      decoded = jwt.verify(token, ACCESS_TOKEN_SECRET);
+    } catch (err: any) {
+      if (err.name === 'JsonWebTokenError') {
+        throw new UnauthorizedError("Invalid token. Please login again.");
+      }
+      if (err.name === 'TokenExpiredError') {
+        throw new UnauthorizedError("Token expired. Please login again.");
+      }
+      throw new UnauthorizedError("Invalid or expired token.");
+    }
 
-    const userId = decoded.id
+    const userId = decoded.id;
     // const userId = "" //TODO: TEST OTHER USRES (remove for prod)
+
+    if (!userId) {
+      throw new UnauthorizedError("Invalid token payload.");
+    }
 
     const user = await User.findById(userId).select("_id email");
     if (!user) {

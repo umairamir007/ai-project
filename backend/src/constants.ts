@@ -45,3 +45,10 @@ export const FRONTEND_URL = FRONTEND_URLS[0];
 export const client = new ElevenLabsClient({
   apiKey: process.env.ELEVENLABS_API_KEY!,
 });
+
+// DigitalOcean Spaces configuration
+export const DO_SPACES_ENDPOINT = process.env.DO_SPACES_ENDPOINT as string;
+export const DO_SPACES_KEY = process.env.DO_SPACES_KEY as string;
+export const DO_SPACES_SECRET = process.env.DO_SPACES_SECRET as string;
+export const DO_SPACES_BUCKET = process.env.DO_SPACES_BUCKET as string;
+export const DO_SPACES_CDN = process.env.DO_SPACES_CDN as string;
