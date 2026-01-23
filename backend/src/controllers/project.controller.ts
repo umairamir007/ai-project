@@ -2,8 +2,9 @@
 import { Response } from "express";
 import jwt from "jsonwebtoken";
 import { AuthenticatedRequest } from "../types/express";
-import { createProjectService, getProjectService } from "../services/ElevenLabs/project.service";
+import { createProjectService, deleteProjectService, getProjectService } from "../services/ElevenLabs/project.service";
 import { ACCESS_TOKEN_SECRET } from "../constants";
+import axios from "axios";
 
 
 export const createProject = async (req: AuthenticatedRequest, res: Response) => {
@@ -86,5 +87,59 @@ export const getProject = async (req: AuthenticatedRequest, res: Response) => {
     } catch (error: any) {
         console.error(error);
         res.status(500).json({ error: error.message });
+    }
+}
+
+export const deleteProject = async (req: AuthenticatedRequest, res: Response) => {
+    try {
+
+        const { id } = req.params;
+
+        const project = await deleteProjectService(id);
+        if (!project) {
+            return res.status(404).json({ error: "Project not found" });
+        }
+        res.status(200).json({
+            message: "Project deleted",
+            project,
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
+}
+
+export const downloadProjectFile = async (req: AuthenticatedRequest, res: Response) => {
+    try {
+        const { fileUrl, filename } = req.query;
+
+        if (!fileUrl || typeof fileUrl !== 'string') {
+            return res.status(400).json({ error: "File URL is required" });
+        }
+
+        // Fetch the file from the CDN
+        const response = await axios.get(fileUrl, {
+            responseType: 'stream',
+            timeout: 30000, // 30 second timeout
+        });
+
+        // Get the file extension from URL or use provided filename
+        const downloadFilename = filename && typeof filename === 'string' 
+            ? filename 
+            : fileUrl.split('/').pop() || 'download.mp3';
+
+        // Set headers to force download
+        res.setHeader('Content-Disposition', `attachment; filename="${downloadFilename}"`);
+        res.setHeader('Content-Type', response.headers['content-type'] || 'application/octet-stream');
+        
+        // Stream the file to the client
+        response.data.pipe(res);
+
+    } catch (error: any) {
+        console.error("Download error:", error);
+        if (!res.headersSent) {
+            res.status(500).json({ error: error.message || "Failed to download file" });
+        }
     }
 }

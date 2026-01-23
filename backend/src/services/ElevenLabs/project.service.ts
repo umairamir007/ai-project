@@ -33,3 +33,11 @@ export const getProjectService = async (userId: string): Promise<IProject[]> => 
     }
     return projects;
 }
+
+export const deleteProjectService = async (id: string): Promise<boolean> => {
+    const project = await Project.findByIdAndDelete(id);
+    if (!project) {
+        throw new NotFoundError("Project not found");
+    }
+    return true;
+}

@@ -1,7 +1,7 @@
 
 import express from "express";
 import multer from "multer";
-import { createProject, getProject } from "../controllers/project.controller";
+import { createProject, deleteProject, getProject, downloadProjectFile } from "../controllers/project.controller";
 import { protect } from "../middlewares/authMiddleware";
 
 
@@ -20,6 +20,18 @@ router.get(
     "/projects",
     protect,
     getProject
+);
+
+router.delete(
+    "/projects/:id",
+    protect,
+    deleteProject
+);
+
+router.get(
+    "/projects/download",
+    protect,
+    downloadProjectFile
 );
 
 export default router;

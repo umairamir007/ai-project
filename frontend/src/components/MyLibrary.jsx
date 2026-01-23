@@ -1,15 +1,31 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./navbar/Navbar";
-import { getProjects } from "../api/projects";
+import { getProjects, deleteProject, downloadProjectFile } from "../api/projects";
+import ConfirmationModal from "./modal/ConfirmationModal";
 
 const MyLibrary = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    projectId: null,
+    projectName: null,
+  });
 
   useEffect(() => {
     fetchProjects();
+  }, []);
+
+  // Refresh data when window regains focus (e.g., after returning to tab)
+  useEffect(() => {
+    const handleFocus = () => {
+      fetchProjects();
+    };
+
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
   }, []);
 
   const fetchProjects = async () => {
@@ -39,6 +55,60 @@ const MyLibrary = () => {
     project.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     project.text?.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleDeleteClick = (projectId, projectName) => {
+    setDeleteModal({
+      isOpen: true,
+      projectId,
+      projectName,
+    });
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!deleteModal.projectId) return;
+
+    try {
+      await deleteProject(deleteModal.projectId);
+      // Refresh the projects list after successful deletion
+      await fetchProjects();
+      setDeleteModal({ isOpen: false, projectId: null, projectName: null });
+    } catch (err) {
+      console.error("Failed to delete project:", err);
+      alert(err.message || "Failed to delete project. Please try again.");
+      setDeleteModal({ isOpen: false, projectId: null, projectName: null });
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setDeleteModal({ isOpen: false, projectId: null, projectName: null });
+  };
+
+  const handleDownload = async (fileUrl, projectName) => {
+    try {
+      // Get the file extension from the URL or default to .mp3
+      const urlParts = fileUrl.split(".");
+      const extension = urlParts.length > 1 ? urlParts[urlParts.length - 1].split("?")[0] : "mp3";
+      const filename = `${projectName || "project"}.${extension}`;
+      
+      // Download through backend proxy to force download
+      const blob = await downloadProjectFile(fileUrl, filename);
+      
+      // Create a temporary anchor element and trigger download
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      
+      // Clean up
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Failed to download file:", err);
+      alert(err.message || "Failed to download file. Please try again.");
+    }
+  };
 
   return (
     <div className="h-screen w-full bg-theme">
@@ -103,15 +173,12 @@ const MyLibrary = () => {
                 </div>
                 <div>{formatDate(project.createdAt)}</div>
                 <div className="flex items-center justify-end gap-4">
-                  {/* Download icon - can be implemented later */}
+                  {/* Download icon */}
                   {project.voice && (
                     <button
-                      onClick={() => {
-                        if (project.voice) {
-                          window.open(project.voice, "_blank");
-                        }
-                      }}
+                      onClick={() => handleDownload(project.voice, project.name)}
                       title="Download"
+                      className="hover:opacity-70 transition-opacity"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -129,14 +196,43 @@ const MyLibrary = () => {
                       </svg>
                     </button>
                   )}
-                  <button className="text-xl" title="More options">
-                    ⋯
+                  <button
+                    onClick={() => handleDeleteClick(project._id || project.id, project.name)}
+                    title="Delete project"
+                    className="hover:opacity-70 transition-opacity text-red-400"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                      />
+                    </svg>
                   </button>
                 </div>
               </div>
             ))}
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={deleteModal.isOpen}
+        onClose={handleDeleteCancel}
+        onConfirm={handleDeleteConfirm}
+        title="Delete Project"
+        message={`Are you sure you want to delete "${deleteModal.projectName || "this project"}"? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        confirmButtonColor="destructive"
+      />
     </div>
   );
 };
