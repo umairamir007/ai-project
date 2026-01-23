@@ -1,4 +1,5 @@
 import Project, { IProject } from "../../models/project.model";
+import { NotFoundError } from "../../utils/AppError";
 import { uploadVoiceToSpaces } from "../../utils/digitalocean";
 
 
@@ -24,3 +25,11 @@ export const createProjectService = async (
 
     return project;
 };
+
+export const getProjectService = async (userId: string): Promise<IProject[]> => {
+    const projects = await Project.find({ userId });
+    if (!projects) {
+        throw new NotFoundError("No projects found");
+    }
+    return projects;
+}

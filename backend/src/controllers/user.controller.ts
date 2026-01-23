@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import validatePayload from "../utils/validatePayload";
 import { AppError } from "../utils/AppError";
+import { ACCESS_TOKEN_DURATION, NODE_ENV, REFRESH_TOKEN_DURATION } from "../constants";
 import { forgotPasswordService, loginUserService, refreshAccessTokenService, registerUserService, resetPasswordService } from "../services/ElevenLabs/auth/user.service";
 import { forgotPasswordSchema, loginUserSchema, refreshTokenSchema, registerUserSchema, resetPasswordSchema } from "../validations/auth.validation";
 
@@ -23,7 +24,21 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
         validatePayload(loginUserSchema, req.body);
 
         const response = await loginUserService(req.body);
-        res.status(200).json(response);
+        res
+            .cookie("accessToken", response.accessToken.token, {
+                httpOnly: true,
+                sameSite: "lax",
+                secure: NODE_ENV === "production",
+                maxAge: ACCESS_TOKEN_DURATION * 1000,
+            })
+            .cookie("refreshToken", response.refreshToken.token, {
+                httpOnly: true,
+                sameSite: "lax",
+                secure: NODE_ENV === "production",
+                maxAge: REFRESH_TOKEN_DURATION * 1000,
+            })
+            .status(200)
+            .json(response);
     } catch (err: any) {
         next(new AppError(err.message, err.status || 500));
     }
@@ -37,7 +52,15 @@ export const refreshAccessToken = async (req: Request, res: Response, next: Next
         const { refreshToken } = req.body;
         const response = await refreshAccessTokenService(refreshToken);
 
-        res.status(200).json(response);
+        res
+            .cookie("accessToken", response.accessToken.token, {
+                httpOnly: true,
+                sameSite: "lax",
+                secure: NODE_ENV === "production",
+                maxAge: ACCESS_TOKEN_DURATION * 1000,
+            })
+            .status(200)
+            .json(response);
     } catch (err: any) {
         next(new AppError(err.message, err.status || 500));
     }

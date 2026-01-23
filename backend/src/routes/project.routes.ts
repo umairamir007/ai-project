@@ -1,7 +1,7 @@
 
 import express from "express";
 import multer from "multer";
-import { createProject } from "../controllers/project.controller";
+import { createProject, getProject } from "../controllers/project.controller";
 import { protect } from "../middlewares/authMiddleware";
 
 
@@ -14,6 +14,11 @@ router.post(
     protect,
     upload.single("voice"),
     createProject
+);
+
+router.get(
+    "/projects",
+    getProject
 );
 
 export default router;

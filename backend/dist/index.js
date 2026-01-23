@@ -8,6 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 const express_1 = __importDefault(require("express"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const constants_1 = require("./constants");
 const errorHandler_1 = __importDefault(require("./middlewares/errorHandler"));
 const elevenRoutes_1 = __importDefault(require("./routes/elevenRoutes"));
@@ -16,11 +17,13 @@ const admin_1 = __importDefault(require("./routes/admin"));
 const fishRoutes_1 = __importDefault(require("./routes/fishRoutes"));
 const minimax_1 = __importDefault(require("./routes/minimax"));
 const user_routes_1 = __importDefault(require("./routes/user.routes"));
+const project_routes_1 = __importDefault(require("./routes/project.routes"));
 const db_1 = __importDefault(require("./config/db"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 // Middleware
 app.use(express_1.default.json());
+app.use((0, cookie_parser_1.default)());
 (0, db_1.default)();
 const corsOptions = {
     origin: [
@@ -30,6 +33,7 @@ const corsOptions = {
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // Allow cookies to be sent
 };
 app.use((0, cors_1.default)(corsOptions));
 app.use((0, helmet_1.default)({
@@ -44,6 +48,7 @@ app.use("/api/v1/storage", storage_1.default);
 app.use("/api/v1/admin", admin_1.default);
 app.use("/api/v1/fish", fishRoutes_1.default);
 app.use("/api/v1/minimax", minimax_1.default);
+app.use("/api/v1", project_routes_1.default);
 // Global Error Handler
 app.use(errorHandler_1.default);
 // Health check
