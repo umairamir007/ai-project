@@ -10,6 +10,7 @@ const API_BASE = import.meta.env.VITE_API_BASE;
 const AUTH_PATHS = [
   "/auth/login",
   "/auth/register",
+  "/auth/logout",
   "/auth/refresh-token",
   "/auth/forgot-password",
   "/auth/reset-password",
@@ -20,6 +21,7 @@ const isAuthPath = (url = "") =>
 
 const httpClient = axios.create({
   baseURL: API_BASE,
+  withCredentials: true, // Send cookies with requests
 });
 
 httpClient.interceptors.request.use(

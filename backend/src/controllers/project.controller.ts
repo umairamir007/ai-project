@@ -40,17 +40,19 @@ export const createProject = async (req: AuthenticatedRequest, res: Response) =>
 
 export const getProject = async (req: AuthenticatedRequest, res: Response) => {
     try {
-        console.log(
-            "ACCESS_TOKEN_SECRET loaded:",
-            Boolean(ACCESS_TOKEN_SECRET),
-            "length:",
-            ACCESS_TOKEN_SECRET?.length ?? 0
-        );
-        // Get token from cookies
-        const token = req.cookies?.token || req.cookies?.accessToken || req.cookies?.authToken;
+        // Get token from cookies or Authorization header
+        let token = req.cookies?.token || req.cookies?.accessToken || req.cookies?.authToken;
+        
+        // If no token in cookies, check Authorization header
+        if (!token) {
+            const authHeader = req.headers.authorization;
+            if (authHeader && authHeader.startsWith("Bearer ")) {
+                token = authHeader.split(" ")[1];
+            }
+        }
         
         if (!token) {
-            return res.status(401).json({ error: "Token not found in cookies" });
+            return res.status(401).json({ error: "Token not found" });
         }
 
         // Verify token

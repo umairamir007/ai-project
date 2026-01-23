@@ -6,19 +6,37 @@ import { useAuthSession } from "../../hooks/useAuthSession";
 import { clearAuthSession } from "../../utils/authStorage";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "../layout/sheet";
+import httpClient from "../../lib/httpClient";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuthSession();
   const [open, setOpen] = useState(false);
 
-  const handleAuthClick = () => {
+  const handleAuthClick = async () => {
     if (!isAuthenticated) {
       navigate("/sign-in");
       return;
     }
-    clearAuthSession();
-    navigate("/sign-in", { replace: true });
+    
+    try {
+      // Call backend logout to clear cookies
+      try {
+        await httpClient.post("/auth/logout");
+      } catch (apiError) {
+        // Continue with logout even if API call fails
+        console.warn("Logout API call failed:", apiError);
+      }
+      
+      // Clear local storage
+      clearAuthSession();
+      navigate("/sign-in", { replace: true });
+    } catch (error) {
+      console.error("Logout error:", error);
+      // Still clear local storage and navigate even if there's an error
+      clearAuthSession();
+      navigate("/sign-in", { replace: true });
+    }
   };
 
   return (

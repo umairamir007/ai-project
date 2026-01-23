@@ -4,6 +4,8 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "./logout.css";
 import { Snackbar } from "../index";
 import { useState } from "react";
+import httpClient from "../../lib/httpClient";
+import { clearAuthSession } from "../../utils/authStorage";
 
 function LogoutButton() {
   const location = useLocation();
@@ -15,10 +17,23 @@ function LogoutButton() {
     const isUserDashboard = location.pathname === "/user-dashboard";
 
     try {
+      // Call backend logout to clear cookies
+      try {
+        await httpClient.post("/auth/logout");
+      } catch (apiError) {
+        // Continue with logout even if API call fails
+        console.warn("Logout API call failed:", apiError);
+      }
+
+      // Clear local storage
+      clearAuthSession();
+
+      // Sign out from Firebase
+      await signOut(auth);
+
       if (isTalentDashboard || isUserDashboard) {
         navigate("/");
       }
-      await signOut(auth);
       setSnack({ message: "User signed out!", type: "success" });
     } catch (error) {
       setSnack({

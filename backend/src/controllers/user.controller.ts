@@ -93,3 +93,27 @@ export const resetPassword = async (req: Request, res: Response, next: NextFunct
         next(new AppError(err.message, err.status || 500));
     }
 };
+
+// LOGOUT CONTROLLER
+export const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        // Clear the cookies by setting them with maxAge: 0
+        res
+            .cookie("accessToken", "", {
+                httpOnly: true,
+                sameSite: "lax",
+                secure: NODE_ENV === "production",
+                maxAge: 0,
+            })
+            .cookie("refreshToken", "", {
+                httpOnly: true,
+                sameSite: "lax",
+                secure: NODE_ENV === "production",
+                maxAge: 0,
+            })
+            .status(200)
+            .json({ message: "Logged out successfully" });
+    } catch (err: any) {
+        next(new AppError(err.message, err.status || 500));
+    }
+};
