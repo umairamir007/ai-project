@@ -31,6 +31,7 @@ const useCases = [
 
 const Case = () => {
     return (
+        <div id="use-cases">
         <PageContainer>
             <Card className="p-0 bg-[#040404]">
                 <CardContent className='p-0 space-y-10'>
@@ -86,6 +87,7 @@ const Case = () => {
                 </CardContent>
             </Card>
         </PageContainer>
+        </div>
     )
 }
 

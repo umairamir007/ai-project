@@ -38,7 +38,7 @@ const cards = [
 
 const LoveIsai = () => {
     return (
-        <div className=" bg-[url('/lines.png')] bg-cover bg-center ">
+        <div id="why-choose-us" className=" bg-[url('/lines.png')] bg-cover bg-center ">
       <PageContainer>
             <Card className="bg-[url('/lines.png')] bg-cover bg-center  p-0 gap-0  space-y-10 ">
               <FadeContent >

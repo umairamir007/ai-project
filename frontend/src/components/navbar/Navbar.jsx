@@ -32,11 +32,11 @@ const Navbar = () => {
 
         {/* DESKTOP MENU (lg only) */}
         <div className="hidden lg:flex items-center gap-10 text-white text-lg 2xl:text-xl">
-          <Link to="/" className="hover:text-gray-300">Content made Easy</Link>
-          <Link to="/" className="hover:text-gray-300">Why Choose Us</Link>
-          <Link to="/" className="hover:text-gray-300">Why love ISAI</Link>
-          <Link to="/" className="hover:text-gray-300">Use Cases</Link>
-          <Link to="/" className="hover:text-gray-300">Pricing</Link>
+          <Link to="/#home" className="hover:text-gray-300">Content made Easy</Link>
+          <Link to="/#why-choose-us" className="hover:text-gray-300">Why Choose Us</Link>
+          <Link to="/#why-love-isai" className="hover:text-gray-300">Why love ISAI</Link>
+          <Link to="/#use-cases" className="hover:text-gray-300">Use Cases</Link>
+          <Link to="/#pricing" className="hover:text-gray-300">Pricing</Link>
 
           {isAuthenticated && (
             <Link to="/user-dashboard" className="hover:text-gray-300">
@@ -69,11 +69,11 @@ const Navbar = () => {
               </SheetHeader>
 
               <div className="flex flex-col gap-5 mt-6 text-lg">
-                <Link to="/" onClick={() => setOpen(false)}>Content made Easy</Link>
-                <Link to="/" onClick={() => setOpen(false)}>Why Choose Us</Link>
-                <Link to="/" onClick={() => setOpen(false)}>Why love ISAI</Link>
-                <Link to="/" onClick={() => setOpen(false)}>Use Cases</Link>
-                <Link to="/" onClick={() => setOpen(false)}>Pricing</Link>
+                <Link to="/#home" onClick={() => setOpen(false)}>Content made Easy</Link>
+                <Link to="/#why-choose-us" onClick={() => setOpen(false)}>Why Choose Us</Link>
+                <Link to="/#why-love-isai" onClick={() => setOpen(false)}>Why love ISAI</Link>
+                <Link to="/#use-cases" onClick={() => setOpen(false)}>Use Cases</Link>
+                <Link to="/#pricing" onClick={() => setOpen(false)}>Pricing</Link>
 
                 <Button
                   variant="alpha"

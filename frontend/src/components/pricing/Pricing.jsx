@@ -68,6 +68,7 @@ useEffect(() => {
 
 
   return (
+    <div id="pricing">
     <PageContainer>
       <div className="space-y-10 w-full" ref={showRef}>
   <FadeContent blur duration={1000} easing="ease-out" initialOpacity={0}>
@@ -137,6 +138,7 @@ useEffect(() => {
 </div>
 
     </PageContainer>
+    </div>
   );
 };
 

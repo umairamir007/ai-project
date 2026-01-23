@@ -11,7 +11,7 @@ import SpotlightCard from '../animation/Spotlight'
 
 const WhyIsai = () => {
     return (
- 
+                <div id="why-love-isai">
                 <PageContainer>
    <Card className='p-0 bg-[#040404]'>
             <CardContent className='p-0'>
@@ -133,6 +133,7 @@ const WhyIsai = () => {
             </CardContent>
         </Card>
         </PageContainer>
+        </div>
 
     )
 }

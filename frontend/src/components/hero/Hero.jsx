@@ -3,7 +3,7 @@ import { WavyBackground } from "../animation/WavyBackground";
 
 export default function Hero() {
   return (
-  <div className="relative w-full overflow-hidden sm:h-screen h-full rounded-xl sm:pt-0 pt-40 sm:pb-0 pb-20">
+  <div id="home" className="relative w-full overflow-hidden sm:h-screen h-full rounded-xl sm:pt-0 pt-40 sm:pb-0 pb-20">
 
     {/* CONTENT */}
     <div className="max-w-7xl w-[90%] mx-auto text-center mt-16 z-20 relative sm:pt-60 md:pt-60 xl:pt-56 3xl:pt-52 4xl:pt-80">

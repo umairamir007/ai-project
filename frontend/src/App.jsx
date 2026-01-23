@@ -1,6 +1,7 @@
+import React, { useEffect } from "react";
 import "./App.css";
 import { CTA, Brand, Navbar } from "./components";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import TalentDashboard from "./pages/talentdashboard/TalentDashboard";
 import UserDasboard from "./pages/userdashboard/UserDashboard";
@@ -52,12 +53,31 @@ const LandingPage = () => {
   );
 };
 
+const ScrollToHash = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const targetId = location.hash.replace("#", "");
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        return;
+      }
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [location]);
+
+  return null;
+};
+
 const App = () => {
   useEnsureAnonAuth();
 
   return (
     <>
       <Router>
+        <ScrollToHash />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route element={<ProtectedRoute />}>
