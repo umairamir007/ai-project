@@ -3,6 +3,7 @@ import { CircleChevronLeft } from "lucide-react";
 import { Button } from "./layout/button";
 import Navbar from "./navbar/Navbar";
 import { useVoiceRecorder } from "../hooks/useVoiceRecorder";
+import { createProject } from "../api/projects";
 
 const RecordVoice = () => {
   const [textCardShow, setTextCardShow] = useState(true);
@@ -24,6 +25,10 @@ const RecordVoice = () => {
   } = useVoiceRecorder();
 
   const [openModal, setOpenModal] = useState(false);
+  const [projectName, setProjectName] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
+  const [saveSuccess, setSaveSuccess] = useState(false);
 
   // Audio visualization effect
   useEffect(() => {
@@ -331,6 +336,11 @@ const RecordVoice = () => {
             <input
               type="text"
               placeholder="Project Name"
+              value={projectName}
+              onChange={(e) => {
+                setProjectName(e.target.value);
+                setSaveError("");
+              }}
               className="
           w-full px-5 py-3 
           border border-[#3C3C3C] 
@@ -340,36 +350,82 @@ const RecordVoice = () => {
         "
             />
 
+            {/* Error Message */}
+            {saveError && (
+              <p className="text-red-600 text-sm">{saveError}</p>
+            )}
+
+            {/* Success Message */}
+            {saveSuccess && (
+              <p className="text-green-600 text-sm">Project saved successfully!</p>
+            )}
+
             {/* Buttons */}
             <div className="flex items-center justify-center gap-4 ">
               {/* Don't Save Button */}
               <Button
-                onClick={() => setOpenModal(false)}
+                onClick={() => {
+                  setOpenModal(false);
+                  setProjectName("");
+                  setSaveError("");
+                  setSaveSuccess(false);
+                }}
                 variant="alpha"
+                disabled={isSaving}
                 className="
             px-6 py-3 
             rounded-full 
             bg-[#0C3B28] 
             text-white font-medium
             text-sm sm:text-base
-            shadow-none">
+            shadow-none
+            disabled:opacity-50 disabled:cursor-not-allowed">
                 Dont Save it
               </Button>
 
               {/* Save Button */}
               <Button
-                onClick={() => {
-                  console.log("Saving project...");
-                  setOpenModal(false);
+                onClick={async () => {
+                  if (!projectName.trim()) {
+                    setSaveError("Please enter a project name");
+                    return;
+                  }
+                  
+                  if (!audioBlob || !transcribedText) {
+                    setSaveError("Missing audio or text data");
+                    return;
+                  }
+
+                  setIsSaving(true);
+                  setSaveError("");
+                  setSaveSuccess(false);
+
+                  try {
+                    await createProject(projectName.trim(), transcribedText, audioBlob);
+                    setSaveSuccess(true);
+                    setTimeout(() => {
+                      setOpenModal(false);
+                      setProjectName("");
+                      setSaveSuccess(false);
+                      // Optionally reset the recording or navigate away
+                    }, 1500);
+                  } catch (err) {
+                    console.error("Failed to save project:", err);
+                    setSaveError(err.message || "Failed to save project");
+                  } finally {
+                    setIsSaving(false);
+                  }
                 }}
                 variant="alpha"
+                disabled={isSaving || !projectName.trim()}
                 className="
             px-6 py-3 
             rounded-full 
             bg-[#4A4A4A] 
             text-white font-medium
-            text-sm sm:text-base shadow-none">
-                Save
+            text-sm sm:text-base shadow-none
+            disabled:opacity-50 disabled:cursor-not-allowed">
+                {isSaving ? "Saving..." : saveSuccess ? "Saved!" : "Save"}
               </Button>
             </div>
           </div>

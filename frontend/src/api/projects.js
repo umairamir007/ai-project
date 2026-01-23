@@ -1,6 +1,43 @@
 import httpClient from "../lib/httpClient";
 
 /**
+ * Create a new project with voice file, name, and text
+ * @param {string} name - The name of the project
+ * @param {string} text - The transcribed text
+ * @param {Blob} audioBlob - The audio blob to upload
+ * @returns {Promise<{message: string, project: Object}>}
+ */
+export async function createProject(name, text, audioBlob) {
+  try {
+    const formData = new FormData();
+    // Determine file extension based on blob type
+    const extension = audioBlob.type.includes("webm") 
+      ? "webm" 
+      : audioBlob.type.includes("mp4") 
+      ? "mp4" 
+      : "webm"; // fallback
+    formData.append("voice", audioBlob, `voice-recording.${extension}`);
+    formData.append("name", name);
+    formData.append("text", text);
+
+    const { data } = await httpClient.post("/projects", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return data;
+  } catch (err) {
+    if (err.response) {
+      console.error("Create project error:", err.response.status, err.response.data);
+      throw new Error(
+        err.response.data?.error || `Failed to create project (${err.response.status})`
+      );
+    }
+    throw new Error(err.message || "Failed to create project");
+  }
+}
+
+/**
  * Fetch all projects for the current user
  * @returns {Promise<{message: string, project: Array}>}
  */
