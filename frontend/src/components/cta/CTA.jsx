@@ -341,13 +341,13 @@ const CTA = ({
     <>
       {/* Show container for TTS and STT without voiceSelector gate */}
       {isUserDashboard && showContent && (
-        <div className="w-full min-h-screen flex justify-center items-center px-4 ">
+        <div className="w-full min-h-screen flex justify-center items-center px-4 pt-24 lg:pt-28">
           {showContent === 2 && (
             <div
               className="max-w-6xl 2xl:max-w-7xl w-full 
           mx-auto rounded-[32px] 
           h-auto lg:h-[500px] 
-          flex flex-col"
+          flex flex-col "
             >
               {/* HEADER */}
               <div className="h-auto lg:h-[20%] bg-white rounded-t-[32px] px-6 py-5 flex items-center gap-4">

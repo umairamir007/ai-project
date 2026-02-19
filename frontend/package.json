@@ -2,9 +2,9 @@
   "name": "vite-template-react",
   "version": "1.4.0",
   "scripts": {
-    "dev": "vite --port 3000 --open",
+    "dev": "node init && vite --port 3000 --open",
     "server": "node ./server/index.js",
-    "build": "vite build",
+    "build": "node init && vite build",
     "serve": "vite preview"
   },
   "dependencies": {
