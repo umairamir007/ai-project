@@ -40,8 +40,8 @@ const Navbar = () => {
   };
 
   return (
-    <div className="absolute  4xl:top-2 left-1/2 -translate-x-1/2 py-4 z-10 sm:w-[90%] w-[95%]">
-      <div className="w-full mx-auto flex items-center justify-between px-6">
+    <div className="absolute top-0 4xl:top-2 left-1/2 -translate-x-1/2 py-4 z-10 sm:w-[90%] w-[95%] overflow-visible">
+      <div className="w-full mx-auto flex items-center justify-between pl-6 pr-8 sm:pr-10">
 
         {/* LOGO */}
         <div className="flex items-center gap-3">
